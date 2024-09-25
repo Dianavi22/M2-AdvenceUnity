@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     private float _speed = 4f;
     private float _jumpingPower = 15f;
 
-    [SerializeField] private float _fallMultiplier = 2.5f; // Pour accélérer la retombée
-    [SerializeField] private float _lowJumpMultiplier = 2f; // Pour ajuster la retombée lors d'un saut léger
+    [SerializeField] private float _fallMultiplier = 2.5f; 
+    [SerializeField] private float _lowJumpMultiplier = 2f; 
 
     [SerializeField] private GameObject _circle;
     [SerializeField] private float _circleRadius = 2f;
@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Mouvement horizontal du joueur
         if (!_isGrappling)
         {
             rb.velocity = new Vector2(_horizontal * -_speed, rb.velocity.y);
@@ -38,19 +37,16 @@ public class PlayerController : MonoBehaviour
 
         FollowMouseWithCircle();
 
-        // Gestion du hook
         if (Input.GetMouseButtonDown(0))
         {
             Hook();
         }
 
-        // Mouvement vers le point d'accroche
         if (_isGrappling)
         {
             Grapple();
         }
 
-        // Ajuster la vitesse de retombée
         HandleFall();
     }
 
