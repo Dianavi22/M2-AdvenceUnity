@@ -9,23 +9,28 @@ public class PlayerController : MonoBehaviour
     public Camera _myCam;
 
     private float _horizontal;
-    private float _speed = 8f;
-    private float _jumpingPower = 25f;
+    private float _speed = 4f;
+    private float _jumpingPower = 15f;
+
+    [SerializeField] private float _fallMultiplier = 2.5f; // Pour accélérer la retombée
+    [SerializeField] private float _lowJumpMultiplier = 2f; // Pour ajuster la retombée lors d'un saut léger
 
     [SerializeField] private GameObject _circle;
     [SerializeField] private float _circleRadius = 2f;
 
-    [SerializeField] private GameObject _hookPrefab; 
-    [SerializeField] private float _hookSpeed = 20f; 
+    [SerializeField] private GameObject _hookPrefab;
+    [SerializeField] private float _hookSpeed = 20f;
     [SerializeField] private float _grappleSpeed = 10f;
-    [SerializeField] private float _grappleDistanceMargin = 1f; 
+    [SerializeField] private float _grappleDistanceMargin = 1f;
 
     private GameObject _spawnHook;
-    private Vector3 _grapplePoint; 
+    private Vector3 _grapplePoint;
     private bool _isGrappling = false;
+    private bool _canJump = false;
 
     void Update()
     {
+        // Mouvement horizontal du joueur
         if (!_isGrappling)
         {
             rb.velocity = new Vector2(_horizontal * -_speed, rb.velocity.y);
@@ -33,15 +38,20 @@ public class PlayerController : MonoBehaviour
 
         FollowMouseWithCircle();
 
+        // Gestion du hook
         if (Input.GetMouseButtonDown(0))
         {
             Hook();
         }
 
+        // Mouvement vers le point d'accroche
         if (_isGrappling)
         {
             Grapple();
         }
+
+        // Ajuster la vitesse de retombée
+        HandleFall();
     }
 
     private void FollowMouseWithCircle()
@@ -91,20 +101,34 @@ public class PlayerController : MonoBehaviour
         if (Vector3.Distance(transform.position, _grapplePoint) < _grappleDistanceMargin)
         {
             _isGrappling = false;
-            rb.velocity = Vector2.zero; 
+            rb.velocity = Vector2.zero;
         }
+        _canJump = true;
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && _canJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
+            _canJump = false;
         }
 
         if (context.canceled && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+    }
+
+    private void HandleFall()
+    {
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Keyboard.current.spaceKey.isPressed)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (_lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 

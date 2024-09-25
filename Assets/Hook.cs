@@ -18,11 +18,18 @@ public class Hook : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("GrappleSurface"))
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.gameObject.CompareTag("GrappleSurface"))
         {
             Vector3 hitPoint = collision.contacts[0].point;
             _playerController.StartGrapple(hitPoint);
-            Destroy(gameObject);
         }
+
+      
+            Destroy(gameObject);
+
+        }
+
     }
 }
