@@ -4,33 +4,50 @@ using UnityEngine;
 
 public class Hook : MonoBehaviour
 {
+    [SerializeField] private float hookMaxDistance;
+    [SerializeField] private bool _isHooked;
+    [SerializeField] private Rigidbody _rb;
+
     private PlayerController _playerController;
 
     private void Awake()
     {
         _playerController = FindObjectOfType<PlayerController>().gameObject.GetComponent<PlayerController>();
     }
+
     public void Initialize(PlayerController playerController)
     {
         _playerController = playerController;
     }
 
+    public void Update()
+    {
+        if (_playerController != null)
+        {
+            if(Vector3.Distance(transform.position, _playerController.transform.position) > hookMaxDistance
+                && !_isHooked) {
+                Destroy(gameObject);
+            }    
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Player"))
         {
             if (collision.gameObject.CompareTag("GrappleSurface"))
-        {
-            Vector3 hitPoint = collision.contacts[0].point;
-            _playerController.StartGrapple(hitPoint);
+            {
+                ConfigurableJoint joint = collision.gameObject.GetComponent<ConfigurableJoint>();
+                joint.connectedBody = _playerController.rb;
+
+
+                Vector3 hitPoint = collision.contacts[0].point;
+                _playerController.StartGrapple(hitPoint, collision.gameObject);
+                _isHooked = true;
+               _rb.isKinematic = true;
+                gameObject.transform.position = hitPoint;
             }
-
-      
-            Destroy(gameObject);
-
         }
-
     }
 
     private void OnTriggerEnter(Collider other)

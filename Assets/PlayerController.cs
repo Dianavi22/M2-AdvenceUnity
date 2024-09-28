@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _hookPrefab;
     [SerializeField] private float _hookSpeed = 20f;
     [SerializeField] private float _grappleSpeed = 10f;
-    [SerializeField] private float _grappleMaxDistance = 5f;
+    [SerializeField] private float _grappleMaxDistance = 2f;
     [SerializeField] private float _grappleDistanceMargin = 1f;
     [SerializeField] private float _impulseStrength = 10f;
 
@@ -32,7 +33,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 _grapplePoint;
     private bool _isGrappling = false;
     private bool _canJump = false;
-    private bool _isSuspended = false; 
+    private bool _isSuspended = false;
+
+    [SerializeField] GameObject _hookedCube;
 
     [SerializeField] private LineRenderer _lineRenderer;
 
@@ -57,11 +60,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //if (!_isGrappling && !_isSuspended)
-        //{
-        //    rb.velocity = new Vector2(_horizontal * -_speed, rb.velocity.y);
-        //}
-
         FollowMouseWithCircle();
 
         if (Input.GetMouseButtonDown(0))
@@ -80,7 +78,6 @@ public class PlayerController : MonoBehaviour
             StopGrapple();
         }
 
-        HandleFall();
     }
 
     private void FollowMouseWithCircle()
@@ -103,75 +100,56 @@ public class PlayerController : MonoBehaviour
         _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, _circle.transform.rotation);
 
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
-        if (hookRb == null)
-        {
-            hookRb = _spawnHook.AddComponent<Rigidbody>();
-        }
 
         Vector3 direction = (_circle.transform.position - transform.position).normalized;
         hookRb.velocity = direction * _hookSpeed;
-
-        _spawnHook.AddComponent<Hook>().Initialize(this);
 
         _lineRenderer.enabled = true;
         _lineRenderer.SetPosition(0, transform.position); 
         _lineRenderer.SetPosition(1, transform.position); 
     }
 
-    public void StartGrapple(Vector3 hitPoint)
+    public void StartGrapple(Vector3 hitPoint, GameObject go)
     {
         _grapplePoint = hitPoint;
         _isGrappling = true;
 
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, hitPoint);
+        distance = Vector3.Distance(_grapplePoint, transform.position);
+        _hookedCube = go;
     }
     private void Grapple()
     {
+        //gameObject.GetComponent<ConfigurableJoint>().connectedBody = _hookedCube.GetComponent<Rigidbody>();
+        //gameObject.GetComponent<ConfigurableJoint>().anchor = _hookedCube.transform.position;
         Vector3 direction = (_grapplePoint - transform.position).normalized;
         distance = Vector3.Distance(transform.position, _grapplePoint);
 
         if (Input.GetKey(KeyCode.W))
         {
-            // TODO add Threshold / Maximum force you can reach
-            rb.AddForce(direction * _grappleSpeed)/* = direction * _grappleSpeed*/;
+            rb.AddForce(direction * _grappleSpeed);
         }
 
         if (Input.GetKey(KeyCode.S) && distance < _grappleMaxDistance)
         {
-            rb.AddForce(-direction * _grappleSpeed/2)/* = direction * _grappleSpeed*/;
-            //rb.velocity = -direction * _grappleSpeed;
+            rb.AddForce(-direction * _grappleSpeed / 2);
         }
 
-        if (distance > _grappleMaxDistance && _grapplePoint != new Vector3(0, 0, 0))
-        {
-            rb.AddForce(direction * 3);
-        }
-
-        //if (Input.GetMouseButton(1) && Vector3.Distance(transform.position, _grapplePoint) < _grappleDistanceMargin)
+        //if (distance > _grappleMaxDistance)
         //{
-        //    _isSuspended = true;
-        //    rb.velocity = Vector2.zero;
-
-        //    float swingOffset = Mathf.Sin(Time.time * _swingFrequency) * _swingAmplitude;
-        //    transform.position += new Vector3(swingOffset, 0, 0);
+        //    rb.AddForce(direction * 2f);
         //}
-        //if (_isSuspended)
-        //{
-        //    float moveHorizontal = 0;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
+            rb.AddForce(Vector3.right + direction);
             rb.AddForce(new Vector3(direction.x * _grappleSpeed, direction.y, direction.z));
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(new Vector3(-direction.x * _grappleSpeed, direction.y, direction.z));
+            rb.AddForce(-Vector3.right + direction);
         }
-
-        //    Vector3 move = new Vector3(moveHorizontal, 0, 0) * _grappleSpeed * Time.deltaTime;
-        //    transform.position += move;
-        //}
 
         _canJump = true;
     }
@@ -181,9 +159,10 @@ public class PlayerController : MonoBehaviour
     {
         _isGrappling = false;
         _isSuspended = false;  
-
+        Destroy(_spawnHook);
         _lineRenderer.enabled = false;
 
+        _hookedCube.GetComponent<ConfigurableJoint>().connectedBody = null;
     }
 
     private void UpdateGrappleLine()
@@ -195,31 +174,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.performed && _canJump)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
-            _canJump = false;
-        }
+    //public void OnJump(InputAction.CallbackContext context)
+    //{
+    //    StopGrapple();
 
-        if (context.canceled && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
-    }
+    //    if (context.performed && _canJump)
+    //    {
+    //        rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
+    //        _canJump = false;
+    //    }
 
-    private void HandleFall()
-    {
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if (rb.velocity.y > 0 && !Keyboard.current.spaceKey.isPressed)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (_lowJumpMultiplier - 1) * Time.deltaTime;
-        }
-    }
+    //    if (context.canceled && rb.velocity.y > 0f)
+    //    {
+    //        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+    //    }
+    //}
 
     public void OnMove(InputAction.CallbackContext context)
     {
