@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     private bool _canJump = false;
     private bool _isSuspended = false;
 
-    [SerializeField] GameObject _hookedCube;
 
     [SerializeField] private LineRenderer _lineRenderer;
 
@@ -117,12 +116,9 @@ public class PlayerController : MonoBehaviour
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, hitPoint);
         distance = Vector3.Distance(_grapplePoint, transform.position);
-        _hookedCube = go;
     }
     private void Grapple()
     {
-        //gameObject.GetComponent<ConfigurableJoint>().connectedBody = _hookedCube.GetComponent<Rigidbody>();
-        //gameObject.GetComponent<ConfigurableJoint>().anchor = _hookedCube.transform.position;
         Vector3 direction = (_grapplePoint - transform.position).normalized;
         distance = Vector3.Distance(transform.position, _grapplePoint);
 
@@ -136,10 +132,6 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(-direction * _grappleSpeed / 2);
         }
 
-        //if (distance > _grappleMaxDistance)
-        //{
-        //    rb.AddForce(direction * 2f);
-        //}
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -162,7 +154,6 @@ public class PlayerController : MonoBehaviour
         Destroy(_spawnHook);
         _lineRenderer.enabled = false;
 
-        _hookedCube.GetComponent<ConfigurableJoint>().connectedBody = null;
     }
 
     private void UpdateGrappleLine()
@@ -174,21 +165,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public void OnJump(InputAction.CallbackContext context)
-    //{
-    //    StopGrapple();
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        StopGrapple();
 
-    //    if (context.performed && _canJump)
-    //    {
-    //        rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
-    //        _canJump = false;
-    //    }
+        if (context.performed && _canJump)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
+            _canJump = false;
+        }
 
-    //    if (context.canceled && rb.velocity.y > 0f)
-    //    {
-    //        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-    //    }
-    //}
+        if (context.canceled && rb.velocity.y > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {

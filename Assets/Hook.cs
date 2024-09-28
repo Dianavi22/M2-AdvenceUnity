@@ -9,6 +9,7 @@ public class Hook : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
 
     private PlayerController _playerController;
+    [SerializeField] private ConfigurableJoint joint;
 
     private void Awake()
     {
@@ -22,13 +23,12 @@ public class Hook : MonoBehaviour
 
     public void Update()
     {
-        if (_playerController != null)
+
+        if (Input.GetMouseButtonUp(0))
         {
-            if(Vector3.Distance(transform.position, _playerController.transform.position) > hookMaxDistance
-                && !_isHooked) {
-                Destroy(gameObject);
-            }    
-        }
+            Destroy(gameObject);
+        };
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -37,17 +37,42 @@ public class Hook : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("GrappleSurface"))
             {
-                ConfigurableJoint joint = collision.gameObject.GetComponent<ConfigurableJoint>();
-                joint.connectedBody = _playerController.rb;
-
+                gameObject.AddComponent<ConfigurableJoint>();
 
                 Vector3 hitPoint = collision.contacts[0].point;
                 _playerController.StartGrapple(hitPoint, collision.gameObject);
                 _isHooked = true;
-               _rb.isKinematic = true;
+                _rb.isKinematic = true;
                 gameObject.transform.position = hitPoint;
+
+                joint = gameObject.GetComponent<ConfigurableJoint>();
+                SetUpConfigurableJoint();
             }
         }
+    }
+
+    private void SetUpConfigurableJoint()
+    {
+        joint.connectedBody = _playerController.rb;
+        joint.axis = new Vector3(1, 0, 0);
+        joint.anchor = new Vector3(0, 0.5f, 0);
+        joint.xMotion = ConfigurableJointMotion.Limited;
+        joint.yMotion = ConfigurableJointMotion.Limited;
+        joint.zMotion = ConfigurableJointMotion.Locked;
+        joint.angularXMotion = ConfigurableJointMotion.Limited;
+        joint.angularYMotion = ConfigurableJointMotion.Limited;
+        joint.angularZMotion = ConfigurableJointMotion.Locked;
+
+        SoftJointLimit limit = joint.linearLimit;
+        limit.limit = 3;
+        limit.contactDistance = 0.5f;
+        joint.linearLimit = limit;
+
+        SoftJointLimitSpring limitSpring = joint.linearLimitSpring;
+        limitSpring.spring = 5;
+        limitSpring.damper = 5;
+        joint.linearLimitSpring = limitSpring;
+
     }
 
     private void OnTriggerEnter(Collider other)
