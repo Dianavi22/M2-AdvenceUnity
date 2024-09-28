@@ -24,7 +24,7 @@ public class Hook : MonoBehaviour
         {
             Vector3 hitPoint = collision.contacts[0].point;
             _playerController.StartGrapple(hitPoint);
-        }
+            }
 
       
             Destroy(gameObject);
