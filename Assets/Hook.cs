@@ -21,15 +21,6 @@ public class Hook : MonoBehaviour
         _playerController = playerController;
     }
 
-    public void Update()
-    {
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Destroy(gameObject);
-        };
-
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -37,7 +28,7 @@ public class Hook : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("GrappleSurface"))
             {
-                gameObject.AddComponent<ConfigurableJoint>();
+                joint = gameObject.AddComponent<ConfigurableJoint>();
 
                 Vector3 hitPoint = collision.contacts[0].point;
                 _playerController.StartGrapple(hitPoint, collision.gameObject);
@@ -45,7 +36,6 @@ public class Hook : MonoBehaviour
                 _rb.isKinematic = true;
                 gameObject.transform.position = hitPoint;
 
-                joint = gameObject.GetComponent<ConfigurableJoint>();
                 SetUpConfigurableJoint();
             }
         }
@@ -54,22 +44,26 @@ public class Hook : MonoBehaviour
     private void SetUpConfigurableJoint()
     {
         joint.connectedBody = _playerController.rb;
-        joint.axis = new Vector3(1, 0, 0);
-        joint.anchor = new Vector3(0, 0.5f, 0);
+        joint.connectedAnchor = transform.position;
+        joint.axis = new Vector3(1, 1, 0);
+        joint.secondaryAxis = new Vector3(1, 1, 0);
+        joint.anchor = transform.position;
         joint.xMotion = ConfigurableJointMotion.Limited;
         joint.yMotion = ConfigurableJointMotion.Limited;
         joint.zMotion = ConfigurableJointMotion.Locked;
-        joint.angularXMotion = ConfigurableJointMotion.Limited;
-        joint.angularYMotion = ConfigurableJointMotion.Limited;
-        joint.angularZMotion = ConfigurableJointMotion.Locked;
+
+        joint.autoConfigureConnectedAnchor = false;
+        //joint.angularXMotion = ConfigurableJointMotion.Limited;
+        //joint.angularYMotion = ConfigurableJointMotion.Limited;
+        //joint.angularZMotion = ConfigurableJointMotion.Locked;
 
         SoftJointLimit limit = joint.linearLimit;
-        limit.limit = 3;
-        limit.contactDistance = 0.5f;
+        limit.limit = 5f;
+        limit.contactDistance = 1f;
         joint.linearLimit = limit;
 
         SoftJointLimitSpring limitSpring = joint.linearLimitSpring;
-        limitSpring.spring = 5;
+        limitSpring.spring = 2;
         limitSpring.damper = 5;
         joint.linearLimitSpring = limitSpring;
 

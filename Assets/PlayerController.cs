@@ -65,10 +65,23 @@ public class PlayerController : MonoBehaviour
         {
             Hook();
         }
+        if(_spawnHook != null)
+            {
+            distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
+            if (Input.GetMouseButtonUp(0))
+            {
+                Destroy(_spawnHook);
+            }
+            if (!_isGrappling && distance > _grappleMaxDistance)
+            {
+                Destroy(_spawnHook);
+            }
+        }
 
         if (_isGrappling && Input.GetMouseButton(0))
-        {
+            {
             Grapple();
+            //Update visual
             UpdateGrappleLine();
         }
 
@@ -76,7 +89,6 @@ public class PlayerController : MonoBehaviour
         {
             StopGrapple();
         }
-
     }
 
     private void FollowMouseWithCircle()
@@ -97,8 +109,8 @@ public class PlayerController : MonoBehaviour
     private void Hook()
     {
         _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, _circle.transform.rotation);
-
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
+        distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
 
         Vector3 direction = (_circle.transform.position - transform.position).normalized;
         hookRb.velocity = direction * _hookSpeed;
@@ -115,12 +127,10 @@ public class PlayerController : MonoBehaviour
 
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, hitPoint);
-        distance = Vector3.Distance(_grapplePoint, transform.position);
     }
     private void Grapple()
     {
         Vector3 direction = (_grapplePoint - transform.position).normalized;
-        distance = Vector3.Distance(transform.position, _grapplePoint);
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -129,18 +139,17 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S) && distance < _grappleMaxDistance)
         {
-            rb.AddForce(-direction * _grappleSpeed / 2);
+            rb.AddForce(-Vector3.up * _grappleSpeed);
         }
 
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddForce(Vector3.right + direction);
-            rb.AddForce(new Vector3(direction.x * _grappleSpeed, direction.y, direction.z));
+            rb.AddForce(Vector3.right - direction);
         }
-        else if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(-Vector3.right + direction);
+            rb.AddForce(-Vector3.right - direction);
         }
 
         _canJump = true;
@@ -153,7 +162,6 @@ public class PlayerController : MonoBehaviour
         _isSuspended = false;  
         Destroy(_spawnHook);
         _lineRenderer.enabled = false;
-
     }
 
     private void UpdateGrappleLine()
