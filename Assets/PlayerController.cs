@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private GameObject _spawnHook;
     private Vector3 _grapplePoint;
-    private bool _isGrappling = false;
+    public bool _isGrappling = false;
     private bool _canJump = false;
     private bool _isSuspended = false;
 
@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
         {
             Hook();
         }
+
         if(_spawnHook != null)
             {
             distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
@@ -89,6 +90,8 @@ public class PlayerController : MonoBehaviour
         {
             StopGrapple();
         }
+
+       
     }
 
     private void FollowMouseWithCircle()
@@ -110,7 +113,6 @@ public class PlayerController : MonoBehaviour
     {
         _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, _circle.transform.rotation);
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
-        distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
 
         Vector3 direction = (_circle.transform.position - transform.position).normalized;
         hookRb.velocity = direction * _hookSpeed;
