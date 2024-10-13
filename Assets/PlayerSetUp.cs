@@ -26,6 +26,8 @@ public class PlayerSetUp : MonoBehaviour
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
+
+        
        
 
     }

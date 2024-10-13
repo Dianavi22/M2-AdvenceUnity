@@ -177,18 +177,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        StopGrapple();
+        //StopGrapple();
 
-        if (context.performed && _canJump)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
-            _canJump = false;
-        }
+        //if (context.performed && _canJump)
+        //{
+        //    rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
+        //    _canJump = false;
+        //}
 
-        if (context.canceled && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
+        //if (context.canceled && rb.velocity.y > 0f)
+        //{
+        //    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        //}
     }
 
     public void OnMove(InputAction.CallbackContext context)
