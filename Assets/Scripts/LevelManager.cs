@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevalManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
+    [SerializeField] Camera _camera;
     [SerializeField] GameObject _trail;
     [SerializeField] List<Material> _trailMaterials = new List<Material>();
     public int phase;
+    public Vector3 phaseRestart;
     void Start()
     {
         
@@ -19,7 +21,7 @@ public class LevalManager : MonoBehaviour
 
     public void StartPhaseOne()
     {
-
+        _camera.clearFlags = CameraClearFlags.SolidColor;
     }
 
     public void PhaseTwo() {

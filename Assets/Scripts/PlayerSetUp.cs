@@ -9,6 +9,9 @@ public class PlayerSetUp : MonoBehaviour
     public bool isInDeathZone = false;
     [SerializeField] private Grounded _grounded;
     [SerializeField] private Rigidbody _rb;
+    [SerializeField] private LevelManager _levelManager;
+
+    
 
     void Start()
     {
@@ -26,7 +29,39 @@ public class PlayerSetUp : MonoBehaviour
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            this.transform.position = _levelManager.phaseRestart;
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
 
+        //DEBUG
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            this.transform.position = new Vector3(0, 0, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            this.transform.position = new Vector3(23, -20, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            this.transform.position = new Vector3(-64.5f, -24.5f, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            this.transform.position = new Vector3(-104.400002f, 27.2000008f, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
     }
 
     public void DeathZone(Vector3 deathZone)
