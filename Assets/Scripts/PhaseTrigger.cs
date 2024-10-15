@@ -16,4 +16,12 @@ public class PhaseTrigger : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _levelManager.phase = 2;
+        }
+    }
 }
