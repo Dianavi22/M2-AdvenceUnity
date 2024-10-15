@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class LevelManager : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private MeshRenderer _playerMesh;
     [SerializeField] private PlayerFirstMove _playerFirstMove;
     [SerializeField] private ShakyCame _shakyCame;
+    [SerializeField] private PostProcessVolume _glitch;
  
     private void Start()
     {
@@ -37,6 +40,7 @@ public class LevelManager : MonoBehaviour
             _playerFirstMove.enabled = false;
             _playerController.enabled = true;
             _playerMesh.material = _playerMAT;
+            StartCoroutine(Glitch());
             StartPhaseOne();
             ChangePhase();
             for (global::System.Int32 i = 0; i < walls1.Count; i++)
@@ -58,6 +62,14 @@ public class LevelManager : MonoBehaviour
             phaseRestart = new Vector3(23, -20, 0);
 
         }
+
+    }
+
+    private IEnumerator Glitch()
+    {
+        _glitch.weight = 1.0f;
+        yield return new WaitForSeconds(0.4f);
+        _glitch.weight = 0f;
 
     }
 
