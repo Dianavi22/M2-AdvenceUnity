@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -26,7 +27,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerFirstMove _playerFirstMove;
     [SerializeField] private ShakyCame _shakyCame;
     [SerializeField] private PostProcessVolume _glitch;
- 
+    [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
+    [SerializeField] private TMP_FontAsset _Startfont;
     private void Start()
     {
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
@@ -40,9 +42,15 @@ public class LevelManager : MonoBehaviour
             _playerFirstMove.enabled = false;
             _playerController.enabled = true;
             _playerMesh.material = _playerMAT;
+            _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
             StartPhaseOne();
             ChangePhase();
+            for (global::System.Int32 i = 0; i < _txtList.Count; i++)
+            {
+                _txtList[i].font = _Startfont;
+            }
+
             for (global::System.Int32 i = 0; i < walls1.Count; i++)
             {
                 walls1[i].gameObject.GetComponent<MeshRenderer>().material = _level1MAT;

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Camera _myCam;
 
     private float _horizontal;
-    private float _speed = 4f;
+    [SerializeField] private float _speed = 4f;
     private float _jumpingPower = 15f;
 
     [SerializeField] private float _fallMultiplier = 2.5f;
@@ -135,22 +135,22 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(direction * _grappleSpeed);
+            rb.AddForce((direction * _grappleSpeed) * _speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S) && distance < _grappleMaxDistance)
         {
-            rb.AddForce(-Vector3.up * _grappleSpeed);
+            rb.AddForce((-Vector3.up * _grappleSpeed) * _speed * Time.deltaTime);
         }
 
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddForce(Vector3.right - direction);
+            rb.AddForce((Vector3.right - direction) * _speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(-Vector3.right - direction);
+            rb.AddForce((-Vector3.right - direction) * _speed * Time.deltaTime);
         }
 
         _canJump = true;
