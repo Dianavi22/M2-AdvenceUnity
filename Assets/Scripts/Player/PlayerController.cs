@@ -12,12 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed = 4f;
     private float _jumpingPower = 15f;
 
-    [SerializeField] private float _fallMultiplier = 2.5f;
     [SerializeField] private float _lowJumpMultiplier = 2f;
-
     [SerializeField] private GameObject _circle;
     [SerializeField] private float _circleRadius = 2f;
-
     [SerializeField] private GameObject _hookPrefab;
     [SerializeField] private float _hookSpeed = 20f;
     [SerializeField] private float _grappleSpeed = 10f;
