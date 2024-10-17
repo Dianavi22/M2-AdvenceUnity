@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private float _horizontal;
     [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _speedVertical = 4f;
     private float _jumpingPower = 15f;
 
     [SerializeField] private float _fallMultiplier = 2.5f;
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S) && distance < _grappleMaxDistance)
         {
-            rb.AddForce((-Vector3.up * _grappleSpeed) * _speed * Time.deltaTime);
+            rb.AddForce((-Vector3.up * _grappleSpeed) * _speedVertical * Time.deltaTime);
         }
 
 

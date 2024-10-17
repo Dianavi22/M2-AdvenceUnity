@@ -10,7 +10,7 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] private Grounded _grounded;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private LevelManager _levelManager;
-
+    [SerializeField] private TrailRenderer _trailRenderer;
     
 
     void Start()
@@ -66,7 +66,8 @@ public class PlayerSetUp : MonoBehaviour
 
     public void DeathZone(Vector3 deathZone)
     {
-
+        _trailRenderer.time = 0;
+        _rb.velocity = new Vector3(0, 0, 0);
         this.transform.position = deathZone;
         _playerController._isGrappling = false;
         isInDeathZone = false;

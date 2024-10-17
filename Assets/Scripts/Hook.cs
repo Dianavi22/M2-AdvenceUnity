@@ -55,12 +55,9 @@ public class Hook : MonoBehaviour
         joint.zMotion = ConfigurableJointMotion.Locked;
 
         joint.autoConfigureConnectedAnchor = false;
-        //joint.angularXMotion = ConfigurableJointMotion.Limited;
-        //joint.angularYMotion = ConfigurableJointMotion.Limited;
-        //joint.angularZMotion = ConfigurableJointMotion.Locked;
 
         SoftJointLimit limit = joint.linearLimit;
-        limit.limit = 5f;
+        limit.limit = 4f;
         limit.contactDistance = 1f;
         joint.linearLimit = limit;
 

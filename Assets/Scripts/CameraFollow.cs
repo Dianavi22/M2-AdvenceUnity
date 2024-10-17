@@ -7,10 +7,28 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] private float _timeOffset;
     [SerializeField]  private Vector3 _posOffset;
+    [SerializeField]  private Vector3 _posOffsetTab;
     private Vector3 _velocity;
+    private bool _isTab;
 
+    private void Start()
+    {
+
+
+    }
     private void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, _player.transform.position + _posOffset, ref _velocity, _timeOffset);
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            print("_posOffsetTab");
+            transform.position = Vector3.SmoothDamp(transform.position, _player.transform.position + _posOffsetTab, ref _velocity, _timeOffset);
+            _isTab = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            _isTab = false;
+        }
+      transform.position = Vector3.SmoothDamp(transform.position, _player.transform.position + _posOffset, ref _velocity, _timeOffset);
+        
     }
 }
