@@ -2695,7 +2695,7 @@ MonoBehaviour:
   _level1MAT: {fileID: 2100000, guid: 4f768961e61baf14780b2cafc8d79943, type: 2}
   _level2MAT: {fileID: 2100000, guid: 7b6ab9d03e901cb45871005814b37aea, type: 2}
   _level3MAT: {fileID: 2100000, guid: 1cb184784b32dc9489030a7ce3dd358b, type: 2}
-  _playerMAT: {fileID: 2100000, guid: 31c722e7cd049814a81947d97a737169, type: 2}
+  _playerMAT: {fileID: 2100000, guid: cd9e4ebb098632949aa67dabaaeaeb95, type: 2}
   phaseRestart: {x: 0, y: 0, z: 0}
   _playerController: {fileID: 1401749584}
   _playerMesh: {fileID: 1401749586}
@@ -10002,7 +10002,7 @@ PrefabInstance:
     - target: {fileID: 9172496785892551947, guid: 298af3562ab935846a34a6ab4de71fe5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 321fe6f1fa122f347a9db0f0f22e0be1, type: 2}
+      objectReference: {fileID: 2100000, guid: cd9e4ebb098632949aa67dabaaeaeb95, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
