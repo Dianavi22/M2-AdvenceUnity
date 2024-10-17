@@ -11,6 +11,7 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private TrailRenderer _trailRenderer;
+    [SerializeField] private CameraFollow _cameraFollow;
     
 
     void Start()
@@ -64,12 +65,22 @@ public class PlayerSetUp : MonoBehaviour
         }
     }
 
-    public void DeathZone(Vector3 deathZone)
+    
+    public IEnumerator RespawnPlayer(Vector3 deathZone)
     {
         _trailRenderer.time = 0;
         _rb.velocity = new Vector3(0, 0, 0);
         this.transform.position = deathZone;
         _playerController._isGrappling = false;
         isInDeathZone = false;
+        this.gameObject.GetComponent<PlayerController>().StopGrapple();
+        _playerController.enabled = false;
+        _cameraFollow.target = null;
+        yield return new WaitForSeconds(0.5f);
+        _cameraFollow.target = this.gameObject;
+        _playerController.enabled = true;
+        _trailRenderer.time = 1;
+
+
     }
 }

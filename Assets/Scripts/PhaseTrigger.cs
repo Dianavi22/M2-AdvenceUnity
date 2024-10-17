@@ -21,7 +21,7 @@ public class PhaseTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _levelManager.phase = 2;
+            _levelManager.phase = _idCurrentLevel;
         }
     }
 }

@@ -19,7 +19,7 @@ public class DeathZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameObject _player = other.gameObject;
-            _player.GetComponent<PlayerSetUp>().DeathZone(_spawnCoord);
+           StartCoroutine(_player.GetComponent<PlayerSetUp>().RespawnPlayer(_spawnCoord));
         }
     }
 }

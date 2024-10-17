@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
         {
             _phase2Done = true;
             ChangePhase();
-            phaseRestart = new Vector3(23, -20, 0);
+            phaseRestart = new Vector3(37, -7, 0);
 
         }
 

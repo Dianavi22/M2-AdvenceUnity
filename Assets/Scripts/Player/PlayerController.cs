@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void StopGrapple()
+    public void StopGrapple()
     {
         _isGrappling = false;
         _isSuspended = false;  
