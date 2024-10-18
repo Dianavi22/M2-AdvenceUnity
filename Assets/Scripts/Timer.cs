@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour
     [SerializeField] bool _isTextToShow; // Il y a un text pour afficher le timer
     [SerializeField] TMP_Text scoreText;
 
-    
+    public int _slowMoMulti = 1;
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class Timer : MonoBehaviour
 
     void IncreaseTimer()
     {
-        seconds += Time.deltaTime;
+        seconds += Time.deltaTime * _slowMoMulti;
         if (_isTextToShow)
         {
             ShowTimer();

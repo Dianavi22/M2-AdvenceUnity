@@ -10111,7 +10111,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6183073102848137240, guid: 298af3562ab935846a34a6ab4de71fe5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1401749598}
   m_SourcePrefab: {fileID: 100100000, guid: 298af3562ab935846a34a6ab4de71fe5, type: 3}
 --- !u!1 &1401749583 stripped
 GameObject:
@@ -10150,6 +10153,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e005c696d8659428a791ebb056bbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1401749598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401749583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714a0bf226ed0eb42894daaa02792919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelManager: {fileID: 256321823}
+  _slowMoCount: 0
+  _timer: {fileID: 2084590458}
 --- !u!1001 &1417872895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14421,6 +14439,7 @@ MonoBehaviour:
   _isIncrement: 1
   _isTextToShow: 1
   scoreText: {fileID: 766301254}
+  _slowMoMulti: 0
 --- !u!4 &2084590459
 Transform:
   m_ObjectHideFlags: 0
