@@ -17,7 +17,7 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] private MeshRenderer _playerMeshRenderer;
     private bool _isDissolve = false;
     private static float _timeLerpDissolve = 0f;
-
+    [SerializeField] ParticleSystem _respawnPart;
 
 
     void Start()
@@ -118,6 +118,7 @@ public class PlayerSetUp : MonoBehaviour
         _playerController.enabled = true;
         _rb.useGravity = true;
         _isDissolve = true;
+        _respawnPart.Play();
 
     }
 
