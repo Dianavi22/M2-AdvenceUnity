@@ -83,15 +83,17 @@ public class PlayerSetUp : MonoBehaviour
     {
         _timeLerpDissolve = 0;
         DespawnPlayer();
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1.2f);
+        _respawnPart.Play();
+        yield return new WaitForSeconds(0.1f);
         _isDissolve = false;
         this.transform.position = deathZone;
         _cameraFollow.target = this.gameObject;
+
         yield return new WaitForSeconds(0.3f);
         AfterRespawn();
         yield return new WaitForSeconds(1f);
         _isDissolve = false;
-        _playerMeshRenderer.material.SetFloat("_DissolveAmount", -1);
     }
 
     private void DespawnPlayer()
@@ -118,7 +120,6 @@ public class PlayerSetUp : MonoBehaviour
         _playerController.enabled = true;
         _rb.useGravity = true;
         _isDissolve = true;
-        _respawnPart.Play();
 
     }
 

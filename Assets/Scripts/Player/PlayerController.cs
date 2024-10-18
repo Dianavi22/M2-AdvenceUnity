@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Swing Parameters")]
     [SerializeField] private float _swingAmplitude = 0.5f; 
-    [SerializeField] private float _swingFrequency = 2f; 
+    [SerializeField] private float _swingFrequency = 2f;
+
+    [SerializeField] ParticleSystem _fireGrappinPart;
 
     void Start()
     {
@@ -111,12 +113,13 @@ public class PlayerController : MonoBehaviour
 
     private void Hook()
     {
+        
         _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, _circle.transform.rotation);
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
 
         Vector3 direction = (_circle.transform.position - transform.position).normalized;
         hookRb.velocity = direction * _hookSpeed;
-
+        _fireGrappinPart.Play();
         _lineRenderer.enabled = true;
         _lineRenderer.SetPosition(0, transform.position); 
         _lineRenderer.SetPosition(1, transform.position); 
