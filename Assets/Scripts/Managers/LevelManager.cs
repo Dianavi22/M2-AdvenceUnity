@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PostProcessVolume _glitch;
     [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
     [SerializeField] private TMP_FontAsset _Startfont;
+    [SerializeField] private Timer _timer;
     private void Start()
     {
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
@@ -38,6 +39,7 @@ public class LevelManager : MonoBehaviour
         if(phase == 0 && _playerFirstMove.isReadyToBegin)
         {
             phase = 1;
+            _timer.enabled = true;
             _shakyCame.isShaking = true;
             _playerFirstMove.enabled = false;
             _playerController.enabled = true;
