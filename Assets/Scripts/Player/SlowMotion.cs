@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlowMotion : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class SlowMotion : MonoBehaviour
     public int slowMoCount;
     [SerializeField] private Timer _timer;
     private bool _isInCD = false;
+    [SerializeField] Slider _sliderSlowMo;
     void Start()
     {
-        
+        _sliderSlowMo.value = slowMoCount / 100;
     }
 
     void Update()
@@ -38,13 +40,13 @@ public class SlowMotion : MonoBehaviour
             _timer._slowMoMulti = 1;
             _isSlowMo = false;
         }
+        _sliderSlowMo.value = slowMoCount / 100;
 
     }
 
     private IEnumerator SlowMoDecrement()
     {
         slowMoCount--;
-        
         yield return new WaitForSeconds(0.5f);
         _isInCD = false;
 

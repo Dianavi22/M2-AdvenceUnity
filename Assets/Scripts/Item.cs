@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
     private GameManager _gameManager;
     private SlowMotion _slowmotion;
+    [SerializeField] Slider _sliderSlowMo;
     void Start()
     {
         _gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
@@ -21,6 +23,8 @@ public class Item : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _slowmotion.slowMoCount += 10;
+            _sliderSlowMo.value += _slowmotion.slowMoCount / 100;
+
             _gameManager.currentNumberItem++;
             Destroy(gameObject);
         }
