@@ -7,43 +7,42 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
+    [SerializeField] private LineRenderer _lineRenderer;
+
+    [Header("References")]
     public Camera _myCam;
 
-    private float _horizontal;
+    [SerializeField] private GameObject _circle;
+    [SerializeField] private GameObject _hookPrefab;
+   
+
+    [Header("Value")]
+    [SerializeField] private float _hookSpeed = 20f;
+    [SerializeField] private float _circleRadius = 2f;
+    [SerializeField] private float _grappleMaxDistance = 2f;
+
     [SerializeField] private float _speed = 4f;
     [SerializeField] private float _speedVertical = 4f;
-    private float _jumpingPower = 15f;
-
-    [SerializeField] private float _fallMultiplier = 2.5f;
-    [SerializeField] private float _lowJumpMultiplier = 2f;
-
-    [SerializeField] private GameObject _circle;
-    [SerializeField] private float _circleRadius = 2f;
-
-    [SerializeField] private GameObject _hookPrefab;
-    [SerializeField] private float _hookSpeed = 20f;
     [SerializeField] private float _grappleSpeed = 10f;
-    [SerializeField] private float _grappleMaxDistance = 2f;
-    [SerializeField] private float _grappleDistanceMargin = 1f;
-    [SerializeField] private float _impulseStrength = 10f;
+
 
     [Header("Length of the Grappling Hook")]
     [SerializeField] float distance = 0;
 
+    public bool _isGrappling = false;
     private GameObject _spawnHook;
     private Vector3 _grapplePoint;
-    public bool _isGrappling = false;
     private bool _canJump = false;
+    private float _horizontal;
     private bool _isSuspended = false;
-
-
-    [SerializeField] private LineRenderer _lineRenderer;
 
     [Header("Swing Parameters")]
     [SerializeField] private float _swingAmplitude = 0.5f; 
     [SerializeField] private float _swingFrequency = 2f;
 
+    [Header("Visuel")]
     [SerializeField] ParticleSystem _fireGrappinPart;
+    [SerializeField] GameObject _grapPointPartContener;
 
     void Start()
     {
@@ -124,19 +123,22 @@ public class PlayerController : MonoBehaviour
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, transform.position);
 
-        Quaternion rotation = Quaternion.LookRotation(direction); 
-        _fireGrappinPart.transform.rotation = rotation;
-        _fireGrappinPart.Play();
+      
     }
 
 
     public void StartGrapple(Vector3 hitPoint, GameObject go)
     {
         _grapplePoint = hitPoint;
+        
         _isGrappling = true;
 
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, hitPoint);
+        Vector3 direction = _spawnHook.transform.position - transform.position; 
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        _grapPointPartContener.transform.rotation = rotation;
+        _fireGrappinPart.Play();
     }
     private void Grapple()
     {

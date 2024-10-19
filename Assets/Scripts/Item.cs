@@ -5,9 +5,11 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     private GameManager _gameManager;
+    private SlowMotion _slowmotion;
     void Start()
     {
         _gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        _slowmotion = FindObjectOfType<SlowMotion>().GetComponent<SlowMotion>();
     }
 
     void Update()
@@ -18,6 +20,7 @@ public class Item : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            _slowmotion.slowMoCount += 10;
             _gameManager.currentNumberItem++;
             Destroy(gameObject);
         }

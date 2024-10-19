@@ -6,7 +6,7 @@ public class SlowMotion : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
     private bool _isSlowMo = false;
-    [SerializeField] private int _slowMoCount;
+    public int slowMoCount;
     [SerializeField] private Timer _timer;
     private bool _isInCD = false;
     void Start()
@@ -16,7 +16,7 @@ public class SlowMotion : MonoBehaviour
 
     void Update()
     {
-        if (_levelManager.phase == 1 && Input.GetKeyDown(KeyCode.Space) && _slowMoCount > 0)
+        if (_levelManager.phase == 1 && Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0)
         {
             _isSlowMo = true;
         }
@@ -25,14 +25,14 @@ public class SlowMotion : MonoBehaviour
             _timer._slowMoMulti = 1;
             _isSlowMo = false;
         }
-        if (_isSlowMo && !_isInCD && _slowMoCount>0)
+        if (_isSlowMo && !_isInCD && slowMoCount > 0)
         {
             _isInCD = true;
             Time.timeScale = 0.5f;
             _timer._slowMoMulti = 2;
             StartCoroutine(SlowMoDecrement());
         }
-        if (_slowMoCount <= 0 && _isSlowMo)
+        if (slowMoCount <= 0 && _isSlowMo)
         {
             Time.timeScale = 1f;
             _timer._slowMoMulti = 1;
@@ -43,7 +43,7 @@ public class SlowMotion : MonoBehaviour
 
     private IEnumerator SlowMoDecrement()
     {
-        _slowMoCount--;
+        slowMoCount--;
         
         yield return new WaitForSeconds(0.5f);
         _isInCD = false;

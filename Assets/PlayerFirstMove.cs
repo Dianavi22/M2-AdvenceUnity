@@ -29,8 +29,9 @@ public class PlayerFirstMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             Invoke("Prepare", 0.3f);
         }
     }
