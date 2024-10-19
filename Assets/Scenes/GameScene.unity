@@ -2629,7 +2629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &238288312
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9275,7 +9275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1263298651
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9845,7 +9845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1302986195
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10236,6 +10236,10 @@ PrefabInstance:
       propertyPath: _timer
       value: 
       objectReference: {fileID: 2084590458}
+    - target: {fileID: 238378630168593288, guid: 298af3562ab935846a34a6ab4de71fe5, type: 3}
+      propertyPath: slowMoCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 238378630168593288, guid: 298af3562ab935846a34a6ab4de71fe5, type: 3}
       propertyPath: _levelManager
       value: 
@@ -11731,9 +11735,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.53
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -13,7 +13,7 @@ public class SlowMotion : MonoBehaviour
     [SerializeField] Slider _sliderSlowMo;
     void Start()
     {
-        _sliderSlowMo.value = slowMoCount / 100;
+        _sliderSlowMo.value = slowMoCount;
     }
 
     void Update()
@@ -40,7 +40,7 @@ public class SlowMotion : MonoBehaviour
             _timer._slowMoMulti = 1;
             _isSlowMo = false;
         }
-        _sliderSlowMo.value = slowMoCount / 100;
+        _sliderSlowMo.value = slowMoCount;
 
     }
 
