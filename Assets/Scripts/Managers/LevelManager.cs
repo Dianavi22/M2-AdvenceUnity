@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
     [SerializeField] private TMP_FontAsset _Startfont;
     [SerializeField] private Timer _timer;
+    [SerializeField] private GameObject _shpereInPlayer;
     private void Start()
     {
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
@@ -44,6 +45,7 @@ public class LevelManager : MonoBehaviour
             _playerFirstMove.enabled = false;
             _playerController.enabled = true;
             _playerMesh.material = _playerMAT;
+            _shpereInPlayer.SetActive(true);
             _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
             StartPhaseOne();
