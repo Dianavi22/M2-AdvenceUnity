@@ -73,6 +73,18 @@ public class PlayerSetUp : MonoBehaviour
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            this.transform.position = new Vector3(40.7000008f, 68.1999969f, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            this.transform.position = new Vector3(34.9000015f, -85.3000031f, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
 
         if (_isDissolve)
         {

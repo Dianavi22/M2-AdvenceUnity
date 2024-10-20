@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - GrappleSurface
+  - Bumper
   layers:
   - Default
   - TransparentFX

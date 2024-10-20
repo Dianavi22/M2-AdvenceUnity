@@ -31,9 +31,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TMP_FontAsset _Startfont;
     [SerializeField] private Timer _timer;
     [SerializeField] private GameObject _shpereInPlayer;
+    [SerializeField] private Bumper _bumper;
+    
     private void Start()
     {
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
+        _bumper.enabled = false;
+        _playerController.enabled = false;
     }
     void Update()
     {
@@ -43,6 +47,8 @@ public class LevelManager : MonoBehaviour
             _timer.enabled = true;
             _shakyCame.isShaking = true;
             _playerFirstMove.enabled = false;
+            _bumper.enabled = true;
+
             _playerController.enabled = true;
             _playerMesh.material = _playerMAT;
             _shpereInPlayer.SetActive(true);
