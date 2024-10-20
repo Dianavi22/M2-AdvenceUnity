@@ -67,6 +67,12 @@ public class PlayerSetUp : MonoBehaviour
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            this.transform.position = new Vector3(38.3300018f, 2.8900001f, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
 
         if (_isDissolve)
         {
@@ -125,6 +131,17 @@ public class PlayerSetUp : MonoBehaviour
     {
         _playerMeshRenderer.material.SetFloat("_DissolveAmount", Mathf.Lerp(min, max, _timeLerpDissolve));
         _timeLerpDissolve += 0.5f * Time.deltaTime;
+
+    }
+
+    public IEnumerator TPSetUp(Vector3 _newPosition)
+    {
+        _trailRenderer.time = 0;
+        _rb.velocity = new Vector3(0, 0, 0);
+        this.gameObject.GetComponent<PlayerController>().StopGrapple();
+        transform.position = _newPosition;
+        yield return new WaitForSeconds(0.1f);
+        _trailRenderer.time = 1;
 
     }
 }

@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour
     private void Hook()
     {
         _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, _circle.transform.rotation);
+
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
 
         Vector3 direction = (_circle.transform.position - transform.position).normalized;
