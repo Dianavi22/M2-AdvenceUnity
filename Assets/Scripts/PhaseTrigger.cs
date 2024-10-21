@@ -22,6 +22,7 @@ public class PhaseTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _levelManager.phase = _idCurrentLevel;
+            Destroy(gameObject);
         }
     }
 }

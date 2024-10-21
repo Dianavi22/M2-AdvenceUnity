@@ -9,35 +9,47 @@ using UnityEngine.Rendering.PostProcessing;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] Camera _camera;
-    [SerializeField] GameObject _trail;
-    [SerializeField] List<Material> _trailMaterials = new List<Material>();
     public int phase;
     private bool _phase2Done = false;
     private bool _phase3Done = false;
-    [SerializeField] List<GameObject> walls1 = new List<GameObject>();
-    [SerializeField] List<GameObject> walls2 = new List<GameObject>();
-    [SerializeField] List<GameObject> walls3 = new List<GameObject>();
-    [SerializeField] Material _level1MAT;
-    [SerializeField] Material _level2MAT;
-    [SerializeField] Material _level3MAT;
-    [SerializeField] Material _playerMAT;
     public Vector3 phaseRestart;
-    [SerializeField] private PlayerController _playerController;
     [SerializeField] private MeshRenderer _playerMesh;
-    [SerializeField] private PlayerFirstMove _playerFirstMove;
-    [SerializeField] private ShakyCame _shakyCame;
     [SerializeField] private PostProcessVolume _glitch;
     [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
     [SerializeField] private TMP_FontAsset _Startfont;
-    [SerializeField] private Timer _timer;
+    [SerializeField] private ParticleSystem _playerMiddlePart;
+  
+    [Header("GameObjects")]
+    [SerializeField] List<GameObject> walls1 = new List<GameObject>();
+    [SerializeField] List<GameObject> walls2 = new List<GameObject>();
+    [SerializeField] List<GameObject> walls3 = new List<GameObject>();
     [SerializeField] private GameObject _shpereInPlayer;
+    [SerializeField] GameObject _trail;
+
+    [Header("Materials")]
+    [SerializeField] Material _level1MAT;
+    [SerializeField] Material _level2MAT;
+    [SerializeField] Material _level3MAT;
+    [SerializeField] List<Material> _trailMaterials = new List<Material>();
+    [SerializeField] List<Material> _levelMATS;
+    [SerializeField] List<Material> _hooksMATS;
+    [SerializeField] Material _playerMAT;
+
+    [Header("References")]
+    [SerializeField] private ShakyCame _shakyCame;
+    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private PlayerFirstMove _playerFirstMove;
     [SerializeField] private Bumper _bumper;
-    
+    [SerializeField] private Timer _timer;
+
     private void Start()
     {
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
         _bumper.enabled = false;
         _playerController.enabled = false;
+        _levelMATS.Add(_level1MAT);
+        _levelMATS.Add(_level2MAT);
+        _levelMATS.Add(_level3MAT);
     }
     void Update()
     {
@@ -98,6 +110,10 @@ public class LevelManager : MonoBehaviour
 
     public void ChangePhase() {
         _trail.GetComponent<TrailRenderer>().material = _trailMaterials[phase-1];
+        _shpereInPlayer.GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
+        _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _playerController.gameObject.GetComponent<LineRenderer>().material = _hooksMATS[phase - 1];
+
     }
 
 }

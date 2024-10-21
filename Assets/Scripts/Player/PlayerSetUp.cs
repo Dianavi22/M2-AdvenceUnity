@@ -98,6 +98,8 @@ public class PlayerSetUp : MonoBehaviour
     public IEnumerator RespawnPlayer(Vector3 deathZone)
     {
         _timeLerpDissolve = 0;
+        _rb.useGravity = false;
+        _rb.velocity = Vector3.zero;
         DespawnPlayer();
         yield return new WaitForSeconds(1.2f);
         _respawnPart.Play();
@@ -130,6 +132,7 @@ public class PlayerSetUp : MonoBehaviour
 
     private void AfterRespawn()
     {
+        _rb.useGravity = true;
         minDissolve = 1;
         maxDissolve = -1;
         _trailRenderer.time = 1;
