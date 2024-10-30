@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class VictoryZone : MonoBehaviour
 {
+    [SerializeField] private GameManager _gameManager;
     void Start()
     {
         
@@ -13,8 +14,16 @@ public class VictoryZone : MonoBehaviour
         
     }
 
-    private void Victory()
+    private void OnCollisionEnter(Collision collision)
     {
-
+       
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            print("Finish");
+            _gameManager.isFinish = true;
+        }
     }
 }
