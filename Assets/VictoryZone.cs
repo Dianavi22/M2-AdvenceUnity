@@ -22,7 +22,6 @@ public class VictoryZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            print("Finish");
             _gameManager.isFinish = true;
         }
     }
