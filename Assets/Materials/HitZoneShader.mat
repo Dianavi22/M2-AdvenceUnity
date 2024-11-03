@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8752513425744232163
+--- !u!114 &-4994802935038099285
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Funky
-  m_Shader: {fileID: -6465566751694194690, guid: f3be7a9126c8689439d8ddb6a266b53c, type: 3}
+  m_Name: HitZoneShader
+  m_Shader: {fileID: -6465566751694194690, guid: 74bdfc2af691eb64f922cc02c9bffc0e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -64,20 +64,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NoiseTexture:
-        m_Texture: {fileID: 2800000, guid: 539dd779b42d02a478346fa20f602b2b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_8d3ba088682a4fba8bf54c1b107a2956_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 640562bbe6879bf42bfd09344090cd1b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -95,7 +87,6 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ScrollSpeed: 0.55
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -103,9 +94,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorMax: {r: 0.105226405, g: 0, b: 3.764706, a: 5}
-    - _ColorMin: {r: 5.0261774, g: 0, b: 0.13644472, a: 5}
-    - _ColorOne: {r: 0, g: 15.058824, b: 3.2873101, a: 20}
-    - _ColorTwo: {r: 1.924528, g: 0, b: 1.476807, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

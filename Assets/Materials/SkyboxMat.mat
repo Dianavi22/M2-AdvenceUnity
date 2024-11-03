@@ -81,7 +81,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Float: 3
-    - _Float_1: 10
+    - _Float_1: 200
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

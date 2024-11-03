@@ -41,6 +41,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] ParticleSystem _sprayPart2;
     [SerializeField] ParticleSystem _sprayPart3;
     [SerializeField] Material _skyBoxMAT;
+    [SerializeField] Material _spikeMAT;
 
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
@@ -82,6 +83,10 @@ public class LevelManager : MonoBehaviour
             for (int i = 0; i < walls1.Count; i++)
             {
                 walls1[i].gameObject.GetComponent<MeshRenderer>().material = _wallMatShader;
+                walls1[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
+                walls1[i].GetComponentInChildren<ParticleSystem>().Play() ;
+
+
             }
         }
         if(phase == 2 && !_phase2Done)
@@ -89,6 +94,16 @@ public class LevelManager : MonoBehaviour
             _phase2Done = true;
             ChangePhase();
             phaseRestart = new Vector3(23, -20, 0);
+            for (int i = 0; i < walls2.Count; i++)
+            {
+                walls2[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
+                walls2[i].GetComponentInChildren<ParticleSystem>().Play() ;
+
+            }
+            for (int i = 0; i < walls1.Count; i++)
+            {
+                walls1[i].GetComponentInChildren<ParticleSystem>().Stop();
+            }
 
         }
         if (phase == 3 && !_phase3Done)
@@ -96,6 +111,16 @@ public class LevelManager : MonoBehaviour
             _phase3Done = true;
             ChangePhase();
             phaseRestart = new Vector3(37, -7, 0);
+            for (int i = 0; i < walls3.Count; i++)
+            {
+                walls3[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
+                walls3[i].GetComponentInChildren<ParticleSystem>().Play();
+
+            }
+            for (int i = 0; i < walls1.Count; i++)
+            {
+                walls2[i].GetComponentInChildren<ParticleSystem>().Stop();
+            }
 
         }
 
@@ -106,6 +131,7 @@ public class LevelManager : MonoBehaviour
         _glitch.weight = 1.0f;
         yield return new WaitForSeconds(0.4f);
         _glitch.weight = 0f;
+       
 
     }
 
@@ -116,6 +142,7 @@ public class LevelManager : MonoBehaviour
         _shpereInPlayer.GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
         _wallMatShader.SetColor("_Color", value: _levelMATS[phase - 1].color*20);
         _skyBoxMAT.SetColor("_Color", value: _colors[phase - 1]);
+        _spikeMAT.SetColor("_ColorMax", value: _levelMATS[phase - 1].color * 5);
         _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _hitPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _hitPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
@@ -123,6 +150,7 @@ public class LevelManager : MonoBehaviour
         _sprayPart1.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+
         _sprayPart1.Play();
     }
 
