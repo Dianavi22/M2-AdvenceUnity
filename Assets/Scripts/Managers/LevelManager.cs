@@ -36,6 +36,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<Material> _hooksMATS;
     [SerializeField] Material _playerMAT;
     [SerializeField] Material _wallMatShader;
+    [SerializeField] ParticleSystem _hitPart;
+    [SerializeField] ParticleSystem _sprayPart1;
+    [SerializeField] ParticleSystem _sprayPart2;
+    [SerializeField] ParticleSystem _sprayPart3;
+    [SerializeField] Material _skyBoxMAT;
 
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
@@ -43,9 +48,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerFirstMove _playerFirstMove;
     [SerializeField] private Timer _timer;
 
+    [SerializeField] private List<Color32> _colors;
+
 
     private void Start()
     {
+        
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
         _playerController.enabled = false;
         _levelMATS.Add(_level1MAT);
@@ -58,15 +66,13 @@ public class LevelManager : MonoBehaviour
         {
             phase = 1;
             _timer.enabled = true;
-            _shakyCame.isShaking = true;
             _playerFirstMove.enabled = false;
-
+            RenderSettings.skybox = _skyBoxMAT;
             _playerController.enabled = true;
             _playerMesh.material = _playerMAT;
             _shpereInPlayer.SetActive(true);
             _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
-            StartPhaseOne();
             ChangePhase();
             for (int i = 0; i < _txtList.Count; i++)
             {
@@ -87,7 +93,7 @@ public class LevelManager : MonoBehaviour
         }
         if (phase == 3 && !_phase3Done)
         {
-            _phase2Done = true;
+            _phase3Done = true;
             ChangePhase();
             phaseRestart = new Vector3(37, -7, 0);
 
@@ -103,18 +109,21 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void StartPhaseOne()
-    {
-        _camera.clearFlags = CameraClearFlags.SolidColor;
-    }
 
     public void ChangePhase() {
+        _shakyCame.isShaking = true;
         _trail.GetComponent<TrailRenderer>().material = _trailMaterials[phase-1];
         _shpereInPlayer.GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
-        _wallMatShader.SetColor("_Color", value: _levelMATS[phase - 1].color);
+        _wallMatShader.SetColor("_Color", value: _levelMATS[phase - 1].color*20);
+        _skyBoxMAT.SetColor("_Color", value: _colors[phase - 1]);
         _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _hitPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _hitPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
         _playerController.gameObject.GetComponent<LineRenderer>().material = _hooksMATS[phase - 1];
-
+        _sprayPart1.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart1.Play();
     }
 
 }
