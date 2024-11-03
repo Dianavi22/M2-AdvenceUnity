@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    private float seconds; // Secondes qui passent 
+    public float seconds; // Secondes qui passent 
 
     [Header("Configuration de depart du Timer")]
     [SerializeField] float _secondToStart; // Temps de depart du Timer
@@ -20,7 +20,9 @@ public class Timer : MonoBehaviour
 
     [Header("Affichage du Timer")]
     [SerializeField] bool _isTextToShow; // Il y a un text pour afficher le timer
-    [SerializeField] TMP_Text scoreText;
+     public TMP_Text scoreText;
+
+    
 
     public int _slowMoMulti = 1;
 

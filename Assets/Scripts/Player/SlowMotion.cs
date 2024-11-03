@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SlowMotion : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
-    private bool _isSlowMo = false;
+    [SerializeField] private bool _isSlowMo = false;
     public int slowMoCount;
     [SerializeField] private Timer _timer;
     private bool _isInCD = false;
@@ -18,7 +18,7 @@ public class SlowMotion : MonoBehaviour
 
     void Update()
     {
-        if (_levelManager.phase == 1 && Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0)
         {
             _isSlowMo = true;
         }
