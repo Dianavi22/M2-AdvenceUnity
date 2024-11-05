@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject _pauseCanvas;
-    private bool _isPause = false;
+    [SerializeField] ParticleSystem _borderPart;
+    public bool isPause = false;
     void Start()
     {
         Time.timeScale = 1;
@@ -15,7 +16,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (_isPause)
+            if (isPause)
             {
                 Unpause();
             }
@@ -29,12 +30,16 @@ public class PauseMenu : MonoBehaviour
     private void Pause()
     {
         Time.timeScale = 0;
+        isPause = true;
+        _borderPart.Play();
         _pauseCanvas.SetActive(true);
     }
 
     public void Unpause()
     {
         Time.timeScale = 1;
+        _borderPart.Stop();
+        isPause = false;
         _pauseCanvas.SetActive(false);
 
     }

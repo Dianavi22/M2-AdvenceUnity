@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -50,7 +51,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Timer _timer;
 
     [SerializeField] private List<Color32> _colors;
+    [SerializeField] GameObject _slider;
+    [SerializeField] GameObject _fakeSlider;
+    [SerializeField] GameObject _bgSlider;
 
+    [SerializeField] List<ParticleSystem> _borderPausePart;
+    [SerializeField] List<Image> _imgButtons;
 
     private void Start()
     {
@@ -72,6 +78,8 @@ public class LevelManager : MonoBehaviour
             _playerController.enabled = true;
             _playerMesh.material = _playerMAT;
             _shpereInPlayer.SetActive(true);
+            _fakeSlider.SetActive(false);
+            _slider.SetActive(true);
             _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
             ChangePhase();
@@ -117,7 +125,7 @@ public class LevelManager : MonoBehaviour
                 walls3[i].GetComponentInChildren<ParticleSystem>().Play();
 
             }
-            for (int i = 0; i < walls1.Count; i++)
+            for (int i = 0; i < walls2.Count; i++)
             {
                 walls2[i].GetComponentInChildren<ParticleSystem>().Stop();
             }
@@ -150,8 +158,16 @@ public class LevelManager : MonoBehaviour
         _sprayPart1.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-
+        _bgSlider.GetComponent<Image>().material = _levelMATS[phase - 1];
         _sprayPart1.Play();
+        for (int i = 0; i < _borderPausePart.Count; i++)
+        {
+            _borderPausePart[i].GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        }
+        for (int i = 0; i < _imgButtons.Count; i++)
+        {
+            _imgButtons[i].material = _levelMATS[phase - 1];
+        }
     }
 
 }
