@@ -58,6 +58,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<ParticleSystem> _borderPausePart;
     [SerializeField] List<Image> _imgButtons;
 
+
     private void Start()
     {
         
@@ -168,6 +169,7 @@ public class LevelManager : MonoBehaviour
         {
             _imgButtons[i].material = _levelMATS[phase - 1];
         }
+        
     }
 
 }

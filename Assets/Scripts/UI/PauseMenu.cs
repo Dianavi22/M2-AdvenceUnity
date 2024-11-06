@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject _pauseCanvas;
+    [SerializeField] List<GameObject> _button;
     [SerializeField] ParticleSystem _borderPart;
     public bool isPause = false;
     void Start()
@@ -41,6 +44,28 @@ public class PauseMenu : MonoBehaviour
         _borderPart.Stop();
         isPause = false;
         _pauseCanvas.SetActive(false);
+        UpdateButtonScale();
+
+    }
+
+    private void UpdateButtonScale()
+    {
+
+
+        Vector3 scale = _button[0].GetComponent<Transform>().localScale;
+        scale.x = 1;
+        _button[0].GetComponent<Transform>().localScale = scale;
+
+        Vector3 scale2 = _button[1].GetComponent<Transform>().localScale;
+        scale2.x = 1;
+        _button[1].GetComponent<Transform>().localScale = scale2;
+
+        Vector3 scale3 = _button[2].GetComponent<Transform>().localScale;
+        scale3.x = 1;
+        _button[2].GetComponent<Transform>().localScale = scale3;
+
+
+
 
     }
 
