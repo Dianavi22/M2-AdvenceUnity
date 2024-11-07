@@ -79,15 +79,21 @@ public class PlayerSetUp : MonoBehaviour
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             this.transform.position = new Vector3(34.9000015f, -85.3000031f, 0);
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             this.transform.position = new Vector3(-111.400002f, -49.5f, 0);
+            _playerController._isGrappling = false;
+            isInDeathZone = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            this.transform.position = new Vector3(-104, 70.4000015f, 0);
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }

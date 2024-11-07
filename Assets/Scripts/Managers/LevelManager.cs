@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     public int phase;
     private bool _phase2Done = false;
     private bool _phase3Done = false;
+    private bool _phase4Done = false;
     public Vector3 phaseRestart;
     [SerializeField] private MeshRenderer _playerMesh;
     [SerializeField] private PostProcessVolume _glitch;
@@ -25,13 +26,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<GameObject> walls1 = new List<GameObject>();
     [SerializeField] List<GameObject> walls2 = new List<GameObject>();
     [SerializeField] List<GameObject> walls3 = new List<GameObject>();
+    [SerializeField] List<GameObject> walls4 = new List<GameObject>();
     [SerializeField] private GameObject _shpereInPlayer;
     [SerializeField] GameObject _trail;
 
     [Header("Materials")]
-    [SerializeField] Material _level1MAT;
-    [SerializeField] Material _level2MAT;
-    [SerializeField] Material _level3MAT;
     [SerializeField] List<Material> _trailMaterials = new List<Material>();
     [SerializeField] List<Material> _levelMATS;
     [SerializeField] List<Material> _hooksMATS;
@@ -58,15 +57,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<ParticleSystem> _borderPausePart;
     [SerializeField] List<Image> _imgButtons;
 
-
+    [SerializeField] private bool _isLastLevel = false;
     private void Start()
     {
         
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
         _playerController.enabled = false;
-        _levelMATS.Add(_level1MAT);
-        _levelMATS.Add(_level2MAT);
-        _levelMATS.Add(_level3MAT);
     }
     void Update()
     {
@@ -119,7 +115,7 @@ public class LevelManager : MonoBehaviour
         {
             _phase3Done = true;
             ChangePhase();
-            phaseRestart = new Vector3(37, -7, 0);
+            phaseRestart = new Vector3(-104, 70.4000015f, 0);
             for (int i = 0; i < walls3.Count; i++)
             {
                 walls3[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
@@ -130,6 +126,33 @@ public class LevelManager : MonoBehaviour
             {
                 walls2[i].GetComponentInChildren<ParticleSystem>().Stop();
             }
+
+        }
+
+        if (phase == 4 && !_phase4Done)
+        {
+            if (!_isLastLevel) {
+                _isLastLevel = true;
+                _phase4Done = true;
+                ChangePhase();
+                phaseRestart = new Vector3(-103, 68, 0);
+                for (int i = 0; i < walls4.Count; i++)
+                {
+                    walls4[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
+                    walls4[i].GetComponentInChildren<ParticleSystem>().Play();
+                }
+                for (int i = 0; i < walls3.Count; i++)
+                {
+                    walls3[i].GetComponentInChildren<ParticleSystem>().Stop();
+                }
+
+            }
+            else
+            {
+
+            }
+           
+
 
         }
 

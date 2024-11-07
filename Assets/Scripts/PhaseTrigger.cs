@@ -7,6 +7,8 @@ public class PhaseTrigger : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private int _idCurrentLevel;
+    [SerializeField] private List<GameObject> _wallLastLevel;
+    public bool _isLastLevel = false;
     void Start()
     {
         _levelManager = FindObjectOfType<LevelManager>();
@@ -22,7 +24,12 @@ public class PhaseTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _levelManager.phase = _idCurrentLevel;
-            Destroy(gameObject);
+
+            if (_idCurrentLevel < 4)
+            {
+                Destroy(gameObject);
+            }
+
         }
     }
 }
