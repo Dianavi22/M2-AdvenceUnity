@@ -29,6 +29,13 @@ public class PhaseTrigger : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+            else
+            {
+                for (int i = 0; i < _wallLastLevel.Count; i++)
+                {
+                    _wallLastLevel[i].SetActive(true);
+                }
+            }
 
         }
     }

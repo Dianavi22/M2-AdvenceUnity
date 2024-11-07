@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public bool _isGrappling = false;
     private GameObject _spawnHook;
-    private Vector3 _grapplePoint;
+    public Vector3 grapplePoint;
     private bool _canJump = false;
     private float _horizontal;
     private bool _isSuspended = false;
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
 
     public void StartGrapple(Vector3 hitPoint, GameObject go)
     {
-        _grapplePoint = hitPoint;
+        grapplePoint = hitPoint;
         
         _isGrappling = true;
 
@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Grapple()
     {
-        Vector3 direction = (_grapplePoint - transform.position).normalized;
+        Vector3 direction = (grapplePoint - transform.position).normalized;
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
         if (_lineRenderer.enabled)
         {
             _lineRenderer.SetPosition(0, transform.position);  
-            _lineRenderer.SetPosition(1, _grapplePoint);      
+            _lineRenderer.SetPosition(1, grapplePoint);      
         }
     }
 

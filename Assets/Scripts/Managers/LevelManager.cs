@@ -58,6 +58,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<Image> _imgButtons;
 
     [SerializeField] private bool _isLastLevel = false;
+    [SerializeField] private ParticleSystem _bgPart;
+    //[SerializeField] private List<Material> _bgPartColors;
+    [SerializeField] private List<Color32> _bgPartColors;
+
     private void Start()
     {
         
@@ -79,6 +83,7 @@ public class LevelManager : MonoBehaviour
             _slider.SetActive(true);
             _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
+            _bgPart.Play();
             ChangePhase();
             for (int i = 0; i < _txtList.Count; i++)
             {
@@ -193,6 +198,19 @@ public class LevelManager : MonoBehaviour
             _imgButtons[i].material = _levelMATS[phase - 1];
         }
         
+          
+        var particleSystem = _bgPart.GetComponent<ParticleSystem>();
+        ParticleSystem.Particle[] particles = new ParticleSystem.Particle[particleSystem.particleCount];
+        int particleCount = particleSystem.GetParticles(particles);
+        Color32 newColor = _bgPartColors[phase - 1];
+        for (int i = 0; i < particleCount; i++)
+        {
+            particles[i].startColor = newColor;
+        }
+        particleSystem.SetParticles(particles, particleCount);
+
+        var mainModule = particleSystem.main;
+        mainModule.startColor = new ParticleSystem.MinMaxGradient(newColor);
     }
 
 }

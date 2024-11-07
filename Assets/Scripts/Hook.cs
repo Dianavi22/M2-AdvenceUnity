@@ -47,8 +47,8 @@ public class Hook : MonoBehaviour
         joint.connectedAnchor = transform.position;
         joint.axis = new Vector3(1, 1, 0);
         joint.secondaryAxis = new Vector3(1, 1, 0);
-        joint.anchor = transform.position;
-        joint.anchor = new Vector3(0, transform.position.y, transform.position.z);
+        joint.anchor = new Vector3(0, 0, transform.position.z);
+        joint.anchor = new Vector3(0, 0, transform.position.z);
 
         joint.xMotion = ConfigurableJointMotion.Limited;
         joint.yMotion = ConfigurableJointMotion.Limited;

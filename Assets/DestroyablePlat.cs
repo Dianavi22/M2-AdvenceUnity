@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class DestroyablePlat : MonoBehaviour
 {
+    private PlayerController _playerController;
+    private bool isDestroying = false;
     void Start()
     {
-        Spawn();
+        _playerController = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
     }
 
     void Update()
@@ -17,12 +19,15 @@ public class DestroyablePlat : MonoBehaviour
 
     public IEnumerator DestroyPlat()
     {
-        yield return new WaitForSeconds(3);
-        this.gameObject.SetActive(false);
+        if (!isDestroying)
+        {
+            isDestroying = true;
+            yield return new WaitForSeconds(3);
+            _playerController.StopGrapple();
+            isDestroying = false;
+            this.gameObject.SetActive(false);
+        }
     }
 
-    private void Spawn()
-    {
-        print("Spawn");
-    }
+    
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5647206857125702398}
   - component: {fileID: 3208249036031017670}
   - component: {fileID: 3944037073176634273}
+  - component: {fileID: 1571376952598231069}
   m_Layer: 6
   m_Name: HookablePlat
   m_TagString: GrappleSurface
@@ -133,3 +134,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1571376952598231069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4307693166761169792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bd5bab64981574daa215f5d088fe57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
