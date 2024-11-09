@@ -6,28 +6,36 @@ using UnityEngine;
 public class DestroyablePlat : MonoBehaviour
 {
     private PlayerController _playerController;
-    private bool isDestroying = false;
+    public bool isDestroying = false;
+    private LevelManager _levelManager;
+    private GameObject _currentHook;
     void Start()
     {
         _playerController = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
+        _levelManager = FindObjectOfType<LevelManager>().GetComponent<LevelManager>();
     }
 
     void Update()
     {
-        
+
     }
 
-    public IEnumerator DestroyPlat()
+    private void DestroyPlat()
     {
-        if (!isDestroying)
+        isDestroying = true;
+        if (_currentHook != null)
         {
-            isDestroying = true;
-            yield return new WaitForSeconds(3);
-            _playerController.StopGrapple();
-            isDestroying = false;
-            this.gameObject.SetActive(false);
+            Destroy(_currentHook);
+        }
+        this.gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.name.Contains("Hook") && !isDestroying && _levelManager.phase >= 4)
+        {
+            _currentHook = collision.collider.gameObject;
+            Invoke("DestroyPlat", 2.3f);
         }
     }
-
-    
 }

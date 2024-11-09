@@ -27,6 +27,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<GameObject> walls2 = new List<GameObject>();
     [SerializeField] List<GameObject> walls3 = new List<GameObject>();
     [SerializeField] List<GameObject> walls4 = new List<GameObject>();
+    [SerializeField] List<GameObject> plat4 = new List<GameObject>();
     [SerializeField] private GameObject _shpereInPlayer;
     [SerializeField] GameObject _trail;
 
@@ -152,13 +153,7 @@ public class LevelManager : MonoBehaviour
                 }
 
             }
-            else
-            {
-
-            }
            
-
-
         }
 
     }

@@ -9,10 +9,12 @@ public class Hook : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
 
     private PlayerController _playerController;
+   
     [SerializeField] private ConfigurableJoint joint;
 
     private void Awake()
     {
+    
         _playerController = FindObjectOfType<PlayerController>().gameObject.GetComponent<PlayerController>();
     }
 
