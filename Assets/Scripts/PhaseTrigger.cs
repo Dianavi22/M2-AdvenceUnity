@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -34,6 +35,8 @@ public class PhaseTrigger : MonoBehaviour
                 for (int i = 0; i < _wallLastLevel.Count; i++)
                 {
                     _wallLastLevel[i].SetActive(true);
+                    _wallLastLevel[i].GetComponent<DestroyablePlat>().isDestroying = false;
+
                 }
             }
 

@@ -25,7 +25,7 @@ public class DestroyablePlat : MonoBehaviour
         isDestroying = true;
         if (_currentHook != null)
         {
-            Destroy(_currentHook);
+            _playerController.StopGrapple();
         }
         this.gameObject.SetActive(false);
     }
