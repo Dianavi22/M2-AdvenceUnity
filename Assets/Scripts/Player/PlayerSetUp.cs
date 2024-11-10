@@ -121,7 +121,6 @@ public class PlayerSetUp : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         _isDissolve = false;
         this.transform.position = deathZone;
-        _cameraFollow.target = this.gameObject;
 
         yield return new WaitForSeconds(0.3f);
         AfterRespawn();
@@ -143,7 +142,6 @@ public class PlayerSetUp : MonoBehaviour
         isInDeathZone = false;
         this.gameObject.GetComponent<PlayerController>().StopGrapple();
         _playerController.enabled = false;
-        _cameraFollow.target = null;
         _rb.useGravity = false;
     }
 
