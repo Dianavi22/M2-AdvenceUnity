@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private MeshRenderer _playerMesh;
     [SerializeField] private PostProcessVolume _glitch;
     [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
+    [SerializeField] private List<TMP_Text> _txtListFlat = new List<TMP_Text>();
     [SerializeField] private TMP_FontAsset _Startfont;
     [SerializeField] private ParticleSystem _playerMiddlePart;
   
@@ -41,6 +42,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] ParticleSystem _sprayPart1;
     [SerializeField] ParticleSystem _sprayPart2;
     [SerializeField] ParticleSystem _sprayPart3;
+    [SerializeField] ParticleSystem _deathPart;
     [SerializeField] Material _skyBoxMAT;
     [SerializeField] Material _spikeMAT;
 
@@ -88,9 +90,12 @@ public class LevelManager : MonoBehaviour
             ChangePhase();
             for (int i = 0; i < _txtList.Count; i++)
             {
-                _txtList[i].font = _Startfont;
+                _txtList[i].gameObject.SetActive(true);
             }
-
+            for (int i = 0; i < _txtListFlat.Count; i++)
+            {
+                _txtListFlat[i].gameObject.SetActive(false);
+            }
             for (int i = 0; i < walls1.Count; i++)
             {
                 walls1[i].gameObject.GetComponent<MeshRenderer>().material = _wallMatShader;
@@ -169,6 +174,7 @@ public class LevelManager : MonoBehaviour
 
 
     public void ChangePhase() {
+        _shakyCame._duration = 0.2f;
         _shakyCame.isShaking = true;
         _trail.GetComponent<TrailRenderer>().material = _trailMaterials[phase-1];
         _shpereInPlayer.GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
@@ -183,6 +189,8 @@ public class LevelManager : MonoBehaviour
         _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _bgSlider.GetComponent<Image>().material = _levelMATS[phase - 1];
+        _deathPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _deathPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
         _sprayPart1.Play();
         for (int i = 0; i < _borderPausePart.Count; i++)
         {

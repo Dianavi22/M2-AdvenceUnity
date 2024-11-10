@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FadeBehavior
   m_EditorClassIdentifier: 
   tagID: fade
-  baseSpeed: 0.5
-  baseDelay: 1
+  baseSpeed: 25.18
+  baseDelay: 0.37

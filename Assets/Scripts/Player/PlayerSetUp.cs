@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerSetUp : MonoBehaviour
@@ -16,6 +17,8 @@ public class PlayerSetUp : MonoBehaviour
     private bool _isDissolve = false;
     private static float _timeLerpDissolve = 0f;
     [SerializeField] ParticleSystem _respawnPart;
+    [SerializeField] ParticleSystem _deathPart;
+    [SerializeField] ShakyCame _shakyCam;
 
 
     void Start()
@@ -131,7 +134,9 @@ public class PlayerSetUp : MonoBehaviour
         minDissolve = -1;
         maxDissolve = 1;
         _isDissolve = true;
-        
+        _shakyCam._duration = 1;
+        _shakyCam.isShaking = true;
+        _deathPart.Play();
         _trailRenderer.time = 0;
         _rb.velocity = new Vector3(0, 0, 0);
         _playerController._isGrappling = false;

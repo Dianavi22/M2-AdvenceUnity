@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OffsetAppearance
   m_EditorClassIdentifier: 
   tagID: offset
-  baseDuration: 0.5
-  baseAmount: 10
+  baseDuration: 5.74
+  baseAmount: 11.03
   baseDirection: {x: 1, y: 1}
