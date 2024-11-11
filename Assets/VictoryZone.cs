@@ -11,7 +11,10 @@ public class VictoryZone : MonoBehaviour
     }
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            _gameManager.isFinish = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

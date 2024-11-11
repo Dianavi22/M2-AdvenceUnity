@@ -4,34 +4,40 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public GameObject target;
-    [SerializeField] private float _timeOffset;
-    [SerializeField]  private Vector3 _posOffset;
-    [SerializeField]  private Vector3 _posOffsetTab;
-    private Vector3 _velocity;
-    private bool _isTab;
+    //public GameObject target;
+    //[SerializeField] private float _timeOffset;
+    //[SerializeField]  private Vector3 _posOffset;
+    //[SerializeField]  private Vector3 _posOffsetTab;
+    //private Vector3 _velocity;
+    //private bool _isTab;
+
+    private Vector3 _thisTransform;
 
     private void Start()
     {
-
+        _thisTransform = this.transform.position;
 
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if(this.transform.position != _thisTransform)
         {
-            print("_posOffsetTab");
-            transform.position = Vector3.SmoothDamp(transform.position, target.transform.position + _posOffsetTab, ref _velocity, _timeOffset);
-            _isTab = true;
+            this.transform.position = _thisTransform;
         }
-        else if (Input.GetKeyUp(KeyCode.Tab))
-        {
-            _isTab = false;
-        }
-        if(target != null)
-        {
-            transform.position = Vector3.SmoothDamp(transform.position, target.transform.position + _posOffset, ref _velocity, _timeOffset);
-        }
+        //if (Input.GetKeyDown(KeyCode.Tab))
+        //{
+        //    print("_posOffsetTab");
+        //    transform.position = Vector3.SmoothDamp(transform.position, target.transform.position + _posOffsetTab, ref _velocity, _timeOffset);
+        //    _isTab = true;
+        //}
+        //else if (Input.GetKeyUp(KeyCode.Tab))
+        //{
+        //    _isTab = false;
+        //}
+        //if(target != null)
+        //{
+        //    transform.position = Vector3.SmoothDamp(transform.position, target.transform.position + _posOffset, ref _velocity, _timeOffset);
+        //}
 
     }
 }

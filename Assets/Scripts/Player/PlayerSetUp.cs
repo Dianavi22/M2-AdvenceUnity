@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerSetUp : MonoBehaviour
 {
-   [HideInInspector] public Transform startTranform;
+    [HideInInspector] public Transform startTranform;
     private PlayerController _playerController;
     public bool isInDeathZone = false;
     [SerializeField] private Grounded _grounded;
@@ -19,7 +19,8 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] ParticleSystem _respawnPart;
     [SerializeField] ParticleSystem _deathPart;
     [SerializeField] ShakyCame _shakyCam;
-
+    [SerializeField] GameManager _gameManager;
+    [SerializeField] private bool isDebugMode;
 
     void Start()
     {
@@ -33,7 +34,7 @@ public class PlayerSetUp : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            this.transform.position = new Vector3(0,0,0);
+            this.transform.position = new Vector3(0, 0, 0);
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
@@ -45,60 +46,64 @@ public class PlayerSetUp : MonoBehaviour
         }
 
         //DEBUG
+        if (isDebugMode)
+        {
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            this.transform.position = new Vector3(0, 0, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            this.transform.position = new Vector3(23, -20, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            this.transform.position = new Vector3(-64.5f, -24.5f, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            this.transform.position = new Vector3(-104.400002f, 27.2000008f, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            this.transform.position = new Vector3(38.3300018f, 2.8900001f, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            this.transform.position = new Vector3(40.7000008f, 68.1999969f, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            this.transform.position = new Vector3(34.9000015f, -85.3000031f, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            this.transform.position = new Vector3(-111.400002f, -49.5f, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            this.transform.position = new Vector3(-104, 70.4000015f, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                this.transform.position = new Vector3(0, 0, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                this.transform.position = new Vector3(23, -20, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                this.transform.position = new Vector3(-64.5f, -24.5f, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                this.transform.position = new Vector3(-104.400002f, 27.2000008f, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                this.transform.position = new Vector3(38.3300018f, 2.8900001f, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                this.transform.position = new Vector3(40.7000008f, 68.1999969f, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                this.transform.position = new Vector3(34.9000015f, -85.3000031f, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                this.transform.position = new Vector3(-111.400002f, -49.5f, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                this.transform.position = new Vector3(-104, 70.4000015f, 0);
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
         }
 
         if (_isDissolve)
@@ -109,7 +114,7 @@ public class PlayerSetUp : MonoBehaviour
 
     private float minDissolve;
     private float maxDissolve;
-    
+
     public IEnumerator RespawnPlayer(Vector3 deathZone)
     {
         _timeLerpDissolve = 0;
@@ -143,6 +148,7 @@ public class PlayerSetUp : MonoBehaviour
         this.gameObject.GetComponent<PlayerController>().StopGrapple();
         _playerController.enabled = false;
         _rb.useGravity = false;
+        _gameManager.nbDeath++;
     }
 
     private void AfterRespawn()

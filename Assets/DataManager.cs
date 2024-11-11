@@ -5,22 +5,25 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public float hightScore;
+    public float minNbDeath;
     private bool isFirstPart = false;
     [SerializeField] GameManager _gameManager;
     [SerializeField] Timer _timer;
+    
 
     public string hightScoreTxt;
     void Start()
     {
-        if (!PlayerPrefs.HasKey("HightScore"))
+        if (PlayerPrefs.HasKey("HightScore"))
         {
-            PlayerPrefs.SetFloat("HightScore", 1000000);
-            isFirstPart = true; 
+            hightScore = PlayerPrefs.GetFloat("HightScore");
+            minNbDeath = PlayerPrefs.GetFloat("MinNbDeath");
+
+            isFirstPart = false;
         }
         else
         {
-            hightScore = PlayerPrefs.GetFloat("HightScore");
-            isFirstPart = false;
+            isFirstPart = true;
         }
 
     }
@@ -31,6 +34,8 @@ public class DataManager : MonoBehaviour
         {
             ShowTimer();
             hightScore = _timer.seconds;
+            minNbDeath = _gameManager.nbDeath;
+            PlayerPrefs.SetFloat("MinNbDeath", minNbDeath);
         }
 
     }
