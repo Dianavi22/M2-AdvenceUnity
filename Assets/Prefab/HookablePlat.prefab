@@ -160,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlatformPart
       objectReference: {fileID: 0}
+    - target: {fileID: 2312265845038483478, guid: 4d9562e996ec3f74cbaee167aaf655cd, type: 3}
+      propertyPath: cullingMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4701578992683631648, guid: 4d9562e996ec3f74cbaee167aaf655cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
