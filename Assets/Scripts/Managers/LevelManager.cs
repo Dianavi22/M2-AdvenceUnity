@@ -10,18 +10,14 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] Camera _camera;
     public int phase;
-    private bool _phase2Done = false;
-    private bool _phase3Done = false;
-    private bool _phase4Done = false;
+    
     public Vector3 phaseRestart;
     [SerializeField] private MeshRenderer _playerMesh;
     [SerializeField] private PostProcessVolume _glitch;
     [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
     [SerializeField] private List<TMP_Text> _txtListFlat = new List<TMP_Text>();
     [SerializeField] private TMP_FontAsset _Startfont;
-    [SerializeField] private ParticleSystem _playerMiddlePart;
   
     [Header("GameObjects")]
     [SerializeField] List<GameObject> walls1 = new List<GameObject>();
@@ -38,19 +34,24 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<Material> _hooksMATS;
     [SerializeField] Material _playerMAT;
     [SerializeField] Material _wallMatShader;
+    [SerializeField] Material _skyBoxMAT;
+    [SerializeField] Material _spikeMAT;
+
+    [Header("ParticleSystem")]
+    [SerializeField] private ParticleSystem _playerMiddlePart;
     [SerializeField] ParticleSystem _hitPart;
     [SerializeField] ParticleSystem _sprayPart1;
     [SerializeField] ParticleSystem _sprayPart2;
     [SerializeField] ParticleSystem _sprayPart3;
     [SerializeField] ParticleSystem _deathPart;
-    [SerializeField] Material _skyBoxMAT;
-    [SerializeField] Material _spikeMAT;
 
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerFirstMove _playerFirstMove;
     [SerializeField] private Timer _timer;
+    [SerializeField] Camera _camera;
+
 
     [SerializeField] private List<Color32> _colors;
     [SerializeField] GameObject _slider;
@@ -62,8 +63,11 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private bool _isLastLevel = false;
     [SerializeField] private ParticleSystem _bgPart;
-    //[SerializeField] private List<Material> _bgPartColors;
     [SerializeField] private List<Color32> _bgPartColors;
+
+    private bool _phase2Done = false;
+    private bool _phase3Done = false;
+    private bool _phase4Done = false;
 
     private void Start()
     {
