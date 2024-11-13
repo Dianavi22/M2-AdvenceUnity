@@ -117,7 +117,6 @@ public class PlayerSetUp : MonoBehaviour
 
     public IEnumerator RespawnPlayer(Vector3 deathZone)
     {
-        print("RespawnPlayer");
         _timeLerpDissolve = 0;
         _rb.useGravity = false;
         _rb.velocity = Vector3.zero;
@@ -136,8 +135,6 @@ public class PlayerSetUp : MonoBehaviour
 
     private void DespawnPlayer()
     {
-        print("DespawnPlayer");
-
         minDissolve = -1;
         maxDissolve = 1;
         _isDissolve = true;

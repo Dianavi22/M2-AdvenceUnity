@@ -67,6 +67,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<Color32> _bgPartColors;
 
     [SerializeField] List<GameObject> allPlat = new List<GameObject>();
+    [SerializeField] List<TMP_Text> _txtToChange = new List<TMP_Text>();
 
     private bool _phase2Done = false;
     private bool _phase3Done = false;
@@ -94,6 +95,10 @@ public class LevelManager : MonoBehaviour
             _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
             _bgPart.Play();
+            for (int i = 0; i < _txtToChange.Count; i++)
+            {
+                _txtToChange[i].font = _Startfont;
+            }
             ChangePhase();
             for (int i = 0; i < _txtList.Count; i++)
             {
