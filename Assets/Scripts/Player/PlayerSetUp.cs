@@ -145,7 +145,6 @@ public class PlayerSetUp : MonoBehaviour
         _rb.velocity = new Vector3(0, 0, 0);
         _playerController._isGrappling = false;
         isInDeathZone = false;
-        print("StopGrapple");
         this.gameObject.GetComponent<PlayerController>().StopGrapple();
         _playerController.enabled = false;
         _rb.useGravity = false;

@@ -8,17 +8,20 @@ public class Hook : MonoBehaviour
     [SerializeField] private bool _isHooked;
     [SerializeField] private Rigidbody _rb;
 
+    private LevelManager _levelManager;
     private PlayerController _playerController;
-   
+
     [SerializeField] private ConfigurableJoint joint;
     [SerializeField] Material _cyan;
     private Material _thisMat;
     private MeshRenderer _meshPlat;
 
+    [SerializeField] List<Material> _levelMat = new List<Material>();
+
     private void Awake()
     {
-    
-        _playerController = FindObjectOfType<PlayerController>().gameObject.GetComponent<PlayerController>();
+        _levelManager = FindObjectOfType<LevelManager>().gameObject.GetComponent<LevelManager>();
+         _playerController = FindObjectOfType<PlayerController>().gameObject.GetComponent<PlayerController>();
     }
 
     public void Initialize(PlayerController playerController)
@@ -43,7 +46,11 @@ public class Hook : MonoBehaviour
 
                 _thisMat = collision.collider.gameObject.GetComponent<MeshRenderer>().material;
                 collision.collider.gameObject.GetComponent<MeshRenderer>().material = _cyan;
-                this.GetComponentInChildren<ParticleSystem>().Play();
+
+                ParticleSystem _grapPart = this.GetComponentInChildren<ParticleSystem>();
+                _grapPart.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];
+                _grapPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMat[_levelManager.phase - 1];
+                _grapPart.Play();
                 _meshPlat = collision.collider.gameObject.GetComponent<MeshRenderer>();
                 SetUpConfigurableJoint();
             }

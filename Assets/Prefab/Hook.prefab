@@ -153,6 +153,11 @@ MonoBehaviour:
   _rb: {fileID: 5824440613584135892}
   joint: {fileID: 0}
   _cyan: {fileID: 2100000, guid: e2031b87867a5104495ddb302f548734, type: 2}
+  _levelMat:
+  - {fileID: 2100000, guid: 4f768961e61baf14780b2cafc8d79943, type: 2}
+  - {fileID: 2100000, guid: 7b6ab9d03e901cb45871005814b37aea, type: 2}
+  - {fileID: 2100000, guid: 1cb184784b32dc9489030a7ce3dd358b, type: 2}
+  - {fileID: 2100000, guid: 94e942b83e784034fb31b19f7a151d66, type: 2}
 --- !u!1001 &7462551970768000319
 PrefabInstance:
   m_ObjectHideFlags: 0
