@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ParticleSystem _fireGrappinPart;
     [SerializeField] GameObject _grapPointPartContener;
 
-
+    [SerializeField] ParticleSystem _collisionPart;
 
     void Start()
     {
@@ -98,6 +98,14 @@ public class PlayerController : MonoBehaviour
         }
 
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag("Wall") || collision.collider.CompareTag("GrappleSurface"))
+        {
+            _collisionPart.Play();
+        }
     }
 
     private void FollowMouseWithCircle()

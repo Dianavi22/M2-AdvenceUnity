@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GrappleSurface
   - Bumper
+  - Wall
   layers:
   - Default
   - TransparentFX
