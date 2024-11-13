@@ -12,10 +12,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     public Camera _myCam;
+    [SerializeField] private SlowMotion _slowMo;
 
     [SerializeField] private GameObject _circle;
     [SerializeField] private GameObject _hookPrefab;
-   
+
 
     [Header("Value")]
     [SerializeField] private float _hookSpeed = 20f;
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private bool _isSuspended = false;
 
     [Header("Swing Parameters")]
-    [SerializeField] private float _swingAmplitude = 0.5f; 
+    [SerializeField] private float _swingAmplitude = 0.5f;
     [SerializeField] private float _swingFrequency = 2f;
 
     [Header("Visuel")]
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour
             _lineRenderer.startWidth = 0.05f;
             _lineRenderer.endWidth = 0.05f;
             _lineRenderer.positionCount = 2;
-            _lineRenderer.enabled = false; 
+            _lineRenderer.enabled = false;
         }
         else
         {
@@ -71,8 +72,8 @@ public class PlayerController : MonoBehaviour
             Hook();
         }
 
-        if(_spawnHook != null)
-            {
+        if (_spawnHook != null)
+        {
             distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
             if (Input.GetMouseButtonUp(0))
             {
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (_isGrappling && Input.GetMouseButton(0))
-            {
+        {
             Grapple();
             //Update visual
             UpdateGrappleLine();
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
             StopGrapple();
         }
 
-       
+
     }
 
     private void FollowMouseWithCircle()
@@ -121,25 +122,32 @@ public class PlayerController : MonoBehaviour
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
 
         Vector3 direction = (_circle.transform.position - transform.position).normalized;
-        hookRb.velocity = direction * _hookSpeed;
+        if (_slowMo._isSlowMo)
+        {
+            hookRb.velocity = direction * (_hookSpeed * 2);
+        }
+        else
+        {
+            hookRb.velocity = direction * _hookSpeed;
+        }
 
         _lineRenderer.enabled = true;
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, transform.position);
 
-      
+
     }
 
 
     public void StartGrapple(Vector3 hitPoint, GameObject go)
     {
         grapplePoint = hitPoint;
-        
+
         _isGrappling = true;
 
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, hitPoint);
-        Vector3 direction = _spawnHook.transform.position - transform.position; 
+        Vector3 direction = _spawnHook.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(direction);
         _grapPointPartContener.transform.rotation = rotation;
         _fireGrappinPart.Play();
@@ -174,12 +182,12 @@ public class PlayerController : MonoBehaviour
 
     public void StopGrapple()
     {
-        if(_spawnHook != null)
+        if (_spawnHook != null)
         {
             _spawnHook.GetComponent<Hook>().ChangePlatMat();
         }
         _isGrappling = false;
-        _isSuspended = false;  
+        _isSuspended = false;
         Destroy(_spawnHook);
         _lineRenderer.enabled = false;
     }
@@ -188,8 +196,8 @@ public class PlayerController : MonoBehaviour
     {
         if (_lineRenderer.enabled)
         {
-            _lineRenderer.SetPosition(0, transform.position);  
-            _lineRenderer.SetPosition(1, grapplePoint);      
+            _lineRenderer.SetPosition(0, transform.position);
+            _lineRenderer.SetPosition(1, grapplePoint);
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SlowMotion : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
-    [SerializeField] private bool _isSlowMo = false;
+    public bool _isSlowMo = false;
     public int slowMoCount;
     [SerializeField] private Timer _timer;
     private bool _isInCD = false;
