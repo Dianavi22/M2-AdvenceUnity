@@ -65,6 +65,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private ParticleSystem _bgPart;
     [SerializeField] private List<Color32> _bgPartColors;
 
+    [SerializeField] List<GameObject> allPlat = new List<GameObject>();
+
+    [SerializeField] GameObject platGOLevel1;
+    [SerializeField] GameObject platGOLevel2;
+    [SerializeField] GameObject platGOLevel3;
+    [SerializeField] GameObject platGOLevel4;
+
+
     private bool _phase2Done = false;
     private bool _phase3Done = false;
     private bool _phase4Done = false;
@@ -114,6 +122,8 @@ public class LevelManager : MonoBehaviour
             _phase2Done = true;
             ChangePhase();
             phaseRestart = new Vector3(23, -20, 0);
+            platGOLevel2.SetActive(true);
+            platGOLevel1.SetActive(false);
             for (int i = 0; i < walls2.Count; i++)
             {
                 walls2[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
@@ -130,6 +140,10 @@ public class LevelManager : MonoBehaviour
         {
             _phase3Done = true;
             ChangePhase();
+            platGOLevel3.SetActive(true);
+            platGOLevel1.SetActive(false);
+            platGOLevel2.SetActive(false);
+
             phaseRestart = new Vector3(-104, 70.4000015f, 0);
             for (int i = 0; i < walls3.Count; i++)
             {
@@ -150,6 +164,10 @@ public class LevelManager : MonoBehaviour
                 _isLastLevel = true;
                 _phase4Done = true;
                 ChangePhase();
+                platGOLevel4.SetActive(true);
+                platGOLevel2.SetActive(false);
+                platGOLevel1.SetActive(false);
+                platGOLevel3.SetActive(false);
                 phaseRestart = new Vector3(-103, 68, 0);
                 for (int i = 0; i < walls4.Count; i++)
                 {
@@ -204,8 +222,13 @@ public class LevelManager : MonoBehaviour
         {
             _imgButtons[i].material = _levelMATS[phase - 1];
         }
-        
-          
+        for (int i = 0; i < allPlat.Count; i++)
+        {
+            allPlat[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
+            allPlat[i].GetComponentInChildren<ParticleSystem>().GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
+            allPlat[i].GetComponentInChildren<ParticleSystem>().GetComponentInChildren<ParticleSystem>().GetComponent<ParticleSystemRenderer>().material = _levelMATS[phase - 1];
+        }
+
         var particleSystem = _bgPart.GetComponent<ParticleSystem>();
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[particleSystem.particleCount];
         int particleCount = particleSystem.GetParticles(particles);
