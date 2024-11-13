@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ParticleSystem _fireGrappinPart;
     [SerializeField] GameObject _grapPointPartContener;
 
+
+
     void Start()
     {
         if (_lineRenderer != null)
@@ -171,6 +173,7 @@ public class PlayerController : MonoBehaviour
 
     public void StopGrapple()
     {
+        _spawnHook.GetComponent<Hook>().ChangePlatMat();
         _isGrappling = false;
         _isSuspended = false;  
         Destroy(_spawnHook);

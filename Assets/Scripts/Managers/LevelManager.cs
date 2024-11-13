@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
     [Header("Materials")]
     [SerializeField] List<Material> _trailMaterials = new List<Material>();
     [SerializeField] List<Material> _levelMATS;
+    [SerializeField] List<Material> _platMat;
     [SerializeField] List<Material> _hooksMATS;
     [SerializeField] Material _playerMAT;
     [SerializeField] Material _wallMatShader;
@@ -210,7 +211,7 @@ public class LevelManager : MonoBehaviour
         }
         for (int i = 0; i < allPlat.Count; i++)
         {
-            allPlat[i].GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
+            allPlat[i].GetComponent<MeshRenderer>().material = _platMat[i];
         }
 
         var particleSystem = _bgPart.GetComponent<ParticleSystem>();

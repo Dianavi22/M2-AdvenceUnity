@@ -11,6 +11,9 @@ public class Hook : MonoBehaviour
     private PlayerController _playerController;
    
     [SerializeField] private ConfigurableJoint joint;
+    [SerializeField] Material _cyan;
+    private Material _thisMat;
+    private MeshRenderer _meshPlat;
 
     private void Awake()
     {
@@ -38,9 +41,21 @@ public class Hook : MonoBehaviour
                 _rb.isKinematic = true;
                 gameObject.transform.position = hitPoint;
 
+                _thisMat = collision.collider.gameObject.GetComponent<MeshRenderer>().material;
+                collision.collider.gameObject.GetComponent<MeshRenderer>().material = _cyan;
+                this.GetComponentInChildren<ParticleSystem>().Play();
+                _meshPlat = collision.collider.gameObject.GetComponent<MeshRenderer>();
                 SetUpConfigurableJoint();
             }
         }
+    }
+
+    
+
+
+    public void ChangePlatMat()
+    {
+        _meshPlat.gameObject.GetComponent<MeshRenderer>().material = _thisMat;
     }
 
     private void SetUpConfigurableJoint()
