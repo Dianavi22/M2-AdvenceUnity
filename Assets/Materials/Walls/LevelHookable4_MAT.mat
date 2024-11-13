@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Level2_MAT
+  m_Name: LevelHookable4_MAT
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -79,6 +79,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.7529412, b: 0.16436553, a: 1}
-    - _EmissionColor: {r: 0.10980385, g: 1.4980391, b: 0.23085025, a: 1}
+    - _Color: {r: 0.7529412, g: 0.69781864, b: 0, a: 1}
+    - _EmissionColor: {r: 5.9921565, g: 4.820638, b: 0.43921533, a: 1}
   m_BuildTextureStacks: []

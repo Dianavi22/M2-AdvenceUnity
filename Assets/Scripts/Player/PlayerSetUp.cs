@@ -117,6 +117,7 @@ public class PlayerSetUp : MonoBehaviour
 
     public IEnumerator RespawnPlayer(Vector3 deathZone)
     {
+        print("RespawnPlayer");
         _timeLerpDissolve = 0;
         _rb.useGravity = false;
         _rb.velocity = Vector3.zero;
@@ -135,6 +136,8 @@ public class PlayerSetUp : MonoBehaviour
 
     private void DespawnPlayer()
     {
+        print("DespawnPlayer");
+
         minDissolve = -1;
         maxDissolve = 1;
         _isDissolve = true;
@@ -145,6 +148,7 @@ public class PlayerSetUp : MonoBehaviour
         _rb.velocity = new Vector3(0, 0, 0);
         _playerController._isGrappling = false;
         isInDeathZone = false;
+        print("StopGrapple");
         this.gameObject.GetComponent<PlayerController>().StopGrapple();
         _playerController.enabled = false;
         _rb.useGravity = false;

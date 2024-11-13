@@ -211,7 +211,7 @@ public class LevelManager : MonoBehaviour
         }
         for (int i = 0; i < allPlat.Count; i++)
         {
-            allPlat[i].GetComponent<MeshRenderer>().material = _platMat[i];
+            allPlat[i].GetComponent<MeshRenderer>().material = _platMat[phase - 1];
         }
 
         var particleSystem = _bgPart.GetComponent<ParticleSystem>();

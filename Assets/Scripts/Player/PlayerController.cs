@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -173,7 +174,10 @@ public class PlayerController : MonoBehaviour
 
     public void StopGrapple()
     {
-        _spawnHook.GetComponent<Hook>().ChangePlatMat();
+        if(_spawnHook != null)
+        {
+            _spawnHook.GetComponent<Hook>().ChangePlatMat();
+        }
         _isGrappling = false;
         _isSuspended = false;  
         Destroy(_spawnHook);
