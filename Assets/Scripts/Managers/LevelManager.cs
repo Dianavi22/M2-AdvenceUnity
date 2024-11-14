@@ -93,6 +93,7 @@ public class LevelManager : MonoBehaviour
             _shpereInPlayer.SetActive(true);
             _fakeSlider.SetActive(false);
             _slider.SetActive(true);
+            _collisionPart.gameObject.SetActive(true);
             _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
             _bgPart.Play();

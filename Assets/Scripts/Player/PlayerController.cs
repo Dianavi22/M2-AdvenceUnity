@@ -192,7 +192,14 @@ public class PlayerController : MonoBehaviour
     {
         if (_spawnHook != null)
         {
-            _spawnHook.GetComponent<Hook>().ChangePlatMat();
+            try
+            {
+                _spawnHook.GetComponent<Hook>().ChangePlatMat();
+            }
+            catch
+            {
+                //OSEF
+            }
         }
         _isGrappling = false;
         _isSuspended = false;

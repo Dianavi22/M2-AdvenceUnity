@@ -24,7 +24,7 @@ public class Item : MonoBehaviour
         {
             _slowmotion.slowMoCount += 10;
             _sliderSlowMo.value += _slowmotion.slowMoCount / 100;
-
+            other.GetComponent<Player>().TakeItemVFX();
             _gameManager.currentNumberItem++;
             Destroy(gameObject);
         }

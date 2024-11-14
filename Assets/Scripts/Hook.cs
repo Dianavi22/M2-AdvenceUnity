@@ -48,7 +48,7 @@ public class Hook : MonoBehaviour
                 collision.collider.gameObject.GetComponent<MeshRenderer>().material = _cyan;
 
                 ParticleSystem _grapPart = this.GetComponentInChildren<ParticleSystem>();
-                print(_levelManager.phase);
+               
                 _grapPart.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];
                 _grapPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMat[_levelManager.phase - 1];
                 _grapPart.Play();
@@ -59,7 +59,9 @@ public class Hook : MonoBehaviour
         }
     }
 
-    
+    private void Start()
+    {
+    }
 
 
     public void ChangePlatMat()
@@ -102,4 +104,5 @@ public class Hook : MonoBehaviour
 
         }
     }
+
 }
