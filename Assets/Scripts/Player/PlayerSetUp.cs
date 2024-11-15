@@ -172,6 +172,7 @@ public class PlayerSetUp : MonoBehaviour
 
     public IEnumerator TPSetUp(Vector3 _newPosition)
     {
+        yield return new WaitForSeconds(0.5f);
         _trailRenderer.time = 0;
         _rb.velocity = new Vector3(0, 0, 0);
         this.gameObject.GetComponent<PlayerController>().StopGrapple();

@@ -20,6 +20,7 @@ public class Teleportation : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<Player>().isTeleport = true;
             StartCoroutine(_playerSetUp.TPSetUp(_otbjectToTP.transform.position));
         }
     }
