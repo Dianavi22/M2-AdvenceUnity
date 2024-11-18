@@ -19,10 +19,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] DataManager _dataManager;
     [SerializeField] TMP_Text _newRecordTxt;
     [SerializeField] TMP_Text _newRecordDeathTxt;
+    [SerializeField] ShakyCame _shakyCame;
+    [SerializeField] GameObject _victoryPart;
+    [SerializeField] GameObject _playerVictoryPart;
+
     public bool isFinish;
     void Start()
     {
         isFinish = false;
+
     }
 
     void Update()
@@ -30,19 +35,29 @@ public class GameManager : MonoBehaviour
         _nbItemText.text = currentNumberItem.ToString();
         if (isFinish)
         {
-            Victory();
+            StartCoroutine(VictoryEffect());
         }
     }
 
-    private IEnumerable VictoryEffect()
+    private IEnumerator VictoryEffect()
     {
+        isFinish = true;
+        _player.GetComponent<PlayerController>().rb.useGravity = false;
+        _player.GetComponent<PlayerController>().rb.velocity = Vector3.zero;
+        _victoryPart.SetActive(true);
+        _shakyCame.isShaking = true;
+        _playerVictoryPart.SetActive(true);
+        yield return new WaitForSeconds(5);
+        _shakyCame.enabled = false;
 
-        yield return new WaitForSeconds(1);
+
+        Victory();
+
     }
 
     public void Victory()
     {
-        isFinish = true;
+
         if (_timer.seconds <= _dataManager.hightScore)
         {
             _dataManager.hightScore = _timer.seconds;
@@ -63,7 +78,7 @@ public class GameManager : MonoBehaviour
         _scoreDeathText.text = nbDeath.ToString();
         DisablePlayer();
         _victoryCanvas.SetActive(true);
-        Time.timeScale = 0f;
+       // Time.timeScale = 0f;
     }
 
     private void DisablePlayer()

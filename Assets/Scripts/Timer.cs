@@ -20,9 +20,9 @@ public class Timer : MonoBehaviour
 
     [Header("Affichage du Timer")]
     [SerializeField] bool _isTextToShow; // Il y a un text pour afficher le timer
-     public TMP_Text scoreText;
+    public TMP_Text scoreText;
+    [SerializeField] GameManager _gameManager;
 
-    
 
     public int _slowMoMulti = 1;
 
@@ -32,15 +32,17 @@ public class Timer : MonoBehaviour
     }
     void Update()
     {
-        if (_isIncrement)
+        if (!_gameManager.isFinish)
         {
-            IncreaseTimer();
+            if (_isIncrement)
+            {
+                IncreaseTimer();
+            }
+            else
+            {
+                DecrementTimer();
+            }
         }
-        else
-        {
-            DecrementTimer();
-        }
-
     }
 
     void IncreaseTimer()
