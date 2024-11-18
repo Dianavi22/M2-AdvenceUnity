@@ -4,6 +4,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] ParticleSystem _takeItemPart;
+    [SerializeField] ParticleSystem _tpScaleDownPart;
+    [SerializeField] ParticleSystem _tpScaleUpPart;
     public bool isTeleport = false;
     [SerializeField] GameObject _gfx;
 
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour
     {
         Vector3 targetScale = Vector3.zero;
         float elapsedTime = 0f;
-
+        _tpScaleDownPart.Play();
         while (elapsedTime < scaleDownDuration)
         {
             _gfx.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / scaleDownDuration);
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
     {
         Vector3 targetScale = initialScale;
         float elapsedTime = 0f;
-
+        _tpScaleUpPart.Play();
         while (elapsedTime < scaleUpDuration)
         {
             _gfx.transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, elapsedTime / scaleUpDuration);

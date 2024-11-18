@@ -59,11 +59,6 @@ public class Hook : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-    }
-
-
     public void ChangePlatMat()
     {
         _meshPlat.gameObject.GetComponent<MeshRenderer>().material = _thisMat;
@@ -93,7 +88,6 @@ public class Hook : MonoBehaviour
         limitSpring.spring = 2;
         limitSpring.damper = 5;
         joint.linearLimitSpring = limitSpring;
-
     }
 
     private void OnTriggerEnter(Collider other)

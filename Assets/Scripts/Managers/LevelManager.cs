@@ -74,6 +74,11 @@ public class LevelManager : MonoBehaviour
     private bool _phase3Done = false;
     private bool _phase4Done = false;
 
+    [SerializeField] AudioSource _firstAudioSource;
+    [SerializeField] AudioSource _audioSourceLevel1;
+    [SerializeField] AudioSource _audioSourceLevel2;
+    [SerializeField] AudioSource _audioSourceLevel3;
+
     private void Start()
     {
 
@@ -85,6 +90,9 @@ public class LevelManager : MonoBehaviour
         if (phase == 0 && _playerFirstMove.isReadyToBegin)
         {
             phase = 1;
+            _firstAudioSource.volume = 0;
+          //  _audioSourceLevel1.volume = 1;
+          //  _firstAudioSource.gameObject.SetActive(false);
             _timer.enabled = true;
             _playerFirstMove.enabled = false;
             RenderSettings.skybox = _skyBoxMAT;
@@ -122,6 +130,8 @@ public class LevelManager : MonoBehaviour
         if (phase == 2 && !_phase2Done)
         {
             _phase2Done = true;
+           // _audioSourceLevel1.volume = 0;
+           // _audioSourceLevel2.volume = 1;
             ChangePhase();
             phaseRestart = new Vector3(23, -20, 0);
             for (int i = 0; i < walls2.Count; i++)
@@ -139,6 +149,8 @@ public class LevelManager : MonoBehaviour
         if (phase == 3 && !_phase3Done)
         {
             _phase3Done = true;
+          //  _audioSourceLevel2.volume = 0;
+           // _audioSourceLevel3.volume = 1;
             ChangePhase();
 
             phaseRestart = new Vector3(-104, 70.4000015f, 0);

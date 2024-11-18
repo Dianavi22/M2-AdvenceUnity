@@ -34,6 +34,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerable VictoryEffect()
+    {
+
+        yield return new WaitForSeconds(1);
+    }
+
     public void Victory()
     {
         isFinish = true;

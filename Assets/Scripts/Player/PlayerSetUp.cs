@@ -21,7 +21,7 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] ShakyCame _shakyCam;
     [SerializeField] GameManager _gameManager;
     [SerializeField] private bool isDebugMode;
-
+    public bool isTp = false;
     void Start()
     {
         startTranform = this.transform;
@@ -117,24 +117,27 @@ public class PlayerSetUp : MonoBehaviour
 
     public IEnumerator RespawnPlayer(Vector3 deathZone)
     {
-        _timeLerpDissolve = 0;
-        _rb.useGravity = false;
-        _rb.velocity = Vector3.zero;
-        DespawnPlayer();
-        yield return new WaitForSeconds(1.2f);
-        _respawnPart.Play();
-        yield return new WaitForSeconds(0.1f);
-        _isDissolve = false;
-        this.transform.position = deathZone;
-
-        yield return new WaitForSeconds(0.3f);
-        AfterRespawn();
-        yield return new WaitForSeconds(1f);
-        _isDissolve = false;
+        if (!isTp)
+        {
+            _timeLerpDissolve = 0;
+            _rb.useGravity = false;
+            _rb.velocity = Vector3.zero;
+            DespawnPlayer();
+            yield return new WaitForSeconds(1.2f);
+            _respawnPart.Play();
+            yield return new WaitForSeconds(0.1f);
+            _isDissolve = false;
+            this.transform.position = deathZone;
+            yield return new WaitForSeconds(0.3f);
+            AfterRespawn();
+            yield return new WaitForSeconds(1f);
+            _isDissolve = false;
+        }
     }
 
     private void DespawnPlayer()
     {
+
         minDissolve = -1;
         maxDissolve = 1;
         _isDissolve = true;
@@ -170,7 +173,7 @@ public class PlayerSetUp : MonoBehaviour
 
     }
 
-    public IEnumerator TPSetUp(Vector3 _newPosition)
+    public IEnumerator TPSetUp(Vector3 _newPosition, Teleportation _tp)
     {
         yield return new WaitForSeconds(0.5f);
         _trailRenderer.time = 0;
@@ -179,6 +182,7 @@ public class PlayerSetUp : MonoBehaviour
         transform.position = _newPosition;
         yield return new WaitForSeconds(0.1f);
         _trailRenderer.time = 1;
+        isTp = false;
 
     }
 }
