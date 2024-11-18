@@ -79,6 +79,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] AudioSource _audioSourceLevel2;
     [SerializeField] AudioSource _audioSourceLevel3;
 
+    [SerializeField] ParticleSystem _sliderPart;
+
     private void Start()
     {
 
@@ -105,6 +107,7 @@ public class LevelManager : MonoBehaviour
             _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
             StartCoroutine(Glitch());
             _bgPart.Play();
+            _sliderPart.Play();
             for (int i = 0; i < _txtToChange.Count; i++)
             {
                 _txtToChange[i].font = _Startfont;
@@ -130,9 +133,12 @@ public class LevelManager : MonoBehaviour
         if (phase == 2 && !_phase2Done)
         {
             _phase2Done = true;
-           // _audioSourceLevel1.volume = 0;
-           // _audioSourceLevel2.volume = 1;
+            // _audioSourceLevel1.volume = 0;
+            // _audioSourceLevel2.volume = 1;
+
             ChangePhase();
+            _sliderPart.transform.position = new Vector3(_sliderPart.transform.transform.position.x, _sliderPart.transform.transform.position.y + 0.3f, _sliderPart.transform.transform.position.z);
+
             phaseRestart = new Vector3(23, -20, 0);
             for (int i = 0; i < walls2.Count; i++)
             {
@@ -152,6 +158,7 @@ public class LevelManager : MonoBehaviour
           //  _audioSourceLevel2.volume = 0;
            // _audioSourceLevel3.volume = 1;
             ChangePhase();
+            _sliderPart.transform.position = new Vector3(_sliderPart.transform.transform.position.x, _sliderPart.transform.transform.position.y + 0.3f, _sliderPart.transform.transform.position.z);
 
             phaseRestart = new Vector3(-104, 70.4000015f, 0);
             for (int i = 0; i < walls3.Count; i++)
@@ -174,6 +181,7 @@ public class LevelManager : MonoBehaviour
                 _isLastLevel = true;
                 _phase4Done = true;
                 ChangePhase();
+                _sliderPart.transform.position = new Vector3(_sliderPart.transform.transform.position.x, _sliderPart.transform.transform.position.y + 0.3f, _sliderPart.transform.transform.position.z);
 
                 phaseRestart = new Vector3(-103, 68, 0);
                 for (int i = 0; i < walls4.Count; i++)
