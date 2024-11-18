@@ -8,7 +8,7 @@ public class PhaseTrigger : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private int _idCurrentLevel;
-    [SerializeField] private List<GameObject> _wallLastLevel;
+    [SerializeField] private List<GameObject> _hookableLastLevel;
     public bool _isLastLevel = false;
     void Start()
     {
@@ -32,10 +32,9 @@ public class PhaseTrigger : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < _wallLastLevel.Count; i++)
+                for (int i = 0; i < _hookableLastLevel.Count; i++)
                 {
-                    _wallLastLevel[i].SetActive(true);
-                    _wallLastLevel[i].GetComponent<DestroyablePlat>().isDestroying = false;
+                    StartCoroutine(_hookableLastLevel[i].GetComponent<DestroyablePlat>().RespawnPlat());
 
                 }
             }

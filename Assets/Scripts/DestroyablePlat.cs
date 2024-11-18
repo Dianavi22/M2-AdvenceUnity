@@ -9,6 +9,8 @@ public class DestroyablePlat : MonoBehaviour
     public bool isDestroying = false;
     private LevelManager _levelManager;
     private GameObject _currentHook;
+    [SerializeField] ParticleSystem _destroyPS;
+    [SerializeField] ParticleSystem _respawnPS;
     void Start()
     {
         _playerController = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
@@ -22,12 +24,26 @@ public class DestroyablePlat : MonoBehaviour
 
     private void DestroyPlat()
     {
+        _destroyPS.Play();
         isDestroying = true;
         if (_currentHook != null)
         {
             _playerController.StopGrapple();
         }
-        this.gameObject.SetActive(false);
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        this.gameObject.GetComponent<Collider>().enabled = false;
+    }
+
+    public IEnumerator RespawnPlat()
+    {
+        if (isDestroying)
+        {
+            _respawnPS.Play();
+            isDestroying = false;
+            yield return new WaitForSeconds(0.2f);
+        }
+        this.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        this.gameObject.GetComponent<Collider>().enabled = true;
     }
 
     private void OnCollisionEnter(Collision collision)
