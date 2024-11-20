@@ -132,6 +132,7 @@ public class PlayerSetUp : MonoBehaviour
             AfterRespawn();
             yield return new WaitForSeconds(1f);
             _isDissolve = false;
+            this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.localPosition = new Vector3(0, 4, 13);
         }
     }
 
