@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ReelMainMenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject _fakeMenu;
-    [SerializeField] GameObject _trueMenu;
+
 
     [SerializeField] GameObject _titleWiggle;
     [SerializeField] GameObject _title;
