@@ -5,7 +5,7 @@ using UnityEngine;
 // Il prend directement son transform ccomme point de depart de la shaky came
 public class ShakyCame : MonoBehaviour
 {
-    [SerializeField] Transform _pointToShake; //Camera
+    private Transform _pointToShake; //Camera
     private float _speed = 0; // vitesse de deplacement de la camera (pas besoin d'être change : a 0)
     private Vector3 _offset;
 
@@ -22,6 +22,7 @@ public class ShakyCame : MonoBehaviour
 
     private void Start()
     {
+        _pointToShake = this.gameObject.transform;
     }
 
     void Update()
