@@ -5,13 +5,13 @@ using UnityEngine;
 // Il prend directement son transform ccomme point de depart de la shaky came
 public class ShakyCame : MonoBehaviour
 {
-    private Transform _pointToShake; //Camera
+    [SerializeField] Transform _pointToShake; //Camera
     private float _speed = 0; // vitesse de deplacement de la camera (pas besoin d'être change : a 0)
     private Vector3 _offset;
 
     [Header("Configuration de la duree et de la distance de secousse")]
-    public float _duration = 1f; // Duree de la Shaky came (1 seconde par defaut)
-    [SerializeField] float _radius = 1; // Distance de secousse de la shaky came (1 par defaut)
+    public float _duration = 0.2f; // Duree de la Shaky came (1 seconde par defaut)
+    [SerializeField] float _radius = 0.2f; // Distance de secousse de la shaky came (1 par defaut)
                                         // La shaky came fait des lerps tres vite entre des points
                                         // dans une sphere autour de lui de radius _radius
                                         // pendant une duree de _duration depuis le point de _pointToShake
@@ -22,7 +22,6 @@ public class ShakyCame : MonoBehaviour
 
     private void Start()
     {
-        _pointToShake = GetComponent<Transform>();
     }
 
     void Update()

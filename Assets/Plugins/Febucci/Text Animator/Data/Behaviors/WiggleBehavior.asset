@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WiggleBehavior
   m_EditorClassIdentifier: 
   tagID: wiggle
-  baseAmplitude: 2.15
-  baseFrequency: 13.81
-  baseWaveSize: 0.901
+  baseAmplitude: 2.22
+  baseFrequency: 14.08
+  baseWaveSize: 1
