@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] ParticleSystem _deathPart;
     [SerializeField] ParticleSystem _sliderPart;
     [SerializeField] ParticleSystem _collisionPart;
+    [SerializeField] ParticleSystem _slowMoPart;
 
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
@@ -249,13 +250,22 @@ public class LevelManager : MonoBehaviour
     {
         _trail.GetComponent<TrailRenderer>().material = _trailMaterials[phase - 1];
         _playerController.gameObject.GetComponent<LineRenderer>().material = _hooksMATS[phase - 1];
+        _collisionPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        _deathPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        _hitPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        _slowMoPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
     }
 
     private void SetParticules()
     {
-        _collisionPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
-        _deathPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
-        _hitPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        _slowMoPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _deathPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _collisionPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart1.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _hitPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
     }
 
     private void SetShader()
@@ -268,15 +278,7 @@ public class LevelManager : MonoBehaviour
     private void SetMaterials()
     {
         _shpereInPlayer.GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
-        _deathPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _collisionPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _sprayPart1.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _hitPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _bgSlider.GetComponent<Image>().material = _levelMATS[phase - 1];
-
     }
 
     private void SetBgPart()
@@ -290,7 +292,6 @@ public class LevelManager : MonoBehaviour
             particles[i].startColor = newColor;
         }
         particleSystem.SetParticles(particles, particleCount);
-
         var mainModule = particleSystem.main;
         mainModule.startColor = new ParticleSystem.MinMaxGradient(newColor);
     }

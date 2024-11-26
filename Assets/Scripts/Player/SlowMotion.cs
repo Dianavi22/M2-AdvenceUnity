@@ -11,6 +11,8 @@ public class SlowMotion : MonoBehaviour
     [SerializeField] private Timer _timer;
     private bool _isInCD = false;
     [SerializeField] Slider _sliderSlowMo;
+    private bool _isPlaying;
+    [SerializeField] ParticleSystem _slowMoPart;
     void Start()
     {
         _sliderSlowMo.value = slowMoCount;
@@ -42,6 +44,16 @@ public class SlowMotion : MonoBehaviour
         }
         _sliderSlowMo.value = slowMoCount;
 
+        if (_isSlowMo && !_isPlaying)
+        {
+            _isPlaying = true;
+            _slowMoPart.Play();
+        }
+        else
+        {
+            _slowMoPart.Stop();
+            _isPlaying = false;
+        }
     }
 
     private IEnumerator SlowMoDecrement()
