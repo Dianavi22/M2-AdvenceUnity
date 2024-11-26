@@ -10,14 +10,11 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public int phase;
-
+    [HideInInspector] public int phase;
     public Vector3 phaseRestart;
+    [SerializeField] List<GameObject> allPlat = new List<GameObject>();
     [SerializeField] private MeshRenderer _playerMesh;
     [SerializeField] private PostProcessVolume _glitch;
-    [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
-    [SerializeField] private List<TMP_Text> _txtListFlat = new List<TMP_Text>();
-    [SerializeField] private TMP_FontAsset _Startfont;
 
     [Header("GameObjects")]
     [SerializeField] List<GameObject> walls1 = new List<GameObject>();
@@ -39,12 +36,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Material _spikeMAT;
 
     [Header("ParticleSystem")]
+    [SerializeField] List<ParticleSystem> _borderPausePart;
     [SerializeField] private ParticleSystem _playerMiddlePart;
     [SerializeField] ParticleSystem _hitPart;
     [SerializeField] ParticleSystem _sprayPart1;
     [SerializeField] ParticleSystem _sprayPart2;
     [SerializeField] ParticleSystem _sprayPart3;
     [SerializeField] ParticleSystem _deathPart;
+    [SerializeField] ParticleSystem _sliderPart;
     [SerializeField] ParticleSystem _collisionPart;
 
     [Header("References")]
@@ -54,25 +53,22 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Timer _timer;
     [SerializeField] private Camera _camera;
 
-
-    [SerializeField] private List<Color32> _colors;
+    [Header("UI")]
     [SerializeField] GameObject _slider;
     [SerializeField] GameObject _fakeSlider;
-    [SerializeField] GameObject _bgSlider;
-
-    [SerializeField] List<ParticleSystem> _borderPausePart;
+    [SerializeField] List<TMP_Text> _txtToChange = new List<TMP_Text>();
+    [SerializeField] private TMP_FontAsset _Startfont;
     [SerializeField] List<Image> _imgButtons;
+    [SerializeField] private List<TMP_Text> _txtList = new List<TMP_Text>();
+    [SerializeField] private List<TMP_Text> _txtListFlat = new List<TMP_Text>();
 
-    [SerializeField] private bool _isLastLevel = false;
+
+    [Header("Background")]
+    [SerializeField] private List<Color32> _colors;
+    [SerializeField] GameObject _bgSlider;
     [SerializeField] private ParticleSystem _bgPart;
     [SerializeField] private List<Color32> _bgPartColors;
 
-    [SerializeField] List<GameObject> allPlat = new List<GameObject>();
-    [SerializeField] List<TMP_Text> _txtToChange = new List<TMP_Text>();
-
-    private bool _phase2Done = false;
-    private bool _phase3Done = false;
-    private bool _phase4Done = false;
 
     [Header("Audio")]
     [SerializeField] AudioSource _firstAudioSource;
@@ -81,13 +77,32 @@ public class LevelManager : MonoBehaviour
     [SerializeField] AudioSource _audioSourceLevel3;
     [SerializeField] AudioSource _audioSourceLevel4;
 
-    [SerializeField] ParticleSystem _sliderPart;
-
+    private bool _isLastLevel = false;
+    private bool _phase2Done = false;
+    private bool _phase3Done = false;
+    private bool _phase4Done = false;
     private void Start()
     {
-
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
         _playerController.enabled = false;
+    }
+
+    private void SetFirstPhase()
+    {
+        _firstAudioSource.gameObject.SetActive(false);
+        _timer.enabled = true;
+        _playerFirstMove.enabled = false;
+        RenderSettings.skybox = _skyBoxMAT;
+        _playerController.enabled = true;
+        _playerMesh.material = _playerMAT;
+        _shpereInPlayer.SetActive(true);
+        _fakeSlider.SetActive(false);
+        _slider.SetActive(true);
+        _collisionPart.gameObject.SetActive(true);
+        _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
+        StartCoroutine(Glitch());
+        _bgPart.Play();
+        _sliderPart.Play();
     }
     void Update()
     {
@@ -96,20 +111,7 @@ public class LevelManager : MonoBehaviour
             phase = 1;
             _firstAudioSource.volume = 0;
             _audioSourceLevel1.volume = 1;
-            _firstAudioSource.gameObject.SetActive(false);
-            _timer.enabled = true;
-            _playerFirstMove.enabled = false;
-            RenderSettings.skybox = _skyBoxMAT;
-            _playerController.enabled = true;
-            _playerMesh.material = _playerMAT;
-            _shpereInPlayer.SetActive(true);
-            _fakeSlider.SetActive(false);
-            _slider.SetActive(true);
-            _collisionPart.gameObject.SetActive(true);
-            _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
-            StartCoroutine(Glitch());
-            _bgPart.Play();
-            _sliderPart.Play();
+            SetFirstPhase();
             for (int i = 0; i < _txtToChange.Count; i++)
             {
                 _txtToChange[i].font = _Startfont;
@@ -209,32 +211,13 @@ public class LevelManager : MonoBehaviour
         _glitch.weight = 1.0f;
         yield return new WaitForSeconds(0.4f);
         _glitch.weight = 0f;
-
-
     }
-
 
     public void ChangePhase()
     {
         _shakyCame._duration = 0.2f;
         _shakyCame.isShaking = true;
-        _trail.GetComponent<TrailRenderer>().material = _trailMaterials[phase - 1];
-        _shpereInPlayer.GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
-        _wallMatShader.SetColor("_Color", value: _levelMATS[phase - 1].color * 20);
-        _skyBoxMAT.SetColor("_Color", value: _colors[phase - 1]);
-        _spikeMAT.SetColor("_ColorMax", value: _levelMATS[phase - 1].color * 5);
-        _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _hitPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _hitPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
-        _playerController.gameObject.GetComponent<LineRenderer>().material = _hooksMATS[phase - 1];
-        _sprayPart1.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _bgSlider.GetComponent<Image>().material = _levelMATS[phase - 1];
-        _deathPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _deathPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
-        _collisionPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
-        _collisionPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        SetDesignLevel();
         _sprayPart1.Play();
         for (int i = 0; i < _borderPausePart.Count; i++)
         {
@@ -248,7 +231,56 @@ public class LevelManager : MonoBehaviour
         {
             allPlat[i].GetComponent<MeshRenderer>().material = _platMat[phase - 1];
         }
+        SetBgPart();
+    }
 
+   
+
+    #region SetLevel
+    private void SetDesignLevel()
+    {
+        SetTrail();
+        SetShader();
+        SetMaterials();
+        SetParticules();
+    }
+
+    private void SetTrail()
+    {
+        _trail.GetComponent<TrailRenderer>().material = _trailMaterials[phase - 1];
+        _playerController.gameObject.GetComponent<LineRenderer>().material = _hooksMATS[phase - 1];
+    }
+
+    private void SetParticules()
+    {
+        _collisionPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        _deathPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        _hitPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+    }
+
+    private void SetShader()
+    {
+        _wallMatShader.SetColor("_Color", value: _levelMATS[phase - 1].color * 20);
+        _skyBoxMAT.SetColor("_Color", value: _colors[phase - 1]);
+        _spikeMAT.SetColor("_ColorMax", value: _levelMATS[phase - 1].color * 5);
+    }
+
+    private void SetMaterials()
+    {
+        _shpereInPlayer.GetComponent<MeshRenderer>().material = _levelMATS[phase - 1];
+        _deathPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _collisionPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart1.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart2.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _hitPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _bgSlider.GetComponent<Image>().material = _levelMATS[phase - 1];
+
+    }
+
+    private void SetBgPart()
+    {
         var particleSystem = _bgPart.GetComponent<ParticleSystem>();
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[particleSystem.particleCount];
         int particleCount = particleSystem.GetParticles(particles);
@@ -262,5 +294,5 @@ public class LevelManager : MonoBehaviour
         var mainModule = particleSystem.main;
         mainModule.startColor = new ParticleSystem.MinMaxGradient(newColor);
     }
-
+    #endregion
 }
