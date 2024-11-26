@@ -7,9 +7,10 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject _credits;
     private bool _isActive;
+    [SerializeField] GameObject _fakeMenuCanvas;
     void Start()
     {
-
+        _fakeMenuCanvas.SetActive(true);
     }
 
     void Update()

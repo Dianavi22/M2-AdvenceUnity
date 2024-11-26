@@ -20,29 +20,16 @@ public class ReelMainMenuManager : MonoBehaviour
     [SerializeField] ParticleSystem _bolt1;
     [SerializeField] ParticleSystem _bolt2;
     [SerializeField] ParticleSystem _explision;
+    [SerializeField] GameObject _reelMenu;
+    [SerializeField] GameObject _reelMenuCanvas;
 
     private bool _isTrueMenu;
 
     private void Start()
     {
 
-        //if (PlayerPrefs.HasKey("Finished"))
-        //{
-        //    //_isTrueMenu = PlayerPrefs.GetFloat("Finished");
-        //    _isTrueMenu = false;
-        //}
-        //else
-        //{
-        //    if (_isTrueMenu)
-        //    {
-        //        _fakeMenu.SetActive(false);
-        //        _trueMenu.SetActive(true);
-        //    }
-        //    else{
-        //        _trueMenu.SetActive(false);
-        //        _fakeMenu.SetActive(true);
-        //    }
-        //}
+        _reelMenu.SetActive(true);
+        _reelMenuCanvas.SetActive(true);    
         typesSentence.WriteMachinEffect("Neon Swing Game", _title.GetComponent<TMP_Text>(), 0.09f);
         StartCoroutine(StyleButtons());
     }

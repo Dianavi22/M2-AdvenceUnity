@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _victoryPart;
     [SerializeField] GameObject _playerVictoryPart;
 
+
     public bool isFinish;
     void Start()
     {
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("MinNbDeath", _dataManager.minNbDeath);
             _newRecordDeathTxt.gameObject.SetActive(true);
         }
+        PlayerPrefs.SetInt("Finished", 1);
         _dataManager.ShowTimer();
         _hightScore.text = _dataManager.hightScoreTxt;
         _hightDeathScore.text = _dataManager.minNbDeath.ToString();

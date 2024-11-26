@@ -5,32 +5,32 @@ using UnityEngine;
 
 public class DataMainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject _trueMenu;
-    [SerializeField] GameObject _fakeMenu;
-    private int _isTrueMenu;
+    [SerializeField] ReelMainMenuManager _trueMenu;
+    [SerializeField] MainMenuManager _fakeMenu;
+     private int _isTrueMenu;
     void Start()
     {
-        if (PlayerPrefs.HasKey("Finished"))
+        if (!PlayerPrefs.HasKey("Finished"))
         {
             _isTrueMenu = PlayerPrefs.GetInt("Finished");
-            _isTrueMenu = 0;
+            PlayerPrefs.SetInt("Finished", 0);
+            _fakeMenu.enabled = true;
         }
         else
         {
+            _isTrueMenu = PlayerPrefs.GetInt("Finished");
+            print(_isTrueMenu);
             if (_isTrueMenu == 1)
             {
-                _fakeMenu.SetActive(false);
-                _trueMenu.SetActive(true);
+                _trueMenu.enabled = true;
             }
             else
             {
-                _trueMenu.SetActive(false);
-                _fakeMenu.SetActive(true);
+                _fakeMenu.enabled = true;
             }
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         

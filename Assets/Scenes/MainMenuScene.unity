@@ -221,7 +221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &134234332
 Transform:
   m_ObjectHideFlags: 0
@@ -25283,7 +25283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d201bb2ea932f54ea32be667f5b4ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointToShake: {fileID: 1638569692}
   _duration: 1
   _radius: 1
   isShaking: 0
@@ -30136,7 +30135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &541701194
 RectTransform:
   m_ObjectHideFlags: 0
@@ -86250,6 +86249,7 @@ GameObject:
   - component: {fileID: 1720872367}
   - component: {fileID: 1720872368}
   - component: {fileID: 1720872369}
+  - component: {fileID: 1720872370}
   m_Layer: 0
   m_Name: CanvasManager
   m_TagString: Untagged
@@ -86279,12 +86279,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720872366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b2fc3627cd265d44baecae98e809d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _credits: {fileID: 591386711}
+  _fakeMenuCanvas: {fileID: 880505953}
 --- !u!114 &1720872369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86292,7 +86293,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720872366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef8d837d10ce2a74d9c8655125fb67b6, type: 3}
   m_Name: 
@@ -86312,6 +86313,23 @@ MonoBehaviour:
   _bolt1: {fileID: 652604923}
   _bolt2: {fileID: 1794150699}
   _explision: {fileID: 542041304}
+  _reelMenu: {fileID: 134234331}
+  _reelMenuCanvas: {fileID: 541701193}
+--- !u!114 &1720872370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720872366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670551e5cf8817949af5d3fe097d3147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trueMenu: {fileID: 1720872369}
+  _fakeMenu: {fileID: 1720872368}
+  _isTrueMenu: 0
 --- !u!1 &1752563931
 GameObject:
   m_ObjectHideFlags: 0
