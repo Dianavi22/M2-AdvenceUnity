@@ -11,15 +11,17 @@ public class TypeSentence : MonoBehaviour
    private TMP_Text _textPlace;
    private string _textToShow;
     private float _timeBetweenChar; // Temps en Seconde
+    public bool isTyping = false;
 
     public void WriteMachinEffect(string _currentTextToShow, TMP_Text _currentTextPlace, float _currentTimeBetweenChar) // Fonction à appeler depuis un autre script
     {
+        isTyping = true;
         _textToShow = _currentTextToShow;
         _textPlace = _currentTextPlace;
         _timeBetweenChar = _currentTimeBetweenChar;
         StartCoroutine(TypeCurrentSentence(_textToShow, _textPlace));
     }
-    IEnumerator TypeCurrentSentence(string sentence, TMP_Text place)
+    public IEnumerator TypeCurrentSentence(string sentence, TMP_Text place)
     {
         foreach (char letter in sentence.ToCharArray())
         {
@@ -27,5 +29,8 @@ public class TypeSentence : MonoBehaviour
             place.text += letter;
             yield return null;
         }
+        yield return new WaitForSeconds(1.5f);
+
+        isTyping = false;
     }
 }

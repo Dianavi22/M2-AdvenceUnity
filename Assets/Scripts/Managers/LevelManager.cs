@@ -104,6 +104,7 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(Glitch());
         _bgPart.Play();
         _sliderPart.Play();
+        this.GetComponent<PauseMenu>().enabled = true;
     }
     void Update()
     {
