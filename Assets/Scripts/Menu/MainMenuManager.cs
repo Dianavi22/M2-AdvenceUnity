@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [SerializeField] GameObject _credits;
+    private bool _isActive;
+    [SerializeField] GameObject _fakeMenuCanvas;
     void Start()
     {
-        
+        _fakeMenuCanvas.SetActive(true);
     }
 
     void Update()
     {
-        
+
     }
 
     public void StartGame()
@@ -22,6 +25,16 @@ public class MainMenuManager : MonoBehaviour
 
     public void CreditButton()
     {
+        if (!_isActive)
+        {
+            _credits.SetActive(true);
+            _isActive = true;
+        }
+        else
+        {
+            _credits.SetActive(false);
+            _isActive = false;
+        }
 
     }
 

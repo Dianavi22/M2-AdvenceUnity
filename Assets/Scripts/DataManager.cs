@@ -18,7 +18,6 @@ public class DataManager : MonoBehaviour
         {
             hightScore = PlayerPrefs.GetFloat("HightScore");
             minNbDeath = PlayerPrefs.GetFloat("MinNbDeath");
-
             isFirstPart = false;
         }
         else
