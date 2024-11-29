@@ -19,7 +19,6 @@ public class DataMainMenu : MonoBehaviour
         else
         {
             _isTrueMenu = PlayerPrefs.GetInt("Finished");
-            print(_isTrueMenu);
             if (_isTrueMenu == 1)
             {
                 _trueMenu.enabled = true;

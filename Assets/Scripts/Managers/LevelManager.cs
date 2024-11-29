@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
@@ -22,8 +19,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<GameObject> walls3 = new List<GameObject>();
     [SerializeField] List<GameObject> walls4 = new List<GameObject>();
     [SerializeField] List<GameObject> plat4 = new List<GameObject>();
+    [SerializeField] List<GameObject> textToHide = new List<GameObject>();
     [SerializeField] private GameObject _shpereInPlayer;
     [SerializeField] GameObject _trail;
+    [SerializeField] GameObject _goodText;
 
     [Header("Materials")]
     [SerializeField] List<Material> _trailMaterials = new List<Material>();
@@ -82,6 +81,7 @@ public class LevelManager : MonoBehaviour
     private bool _phase2Done = false;
     private bool _phase3Done = false;
     private bool _phase4Done = false;
+    private bool _isStartGame = false;
     private void Start()
     {
         _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
@@ -101,6 +101,12 @@ public class LevelManager : MonoBehaviour
         _slider.SetActive(true);
         _collisionPart.gameObject.SetActive(true);
         _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
+        for (int i = 0; i < textToHide.Count; i++)
+        {
+            textToHide[i].SetActive(false);
+        }
+        _goodText.GetComponent<TMP_Text>().color = new UnityEngine.Color(255,255,255,255) ;
+        _isStartGame = true;
         StartCoroutine(Glitch());
         _bgPart.Play();
         _sliderPart.Play();
@@ -108,6 +114,10 @@ public class LevelManager : MonoBehaviour
     }
     void Update()
     {
+        if (_isStartGame)
+        {
+            _goodText.GetComponent<TMP_Text>().color = Color.Lerp(_goodText.GetComponent<TMP_Text>().color, new Color(0,0,0,0), Time.deltaTime*2);
+        }
         if (phase == 0 && _playerFirstMove.isReadyToBegin)
         {
             phase = 1;
