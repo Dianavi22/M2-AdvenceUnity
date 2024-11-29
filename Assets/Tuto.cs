@@ -29,9 +29,16 @@ public class Tuto : MonoBehaviour
         {
             IsFinishToReadTuto();
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_finishTuto)
         {
-            StopCoroutine(_typeSentence.TypeCurrentSentence(stringList[i], _tutoTxtPosition));
+            try
+            {
+                StopCoroutine(_typeSentence.TypeCurrentSentence(stringList[i], _tutoTxtPosition));
+            }
+            catch
+            {
+                //
+            }
             _tutoTxtPosition.color = new Color32(0, 0, 0, 0);
             _tutoTxtOkayPosition.text = "Okay...";
             _finishTuto = true;
