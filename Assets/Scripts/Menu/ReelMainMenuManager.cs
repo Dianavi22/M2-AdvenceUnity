@@ -24,6 +24,7 @@ public class ReelMainMenuManager : MonoBehaviour
     [SerializeField] GameObject _reelMenuCanvas;
 
     private bool _isTrueMenu;
+    private bool _isCreditOpen = false;
 
     private void Start()
     {
@@ -40,9 +41,20 @@ public class ReelMainMenuManager : MonoBehaviour
 
     public void CreditButton()
     {
-        _titleWiggle.SetActive(false);
-        _credits.SetActive(true);
 
+        if (_isCreditOpen)
+        {
+            _titleWiggle.GetComponent<TMP_Text>().color = new Color(0,0,0,0);
+            _credits.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
+            _isCreditOpen = true;
+        }
+        else
+        {
+            _credits.GetComponent<TMP_Text>().color = new Color(0, 0, 0, 0);
+            _titleWiggle.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
+            _isCreditOpen = false;
+        }
+       
     }
 
     public void QuitGame()

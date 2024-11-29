@@ -7,20 +7,15 @@ public class DataMainMenu : MonoBehaviour
 {
     [SerializeField] ReelMainMenuManager _trueMenu;
     [SerializeField] MainMenuManager _fakeMenu;
-     private int _isTrueMenu;
+    private int _isTrueMenu;
+    [SerializeField] private bool isDebug;
     void Start()
     {
 
         Time.timeScale = 1;
-        if (!PlayerPrefs.HasKey("Finished"))
+        if (isDebug)
         {
-            _isTrueMenu = PlayerPrefs.GetInt("Finished");
-            PlayerPrefs.SetInt("Finished", 0);
-            _fakeMenu.enabled = true;
-        }
-        else
-        {
-            _isTrueMenu = PlayerPrefs.GetInt("Finished");
+            _isTrueMenu = 1;
             if (_isTrueMenu == 1)
             {
                 _trueMenu.enabled = true;
@@ -30,10 +25,32 @@ public class DataMainMenu : MonoBehaviour
                 _fakeMenu.enabled = true;
             }
         }
+        else
+        {
+            if (!PlayerPrefs.HasKey("Finished"))
+            {
+                _isTrueMenu = PlayerPrefs.GetInt("Finished");
+                PlayerPrefs.SetInt("Finished", 0);
+                _fakeMenu.enabled = true;
+            }
+            else
+            {
+                _isTrueMenu = PlayerPrefs.GetInt("Finished");
+                if (_isTrueMenu == 1)
+                {
+                    _trueMenu.enabled = true;
+                }
+                else
+                {
+                    _fakeMenu.enabled = true;
+                }
+            }
+        }
+
     }
 
     void Update()
     {
-        
+
     }
 }

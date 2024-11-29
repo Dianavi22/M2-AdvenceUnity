@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         _fakeMenuCanvas.SetActive(true);
+        Time.timeScale = 1;
     }
 
     void Update()

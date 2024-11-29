@@ -491,6 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824a96d6870d6fa41a0859f556cfebc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTyping: 0
 --- !u!4 &153245149
 Transform:
   m_ObjectHideFlags: 0
@@ -86329,7 +86330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trueMenu: {fileID: 1720872369}
   _fakeMenu: {fileID: 1720872368}
-  _isTrueMenu: 0
+  isDebug: 1
 --- !u!1 &1752563931
 GameObject:
   m_ObjectHideFlags: 0
