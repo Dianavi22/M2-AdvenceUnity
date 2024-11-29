@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject _shpereInPlayer;
     [SerializeField] GameObject _trail;
     [SerializeField] GameObject _goodText;
+    [SerializeField] GameObject _canon;
 
     [Header("Materials")]
     [SerializeField] List<Material> _trailMaterials = new List<Material>();
@@ -45,6 +46,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] ParticleSystem _sliderPart;
     [SerializeField] ParticleSystem _collisionPart;
     [SerializeField] ParticleSystem _slowMoPart;
+    [SerializeField] ParticleSystem _partCanon;
 
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
@@ -110,6 +112,8 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(Glitch());
         _bgPart.Play();
         _sliderPart.Play();
+        _partCanon.Play();
+        _canon.GetComponent<Renderer>().enabled = false;
         this.GetComponent<PauseMenu>().enabled = true;
     }
     void Update()
@@ -227,7 +231,7 @@ public class LevelManager : MonoBehaviour
 
     public void ChangePhase()
     {
-        _shakyCame._duration = 0.2f;
+        _shakyCame._duration = 0.3f;
         _shakyCame.isShaking = true;
         SetDesignLevel();
         _sprayPart1.Play();

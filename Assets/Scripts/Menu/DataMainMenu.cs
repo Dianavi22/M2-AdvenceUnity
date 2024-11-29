@@ -10,6 +10,8 @@ public class DataMainMenu : MonoBehaviour
      private int _isTrueMenu;
     void Start()
     {
+
+        Time.timeScale = 1;
         if (!PlayerPrefs.HasKey("Finished"))
         {
             _isTrueMenu = PlayerPrefs.GetInt("Finished");
