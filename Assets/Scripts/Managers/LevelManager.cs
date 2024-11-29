@@ -47,6 +47,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] ParticleSystem _collisionPart;
     [SerializeField] ParticleSystem _slowMoPart;
     [SerializeField] ParticleSystem _partCanon;
+    [SerializeField] ParticleSystem _partInCanon;
 
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
@@ -268,6 +269,7 @@ public class LevelManager : MonoBehaviour
         _collisionPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
         _deathPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
         _hitPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
+        _partInCanon.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
         _slowMoPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMATS[phase - 1];
     }
 
@@ -281,6 +283,8 @@ public class LevelManager : MonoBehaviour
         _sprayPart3.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _playerMiddlePart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
         _hitPart.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _partCanon.GetComponent<Renderer>().material = _levelMATS[phase - 1];
+        _partInCanon.GetComponent<Renderer>().material = _levelMATS[phase - 1];
     }
 
     private void SetShader()
