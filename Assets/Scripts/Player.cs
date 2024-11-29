@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] ParticleSystem _takeItemPart;
     [SerializeField] ParticleSystem _tpScaleDownPart;
     [SerializeField] ParticleSystem _tpScaleUpPart;
+    [SerializeField] ParticleSystem _takeItemSliderPart;
     public bool isTeleport = false;
     [SerializeField] GameObject _gfx;
 
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     public void TakeItemVFX()
     {
         _takeItemPart.Play();
+        _takeItemSliderPart.Play();
     }
 
     public void TeleportFX()
