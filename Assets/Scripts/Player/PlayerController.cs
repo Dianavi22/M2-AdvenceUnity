@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Wall") || collision.collider.CompareTag("GrappleSurface"))
         {
             _collisionPart.Play();
-            _audioSounds.PlayOneShot(_hitSounds[Random.Range(0, _hitSounds.Count)], 0.2f);
+            _audioSounds.PlayOneShot(_hitSounds[Random.Range(0, _hitSounds.Count)], 0.9f);
 
         }
     }
