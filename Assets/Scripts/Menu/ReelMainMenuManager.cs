@@ -30,6 +30,8 @@ public class ReelMainMenuManager : MonoBehaviour
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _click;
 
+    [SerializeField] Animator _animator;
+
     private bool _isTrueMenu;
     private bool _isCreditOpen = false;
 
@@ -51,7 +53,7 @@ public class ReelMainMenuManager : MonoBehaviour
     public void CreditButton()
     {
         _audioSource.PlayOneShot(_click, 0.5f);
-
+        
         if (_isCreditOpen)
         {
             _credits.GetComponent<TMP_Text>().color = new Color(0,0,0,0);
@@ -66,7 +68,7 @@ public class ReelMainMenuManager : MonoBehaviour
             _creditsTitle.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
             _isCreditOpen = true;
         }
-       
+        _animator.SetTrigger("Normal");
     }
 
     public void QuitGame()
