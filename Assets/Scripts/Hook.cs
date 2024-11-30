@@ -16,8 +16,10 @@ public class Hook : MonoBehaviour
     private Material _thisMat;
     private MeshRenderer _meshPlat;
 
-    [SerializeField] List<Material> _levelMat = new List<Material>();
+    [SerializeField] TrailRenderer _trailRenderer;
 
+    [SerializeField] List<Material> _levelMat = new List<Material>();
+    [SerializeField] List<Color32> _colorsTails;
     private void Awake()
     {
         _levelManager = FindObjectOfType<LevelManager>().gameObject.GetComponent<LevelManager>();
@@ -30,12 +32,19 @@ public class Hook : MonoBehaviour
     }
 
 
+    private void Start()
+    {
+        this.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];
+        this.GetComponentInChildren<TrailRenderer>().startColor = _colorsTails[_levelManager.phase - 1];
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Player") && !_isHooked)
         {
             if (collision.gameObject.CompareTag("GrappleSurface"))
             {
+                _trailRenderer.time = 0;
                 joint = gameObject.AddComponent<ConfigurableJoint>();
                 Vector3 hitPoint = collision.contacts[0].point;
 
@@ -95,7 +104,6 @@ public class Hook : MonoBehaviour
         if (!other.CompareTag("Player"))
         {
             Destroy(gameObject);
-
         }
     }
 

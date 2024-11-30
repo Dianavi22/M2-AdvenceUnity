@@ -104,11 +104,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.CompareTag("Wall") || collision.collider.CompareTag("GrappleSurface"))
+        if (collision.collider.CompareTag("Wall") || collision.collider.CompareTag("GrappleSurface"))
         {
             _collisionPart.Play();
             _audioSounds.PlayOneShot(_hitSounds[Random.Range(0, _hitSounds.Count)], 0.09f);
-            
+
         }
     }
 
@@ -129,7 +129,8 @@ public class PlayerController : MonoBehaviour
 
     private void Hook()
     {
-        _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, _circle.transform.rotation);
+        _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 180, transform.rotation.eulerAngles.z)
+    );
 
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
 
