@@ -8,6 +8,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject _pauseCanvas;
     [SerializeField] List<GameObject> _button;
     [SerializeField] ParticleSystem _borderPart;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _click;
+
+    [SerializeField] List<AudioSource> _sources;
     public bool isPause = false;
     void Start()
     {
@@ -32,6 +36,14 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
+        _audioSource.PlayOneShot(_click, 0.5f);
+        for (int i = 0; i < _sources.Count; i++)
+        {
+            if (_sources[i].volume!= 0)
+            {
+                _sources[i].volume = 0.3f;
+            }
+        }
         Time.timeScale = 0;
         isPause = true;
         _borderPart.Play();
@@ -40,6 +52,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Unpause()
     {
+        _audioSource.PlayOneShot(_click, 0.5f);
+        for (int i = 0; i < _sources.Count; i++)
+        {
+            if (_sources[i].volume != 0)
+            {
+                _sources[i].volume = 1f;
+            }
+        }
         Time.timeScale = 1;
         _borderPart.Stop();
         isPause = false;
@@ -71,11 +91,13 @@ public class PauseMenu : MonoBehaviour
 
     public void Retry()
     {
+        _audioSource.PlayOneShot(_click, 0.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
+        _audioSource.PlayOneShot(_click, 0.5f);
         SceneManager.LoadScene(0);
     }
 }
