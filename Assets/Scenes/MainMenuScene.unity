@@ -20191,6 +20191,134 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438384143}
   m_CullTransparentMesh: 1
+--- !u!1 &465407252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 465407254}
+  - component: {fileID: 465407253}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &465407253
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465407252}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &465407254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465407252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -72.02882, y: 81.12804, z: -0.000000059604645}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &475479793
 GameObject:
   m_ObjectHideFlags: 0
@@ -40368,6 +40496,7 @@ GameObject:
   - component: {fileID: 769197813}
   - component: {fileID: 769197815}
   - component: {fileID: 769197814}
+  - component: {fileID: 769197816}
   m_Layer: 5
   m_Name: CreditsTitle
   m_TagString: Untagged
@@ -40424,7 +40553,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -40491,6 +40620,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769197812}
   m_CullTransparentMesh: 1
+--- !u!114 &769197816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769197812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 1
+  _text: Neon Swing Game
+  useDynamicScaling: 0
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: 2968a6f177fb3094bb7aa709e912344c, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 112329f80c4bbb64a945a2a52e224ee0, type: 2}
+  useDefaultStyleSheet: 1
+  styleSheet: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: c97a8459a90c7f54b96a29b95402155e, type: 2}
+  defaultAppearancesTags:
+  - size
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags:
+  - wiggle
+  defaultTagsMode: 0
 --- !u!1 &773547774
 GameObject:
   m_ObjectHideFlags: 0
@@ -75582,7 +75743,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1242557129}
   m_OnClick:
     m_PersistentCalls:
@@ -75715,7 +75876,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1291692188}
   m_OnClick:
     m_PersistentCalls:
@@ -80998,7 +81159,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1589540642}
   m_OnClick:
     m_PersistentCalls:
@@ -86287,6 +86448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _credits: {fileID: 591386711}
   _fakeMenuCanvas: {fileID: 880505953}
+  _audioSource: {fileID: 465407253}
+  _fakeClick: {fileID: 8300000, guid: 7a562306b1e00674b9a44e29276bfd21, type: 3}
 --- !u!114 &1720872369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86302,6 +86465,7 @@ MonoBehaviour:
   _titleWiggle: {fileID: 588041430}
   _title: {fileID: 1752563931}
   _credits: {fileID: 2136991664}
+  _creditsTitle: {fileID: 769197812}
   _buttonPart:
   - {fileID: 1890139034}
   - {fileID: 773547774}
@@ -86316,6 +86480,12 @@ MonoBehaviour:
   _explision: {fileID: 542041304}
   _reelMenu: {fileID: 134234331}
   _reelMenuCanvas: {fileID: 541701193}
+  _buttons:
+  - {fileID: 1589540641}
+  - {fileID: 1242557128}
+  - {fileID: 1291692187}
+  _audioSource: {fileID: 465407253}
+  _click: {fileID: 8300000, guid: f5b11bd38ef062b488866bd2f7d1aa5f, type: 3}
 --- !u!114 &1720872370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86330,7 +86500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trueMenu: {fileID: 1720872369}
   _fakeMenu: {fileID: 1720872368}
-  isDebug: 1
+  isDebug: 0
 --- !u!1 &1752563931
 GameObject:
   m_ObjectHideFlags: 0
@@ -101530,13 +101700,14 @@ GameObject:
   - component: {fileID: 2136991665}
   - component: {fileID: 2136991667}
   - component: {fileID: 2136991666}
+  - component: {fileID: 2136991668}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2136991665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -101589,7 +101760,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -101656,6 +101827,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136991664}
   m_CullTransparentMesh: 1
+--- !u!114 &2136991668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136991664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 1
+  _text: Neon Swing Game
+  useDynamicScaling: 0
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: 2968a6f177fb3094bb7aa709e912344c, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 112329f80c4bbb64a945a2a52e224ee0, type: 2}
+  useDefaultStyleSheet: 1
+  styleSheet: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: c97a8459a90c7f54b96a29b95402155e, type: 2}
+  defaultAppearancesTags:
+  - size
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags:
+  - wiggle
+  defaultTagsMode: 0
 --- !u!1 &2141630738
 GameObject:
   m_ObjectHideFlags: 0
@@ -101802,3 +102005,4 @@ SceneRoots:
   - {fileID: 2025429044}
   - {fileID: 134234332}
   - {fileID: 153245149}
+  - {fileID: 465407254}

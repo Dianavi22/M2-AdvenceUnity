@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ReelMainMenuManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ReelMainMenuManager : MonoBehaviour
     [SerializeField] GameObject _titleWiggle;
     [SerializeField] GameObject _title;
     [SerializeField] GameObject _credits;
+    [SerializeField] GameObject _creditsTitle;
 
     [SerializeField] List<GameObject> _buttonPart = new List<GameObject>();
     [SerializeField] List<GameObject> _buttonSprite = new List<GameObject>();
@@ -22,6 +24,11 @@ public class ReelMainMenuManager : MonoBehaviour
     [SerializeField] ParticleSystem _explision;
     [SerializeField] GameObject _reelMenu;
     [SerializeField] GameObject _reelMenuCanvas;
+
+    [SerializeField] List<Button> _buttons;
+
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _click;
 
     private bool _isTrueMenu;
     private bool _isCreditOpen = false;
@@ -36,29 +43,35 @@ public class ReelMainMenuManager : MonoBehaviour
     }
     public void StartGame()
     {
+
+        _audioSource.PlayOneShot(_click, 0.5f);
         SceneManager.LoadScene(1);
     }
 
     public void CreditButton()
     {
+        _audioSource.PlayOneShot(_click, 0.5f);
 
         if (_isCreditOpen)
         {
-            _titleWiggle.GetComponent<TMP_Text>().color = new Color(0,0,0,0);
-            _credits.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
-            _isCreditOpen = true;
+            _credits.GetComponent<TMP_Text>().color = new Color(0,0,0,0);
+            _creditsTitle.GetComponent<TMP_Text>().color = new Color(0,0,0,0);
+            _titleWiggle.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
+            _isCreditOpen = false;
         }
         else
         {
-            _credits.GetComponent<TMP_Text>().color = new Color(0, 0, 0, 0);
-            _titleWiggle.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
-            _isCreditOpen = false;
+            _titleWiggle.GetComponent<TMP_Text>().color = new Color(0, 0, 0, 0);
+            _credits.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
+            _creditsTitle.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
+            _isCreditOpen = true;
         }
        
     }
 
     public void QuitGame()
     {
+        _audioSource.PlayOneShot(_click, 0.5f);
         Application.Quit();
     }
 
@@ -82,5 +95,14 @@ public class ReelMainMenuManager : MonoBehaviour
         _title.SetActive(false);
         _titleWiggle.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);
         _explision.Play();
+        ActiveButtons();
+    }
+
+    private void ActiveButtons()
+    {
+        for (int i = 0; i < _buttons.Count; i++)
+        {
+            _buttons[i].interactable = true;
+        }
     }
 }
