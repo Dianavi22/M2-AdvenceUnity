@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class TypeSentence : MonoBehaviour
    private string _textToShow;
     private float _timeBetweenChar; // Temps en Seconde
     public bool isTyping = false;
+    [SerializeField] List<AudioClip> _key;
+    [SerializeField] AudioSource _audioSource;
 
     public void WriteMachinEffect(string _currentTextToShow, TMP_Text _currentTextPlace, float _currentTimeBetweenChar) // Fonction à appeler depuis un autre script
     {
@@ -27,6 +30,7 @@ public class TypeSentence : MonoBehaviour
         {
             yield return new WaitForSeconds(_timeBetweenChar);
             place.text += letter;
+            _audioSource.PlayOneShot(_key[Random.Range(0,_key.Count)], 0.4f);
             yield return null;
         }
         yield return new WaitForSeconds(1.5f);

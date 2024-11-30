@@ -11,6 +11,7 @@ public class Tuto : MonoBehaviour
     [SerializeField] TMP_Text _tutoTxtPosition;
     [SerializeField] TMP_Text _tutoTxtOkayPosition;
     [SerializeField] List<string> stringList = new List<string>();
+    [SerializeField] AudioSource _audioSourceSoundsTuto;
     private int i = 0;
     private bool _finishTuto = false;
     void Start()
@@ -34,6 +35,8 @@ public class Tuto : MonoBehaviour
             try
             {
                 StopCoroutine(_typeSentence.TypeCurrentSentence(stringList[i], _tutoTxtPosition));
+                _audioSourceSoundsTuto.gameObject.SetActive(false);
+
             }
             catch
             {

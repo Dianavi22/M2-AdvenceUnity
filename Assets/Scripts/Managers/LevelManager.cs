@@ -81,6 +81,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] AudioSource _audioSourceLevel3;
     [SerializeField] AudioSource _audioSourceLevel4;
     [SerializeField] AudioSource _audioSourceSounds;
+    [SerializeField] AudioSource _audioSourceSoundsTuto;
 
     private bool _isLastLevel = false;
     private bool _phase2Done = false;
@@ -95,6 +96,7 @@ public class LevelManager : MonoBehaviour
 
     private void SetFirstPhase()
     {
+        _audioSourceSoundsTuto.gameObject.SetActive(false);  
         _firstAudioSource.gameObject.SetActive(false);
         _timer.enabled = true;
         _playerFirstMove.enabled = false;
