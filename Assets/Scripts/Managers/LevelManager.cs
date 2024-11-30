@@ -79,6 +79,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] AudioSource _audioSourceLevel2;
     [SerializeField] AudioSource _audioSourceLevel3;
     [SerializeField] AudioSource _audioSourceLevel4;
+    [SerializeField] AudioSource _audioSourceSounds;
 
     private bool _isLastLevel = false;
     private bool _phase2Done = false;
@@ -102,6 +103,7 @@ public class LevelManager : MonoBehaviour
         _shpereInPlayer.SetActive(true);
         _fakeSlider.SetActive(false);
         _slider.SetActive(true);
+        _audioSourceSounds.volume = 1;
         _collisionPart.gameObject.SetActive(true);
         _playerController.gameObject.GetComponent<LineRenderer>().enabled = true;
         for (int i = 0; i < textToHide.Count; i++)

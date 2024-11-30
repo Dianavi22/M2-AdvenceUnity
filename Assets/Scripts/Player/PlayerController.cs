@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -47,7 +48,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject _grapPointPartContener;
 
     [SerializeField] ParticleSystem _collisionPart;
-
+    [SerializeField] AudioSource _audioSounds;
+    [SerializeField] List<AudioClip> _hitSounds;
     void Start()
     {
         if (_lineRenderer != null)
@@ -105,6 +107,8 @@ public class PlayerController : MonoBehaviour
         if(collision.collider.CompareTag("Wall") || collision.collider.CompareTag("GrappleSurface"))
         {
             _collisionPart.Play();
+            _audioSounds.PlayOneShot(_hitSounds[Random.Range(0, _hitSounds.Count)], 0.3f);
+            
         }
     }
 
