@@ -13,6 +13,12 @@ public class SlowMotion : MonoBehaviour
     [SerializeField] Slider _sliderSlowMo;
     private bool _isPlaying;
     [SerializeField] ParticleSystem _slowMoPart;
+    [SerializeField] AudioSource _audioSourceSounds;
+    [SerializeField] AudioClip _audioSlowMoClip;
+    [SerializeField] AudioClip _audioStopSlowMoClip;
+
+    private bool _isSoundSlowMoPlayed = false;
+    private bool _isSoundStopSlowMoPlayed = true;
     void Start()
     {
         _sliderSlowMo.value = slowMoCount;
@@ -54,6 +60,20 @@ public class SlowMotion : MonoBehaviour
             _slowMoPart.Stop();
             _isPlaying = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0 && !_isSoundSlowMoPlayed)
+        {
+            _audioSourceSounds.PlayOneShot(_audioSlowMoClip,0.3f);
+            _isSoundSlowMoPlayed = true;
+            _isSoundStopSlowMoPlayed = false;
+        }
+        if ((Input.GetKeyUp(KeyCode.Space) || slowMoCount <= 0) && !_isSoundStopSlowMoPlayed)
+        {
+            _isSoundStopSlowMoPlayed = true;
+            _audioSourceSounds.PlayOneShot(_audioStopSlowMoClip, 0.35f);
+            _isSoundSlowMoPlayed = false;
+        }
+
     }
 
     private IEnumerator SlowMoDecrement()

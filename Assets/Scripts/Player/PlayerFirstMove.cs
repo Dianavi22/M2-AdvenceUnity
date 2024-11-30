@@ -10,6 +10,7 @@ public class PlayerFirstMove : MonoBehaviour
     public bool isGrounded;
     Rigidbody rb;
     private bool _hasJump = false;
+    private bool _canJump = true;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -27,13 +28,17 @@ public class PlayerFirstMove : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && _canJump)
         {
-            isGrounded = false;
-
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            _canJump = false;
+            Jump();
             Invoke("Prepare", 0.3f);
         }
+    }
+
+    private void Jump()
+    {
+        rb.AddForce(jump * jumpForce, ForceMode.Impulse);
     }
 
     private void Prepare()
