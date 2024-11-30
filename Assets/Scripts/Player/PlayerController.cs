@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Visuel")]
     [SerializeField] ParticleSystem _fireGrappinPart;
+    [SerializeField] ParticleSystem _destroyHookPart;
     [SerializeField] GameObject _grapPointPartContener;
 
     [SerializeField] ParticleSystem _collisionPart;
@@ -79,10 +80,15 @@ public class PlayerController : MonoBehaviour
             distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
             if (Input.GetMouseButtonUp(0))
             {
+
+                _destroyHookPart.transform.position = _spawnHook.transform.position;
+                _destroyHookPart.Play();
                 Destroy(_spawnHook);
             }
             if (!_isGrappling && distance > _grappleMaxDistance)
             {
+                _destroyHookPart.transform.position = _spawnHook.transform.position;
+                _destroyHookPart.Play();
                 Destroy(_spawnHook);
             }
         }
@@ -129,8 +135,8 @@ public class PlayerController : MonoBehaviour
 
     private void Hook()
     {
-        _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 180, transform.rotation.eulerAngles.z)
-    );
+
+        _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 180, transform.rotation.eulerAngles.z));
 
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
 

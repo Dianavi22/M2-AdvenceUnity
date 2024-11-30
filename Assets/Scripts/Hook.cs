@@ -20,10 +20,11 @@ public class Hook : MonoBehaviour
 
     [SerializeField] List<Material> _levelMat = new List<Material>();
     [SerializeField] List<Color32> _colorsTails;
+    [SerializeField] ParticleSystem _particleSystemTrail;
     private void Awake()
     {
         _levelManager = FindObjectOfType<LevelManager>().gameObject.GetComponent<LevelManager>();
-         _playerController = FindObjectOfType<PlayerController>().gameObject.GetComponent<PlayerController>();
+        _playerController = FindObjectOfType<PlayerController>().gameObject.GetComponent<PlayerController>();
     }
 
     public void Initialize(PlayerController playerController)
@@ -35,7 +36,8 @@ public class Hook : MonoBehaviour
     private void Start()
     {
         this.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];
-        this.GetComponentInChildren<TrailRenderer>().startColor = _colorsTails[_levelManager.phase - 1];
+        _trailRenderer.startColor = _colorsTails[_levelManager.phase - 1];
+        _particleSystemTrail.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,28 +46,29 @@ public class Hook : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("GrappleSurface"))
             {
-                _trailRenderer.time = 0;
                 joint = gameObject.AddComponent<ConfigurableJoint>();
                 Vector3 hitPoint = collision.contacts[0].point;
-
                 _playerController.StartGrapple(hitPoint, collision.gameObject);
                 _isHooked = true;
                 _rb.isKinematic = true;
                 gameObject.transform.position = hitPoint;
-
                 _thisMat = collision.collider.gameObject.GetComponent<MeshRenderer>().material;
                 collision.collider.gameObject.GetComponent<MeshRenderer>().material = _cyan;
-
-                ParticleSystem _grapPart = this.GetComponentInChildren<ParticleSystem>();
-               
-                _grapPart.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];
-                _grapPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMat[_levelManager.phase - 1];
-                _grapPart.Play();
-
+                SetUpHookGFX();
                 _meshPlat = collision.collider.gameObject.GetComponent<MeshRenderer>();
                 SetUpConfigurableJoint();
             }
         }
+    }
+
+    private void SetUpHookGFX()
+    {
+        _particleSystemTrail.Stop();
+        _trailRenderer.time = 0;
+        ParticleSystem _grapPart = this.GetComponentInChildren<ParticleSystem>();
+        _grapPart.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];
+        _grapPart.GetComponent<ParticleSystemRenderer>().trailMaterial = _levelMat[_levelManager.phase - 1];
+        _grapPart.Play();
     }
 
     public void ChangePlatMat()
