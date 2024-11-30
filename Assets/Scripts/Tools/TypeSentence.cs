@@ -15,6 +15,8 @@ public class TypeSentence : MonoBehaviour
     public bool isTyping = false;
     [SerializeField] List<AudioClip> _key;
     [SerializeField] AudioSource _audioSource;
+    [SerializeField] ShakyCame _shakyCame;
+    [SerializeField] bool _titleMode;
 
     public void WriteMachinEffect(string _currentTextToShow, TMP_Text _currentTextPlace, float _currentTimeBetweenChar) // Fonction à appeler depuis un autre script
     {
@@ -31,6 +33,12 @@ public class TypeSentence : MonoBehaviour
             yield return new WaitForSeconds(_timeBetweenChar);
             place.text += letter;
             _audioSource.PlayOneShot(_key[Random.Range(0,_key.Count)], 0.4f);
+            if (_titleMode)
+            {
+                _shakyCame._duration = 0.01f;
+                _shakyCame._radius = 0.1f;
+                _shakyCame.isShaking = true;
+            }
             yield return null;
         }
         yield return new WaitForSeconds(1.5f);

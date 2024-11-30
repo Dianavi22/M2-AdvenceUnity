@@ -11,7 +11,7 @@ public class ShakyCame : MonoBehaviour
 
     [Header("Configuration de la duree et de la distance de secousse")]
     public float _duration = 0.2f; // Duree de la Shaky came (1 seconde par defaut)
-    [SerializeField] float _radius = 0.2f; // Distance de secousse de la shaky came (1 par defaut)
+    public float _radius = 0.2f; // Distance de secousse de la shaky came (1 par defaut)
                                         // La shaky came fait des lerps tres vite entre des points
                                         // dans une sphere autour de lui de radius _radius
                                         // pendant une duree de _duration depuis le point de _pointToShake

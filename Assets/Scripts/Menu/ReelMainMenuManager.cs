@@ -28,9 +28,14 @@ public class ReelMainMenuManager : MonoBehaviour
     [SerializeField] List<Button> _buttons;
 
     [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioSource _audioSourceFakeMusic;
+    [SerializeField] AudioSource _audioSourceMusic;
     [SerializeField] AudioClip _click;
+    [SerializeField] AudioClip _boltSound;
 
     [SerializeField] Animator _animator;
+
+    [SerializeField] ShakyCame _shakyCame;
 
     private bool _isTrueMenu;
     private bool _isCreditOpen = false;
@@ -93,6 +98,13 @@ public class ReelMainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _bolt1.Play();
         _bolt2.Play();
+        _shakyCame._radius = 0.3f;
+        _shakyCame._duration = 0.3f;
+        _shakyCame.isShaking = true;
+        _audioSource.PlayOneShot(_boltSound, 0.5f);
+        _audioSourceFakeMusic.volume = 0;
+        _audioSourceMusic.volume = 0.7f;
+
         yield return new WaitForSeconds(0.2f);
         _title.SetActive(false);
         _titleWiggle.GetComponent<TMP_Text>().color = new Color(255, 255, 255, 255);

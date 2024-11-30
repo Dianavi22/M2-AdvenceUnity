@@ -82,6 +82,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] AudioSource _audioSourceLevel4;
     [SerializeField] AudioSource _audioSourceSounds;
     [SerializeField] AudioSource _audioSourceSoundsTuto;
+    [SerializeField] AudioClip _changeLevelSound;
 
     private bool _isLastLevel = false;
     private bool _phase2Done = false;
@@ -239,7 +240,9 @@ public class LevelManager : MonoBehaviour
     {
         _playerController.StopGrapple();
         _shakyCame._duration = 0.3f;
+        _shakyCame._radius = 0.3f;
         _shakyCame.isShaking = true;
+        _audioSourceSounds.PlayOneShot(_changeLevelSound ,0.2f);
         SetDesignLevel();
         _sprayPart1.Play();
         for (int i = 0; i < _borderPausePart.Count; i++)
