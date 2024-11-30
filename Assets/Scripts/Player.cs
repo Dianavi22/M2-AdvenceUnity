@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     public bool isTeleport = false;
     [SerializeField] GameObject _gfx;
 
+    [SerializeField] AudioSource _audioSourceSounds;
+    [SerializeField] AudioClip _audioTPInClip;
+    [SerializeField] AudioClip _audioTPOutClip;
+
     private Vector3 initialScale;
     public float scaleDownDuration = 1.0f;
     public float scaleUpDuration = 1.0f;
@@ -36,6 +40,7 @@ public class Player : MonoBehaviour
         Vector3 targetScale = Vector3.zero;
         float elapsedTime = 0f;
         _tpScaleDownPart.Play();
+        _audioSourceSounds.PlayOneShot(_audioTPInClip, 0.8f);
         while (elapsedTime < scaleDownDuration)
         {
             _gfx.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / scaleDownDuration);
@@ -52,6 +57,8 @@ public class Player : MonoBehaviour
         Vector3 targetScale = initialScale;
         float elapsedTime = 0f;
         _tpScaleUpPart.Play();
+        _audioSourceSounds.PlayOneShot(_audioTPOutClip, 0.8f);
+
         while (elapsedTime < scaleUpDuration)
         {
             _gfx.transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, elapsedTime / scaleUpDuration);
