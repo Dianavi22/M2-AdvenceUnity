@@ -161,7 +161,6 @@ public class LevelManager : MonoBehaviour
              _audioSourceLevel2.volume = 1;
 
             ChangePhase();
-           // _sliderPart.transform.position = new Vector3(_sliderPart.transform.transform.position.x, _sliderPart.transform.transform.position.y + 0.3f, _sliderPart.transform.transform.position.z);
 
             phaseRestart = new Vector3(23, -20, 0);
             for (int i = 0; i < walls2.Count; i++)
@@ -179,12 +178,12 @@ public class LevelManager : MonoBehaviour
         if (phase == 3 && !_phase3Done)
         {
             _phase3Done = true;
+            phaseRestart = new Vector3(37, -7, 0);
+
             _audioSourceLevel2.volume = 0;
             _audioSourceLevel3.volume = 1;
             ChangePhase();
-            //_sliderPart.transform.position = new Vector3(_sliderPart.transform.transform.position.x, _sliderPart.transform.transform.position.y + 0.3f, _sliderPart.transform.transform.position.z);
 
-            phaseRestart = new Vector3(-104, 70.4000015f, 0);
             for (int i = 0; i < walls3.Count; i++)
             {
                 walls3[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
@@ -208,8 +207,8 @@ public class LevelManager : MonoBehaviour
                 _phase4Done = true;
                 ChangePhase();
                 _sliderPart.transform.position = new Vector3(_sliderPart.transform.transform.position.x, _sliderPart.transform.transform.position.y + 0.3f, _sliderPart.transform.transform.position.z);
+                phaseRestart = new Vector3(-104, 70.4000015f, 0);
 
-               // phaseRestart = new Vector3(-103, 68, 0);
                 for (int i = 0; i < walls4.Count; i++)
                 {
                     walls4[i].GetComponentInChildren<ParticleSystem>().GetComponent<Renderer>().material = _levelMATS[phase - 1];
@@ -235,6 +234,7 @@ public class LevelManager : MonoBehaviour
 
     public void ChangePhase()
     {
+        _playerController.StopGrapple();
         _shakyCame._duration = 0.3f;
         _shakyCame.isShaking = true;
         SetDesignLevel();

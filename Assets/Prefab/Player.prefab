@@ -188,6 +188,7 @@ RectTransform:
   - {fileID: 1439898047077450039}
   - {fileID: 4349394559112025856}
   - {fileID: 3423927377413063298}
+  - {fileID: 7132234626815561589}
   m_Father: {fileID: 2983051047920332969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -48150,10 +48151,11 @@ MonoBehaviour:
   _tutoTxtPosition: {fileID: 2106491170303172388}
   _tutoTxtOkayPosition: {fileID: 8070503251120073711}
   stringList:
-  - wwww
-  - eeee
-  - rrrr
-  - dddd
+  - Click on Plateform for grab
+  - ZQSD or WASD for swing
+  - Take Item and maintient space for slow motion
+  - P for pause and....
+  - Press Space to begin
 --- !u!1 &4956756536153708710
 GameObject:
   m_ObjectHideFlags: 0
@@ -49302,6 +49304,9 @@ MonoBehaviour:
   _fireGrappinPart: {fileID: 4551589552762673816}
   _grapPointPartContener: {fileID: 3721472960397214341}
   _collisionPart: {fileID: 2344886765278365516}
+  _audioSounds: {fileID: 0}
+  _hitSounds:
+  - {fileID: 8300000, guid: 82a25b7abf49353489fc9665eb8d3421, type: 3}
 --- !u!54 &8197914742812504534
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -49487,7 +49492,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6183073102848137240}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57e005c696d8659428a791ebb056bbbc, type: 3}
   m_Name: 
@@ -49510,10 +49515,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelManager: {fileID: 0}
   _isSlowMo: 0
-  slowMoCount: 0
+  slowMoCount: 10
   _timer: {fileID: 0}
   _sliderSlowMo: {fileID: 2414363693314733466}
   _slowMoPart: {fileID: 5656337165039485136}
+  _audioSourceSounds: {fileID: 0}
+  _audioSlowMoClip: {fileID: 8300000, guid: a863db88fa761534b999213e09545d6c, type: 3}
+  _audioStopSlowMoClip: {fileID: 8300000, guid: 82b78fd691f68ea4dbab96d723d06768, type: 3}
 --- !u!114 &6262370325245401261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49529,7 +49537,7 @@ MonoBehaviour:
   _takeItemPart: {fileID: 3218532545967211159}
   _tpScaleDownPart: {fileID: 1479775667182511905}
   _tpScaleUpPart: {fileID: 6326283525741529495}
-  _takeItemSliderPart: {fileID: 0}
+  _takeItemSliderPart: {fileID: 2867520028157438487}
   isTeleport: 0
   _gfx: {fileID: 3626314667500798996}
   scaleDownDuration: 0.5
@@ -80279,7 +80287,7 @@ RectTransform:
   m_Father: {fileID: 1439898047077450039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: -0.4000001}
   m_SizeDelta: {x: 10, y: 0.8000002}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -101332,6 +101340,81 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7349605771111174684, guid: c4159f76450c15c49bb68656045994c0, type: 3}
   m_PrefabInstance: {fileID: 5500228530394664491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5816711364747934822
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2689796896323605565}
+    m_Modifications:
+    - target: {fileID: 2168029552981117041, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_Name
+      value: TakeItemSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 3231018777236042661, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607054464121263729, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+--- !u!198 &2867520028157438487 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8607054464121263729, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+  m_PrefabInstance: {fileID: 5816711364747934822}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7132234626815561589 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3621973485193147155, guid: 3efd2a9ece6e948478a011290e76446d, type: 3}
+  m_PrefabInstance: {fileID: 5816711364747934822}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6185074642168027999
 PrefabInstance:

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerSetUp : MonoBehaviour
 {
@@ -34,9 +35,7 @@ public class PlayerSetUp : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            this.transform.position = new Vector3(0, 0, 0);
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
