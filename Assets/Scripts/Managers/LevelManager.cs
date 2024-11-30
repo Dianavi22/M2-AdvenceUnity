@@ -109,6 +109,7 @@ public class LevelManager : MonoBehaviour
             textToHide[i].SetActive(false);
         }
         _goodText.GetComponent<TMP_Text>().color = new UnityEngine.Color(255,255,255,255) ;
+        
         _isStartGame = true;
         StartCoroutine(Glitch());
         _bgPart.Play();
