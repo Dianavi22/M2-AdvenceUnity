@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] AudioSource _audioSourceSounds;
     [SerializeField] AudioClip _audioTPInClip;
     [SerializeField] AudioClip _audioTPOutClip;
+    [SerializeField] AudioClip _takeItemClip;
+
+    [SerializeField] ShakyCame _shakyCame;
 
     private Vector3 initialScale;
     public float scaleDownDuration = 1.0f;
@@ -27,6 +30,9 @@ public class Player : MonoBehaviour
     {
         _takeItemPart.Play();
         _takeItemSliderPart.Play();
+        _audioSourceSounds.PlayOneShot(_takeItemClip, 2f);
+        _shakyCame._duration = 0.05f;
+        _shakyCame.isShaking = true;
     }
 
     public void TeleportFX()
