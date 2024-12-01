@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioSource _audioSounds;
     [SerializeField] AudioClip _hitSounds;
     [SerializeField] AudioClip _shootSound;
+    [SerializeField] AudioClip _catchPlate;
     void Start()
     {
         if (_lineRenderer != null)
@@ -164,7 +165,7 @@ public class PlayerController : MonoBehaviour
         grapplePoint = hitPoint;
 
         _isGrappling = true;
-
+        _audioSounds.PlayOneShot(_catchPlate, 0.4f);
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, hitPoint);
         Vector3 direction = _spawnHook.transform.position - transform.position;
