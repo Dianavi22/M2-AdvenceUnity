@@ -98,9 +98,7 @@ public class ReelMainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _bolt1.Play();
         _bolt2.Play();
-        _shakyCame._radius = 0.3f;
-        _shakyCame._duration = 0.3f;
-        _shakyCame.isShaking = true;
+        _shakyCame.ShakyCameCustom(0.3f, 0.3f);
         _audioSource.PlayOneShot(_boltSound, 0.5f);
         _audioSourceFakeMusic.volume = 0;
         _audioSourceMusic.volume = 0.7f;

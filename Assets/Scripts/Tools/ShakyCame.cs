@@ -10,13 +10,13 @@ public class ShakyCame : MonoBehaviour
     private Vector3 _offset;
 
     [Header("Configuration de la duree et de la distance de secousse")]
-    public float _duration = 0.2f; // Duree de la Shaky came (1 seconde par defaut)
-    public float _radius = 0.2f; // Distance de secousse de la shaky came (1 par defaut)
+    private float _duration = 0.2f; // Duree de la Shaky came (1 seconde par defaut)
+    private float _radius = 0.2f; // Distance de secousse de la shaky came (1 par defaut)
                                         // La shaky came fait des lerps tres vite entre des points
                                         // dans une sphere autour de lui de radius _radius
                                         // pendant une duree de _duration depuis le point de _pointToShake
 
-    public bool isShaking = false; // Variable a passer a true pour appeler la shaky came
+    private bool isShaking = false; // Variable a passer a true pour appeler la shaky came
 
     Vector3 center = Vector3.zero; // Sert au calcule du radius de la sphere de secousse
 
@@ -33,6 +33,13 @@ public class ShakyCame : MonoBehaviour
             isShaking = false;
             StartCoroutine(Shaking());
         }
+    }
+
+    public void ShakyCameCustom(float d, float r)
+    {
+        _duration = d;
+        _radius = r;
+        isShaking=true;
     }
 
     IEnumerator Shaking() // Coroutine de secousse

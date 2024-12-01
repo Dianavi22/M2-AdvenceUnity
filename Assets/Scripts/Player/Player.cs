@@ -31,8 +31,7 @@ public class Player : MonoBehaviour
         _takeItemPart.Play();
         _takeItemSliderPart.Play();
         _audioSourceSounds.PlayOneShot(_takeItemClip, 2f);
-        _shakyCame._duration = 0.05f;
-        _shakyCame.isShaking = true;
+        _shakyCame.ShakyCameCustom(0.05f, 0.2f);
     }
 
     public void TeleportFX()

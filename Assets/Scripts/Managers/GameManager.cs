@@ -68,9 +68,8 @@ public class GameManager : MonoBehaviour
             _isSoundPlaying = true;
             _audioSource.PlayOneShot(_victorySound, 0.8f);
         }
-        _shakyCame._radius = 0.2f;
-        _shakyCame._duration = 4f;
-        _shakyCame.isShaking = true;
+       
+        _shakyCame.ShakyCameCustom(4, 0.2f);
         yield return new WaitForSeconds(4.8f);
         if (!_isPartPlaying)
         {

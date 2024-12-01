@@ -6,31 +6,43 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSetUp : MonoBehaviour
 {
-    [HideInInspector] public Transform startTranform;
-    private PlayerController _playerController;
+    
     public bool isInDeathZone = false;
-    [SerializeField] private Grounded _grounded;
-    [SerializeField] private Rigidbody _rb;
+    public bool isTp = false;
+
+    [Header("References")]
     [SerializeField] private LevelManager _levelManager;
-    [SerializeField] private TrailRenderer _trailRenderer;
-    [SerializeField] private CameraFollow _cameraFollow;
+    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private ShakyCame _shakyCam;
+    [SerializeField] private Grounded _grounded;
+    [SerializeField] private PlayerController _playerController;
+
+    [Header("Components")]
+    [HideInInspector] public Transform startTranform;
     [SerializeField] private MeshRenderer _playerMeshRenderer;
-    private bool _isDissolve = false;
-    private static float _timeLerpDissolve = 0f;
+    [SerializeField] private Camera _cam;
+    private Rigidbody _rb;
+
+    [Header("Visuel")]
     [SerializeField] ParticleSystem _respawnPart;
     [SerializeField] ParticleSystem _deathPart;
-    [SerializeField] ShakyCame _shakyCam;
-    [SerializeField] GameManager _gameManager;
-    [SerializeField] private bool isDebugMode;
+    [SerializeField] private TrailRenderer _trailRenderer;
+
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _respawnPlayerSound;
-    public bool isTp = false;
-    private Camera _cam;
+
+    [Header("Debug")]
+    [SerializeField] private bool isDebugMode = false;
+
+    private static float _timeLerpDissolve = 0f;
+    private bool _isDissolve = false;
+    private float minDissolve;
+    private float maxDissolve;
+
     void Start()
     {
-        _cam = this.gameObject.GetComponentInChildren<Camera>();
         startTranform = this.transform;
-        _playerController = this.GetComponent<PlayerController>();
         _rb = this.GetComponent<Rigidbody>();
 
     }
@@ -48,11 +60,18 @@ public class PlayerSetUp : MonoBehaviour
             isInDeathZone = false;
         }
 
+        
+
+        if (_isDissolve)
+        {
+            DissolvePlayer(minDissolve, maxDissolve);
+        }
+        _cam.gameObject.transform.localPosition = new Vector3(0, 4, 13);
+        
         //DEBUG
+        #region Debug TP
         if (isDebugMode)
         {
-
-
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 this.transform.position = new Vector3(0, 0, 0);
@@ -108,17 +127,10 @@ public class PlayerSetUp : MonoBehaviour
                 isInDeathZone = false;
             }
         }
-
-        if (_isDissolve)
-        {
-            DissolvePlayer(minDissolve, maxDissolve);
-        }
-        _cam.gameObject.transform.localPosition = new Vector3(0, 4, 13);
-
+        #endregion
     }
 
-    private float minDissolve;
-    private float maxDissolve;
+    
 
     public IEnumerator RespawnPlayer(Vector3 deathZone)
     {
@@ -144,21 +156,28 @@ public class PlayerSetUp : MonoBehaviour
 
     private void DespawnPlayer()
     {
+        _shakyCam.ShakyCameCustom(1, 0.3f);
+        DespawnGFX();
+        PlayerStateDeath();
+        isInDeathZone = false;
+        _gameManager.nbDeath++;
+    }
 
+    private void PlayerStateDeath()
+    {
+        _rb.velocity = new Vector3(0, 0, 0);
+        _playerController.StopGrapple();
+        _playerController.enabled = false;
+        _rb.useGravity = false;
+    }
+
+    private void DespawnGFX()
+    {
         minDissolve = -1;
         maxDissolve = 1;
         _isDissolve = true;
-        _shakyCam._duration = 1;
-        _shakyCam.isShaking = true;
         _deathPart.Play();
         _trailRenderer.time = 0;
-        _rb.velocity = new Vector3(0, 0, 0);
-        _playerController._isGrappling = false;
-        isInDeathZone = false;
-        this.gameObject.GetComponent<PlayerController>().StopGrapple();
-        _playerController.enabled = false;
-        _rb.useGravity = false;
-        _gameManager.nbDeath++;
     }
 
     private void AfterRespawn()
@@ -177,7 +196,6 @@ public class PlayerSetUp : MonoBehaviour
     {
         _playerMeshRenderer.material.SetFloat("_DissolveAmount", Mathf.Lerp(min, max, _timeLerpDissolve));
         _timeLerpDissolve += 0.5f * Time.deltaTime;
-
     }
 
     public IEnumerator TPSetUp(Vector3 _newPosition, Teleportation _tp)
@@ -185,7 +203,7 @@ public class PlayerSetUp : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _trailRenderer.time = 0;
         _rb.velocity = new Vector3(0, 0, 0);
-        this.gameObject.GetComponent<PlayerController>().StopGrapple();
+        _playerController.StopGrapple();
         transform.position = _newPosition;
         yield return new WaitForSeconds(0.1f);
         _trailRenderer.time = 1;

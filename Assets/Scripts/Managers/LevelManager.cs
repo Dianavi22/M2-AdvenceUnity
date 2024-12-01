@@ -240,9 +240,7 @@ public class LevelManager : MonoBehaviour
     public void ChangePhase()
     {
         _playerController.StopGrapple();
-        _shakyCame._duration = 0.3f;
-        _shakyCame._radius = 0.3f;
-        _shakyCame.isShaking = true;
+        _shakyCame.ShakyCameCustom(0.3f, 0.3f);
         _audioSourceSounds.PlayOneShot(_changeLevelSound ,0.2f);
         SetDesignLevel();
         _sprayPart1.Play();

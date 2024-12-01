@@ -35,9 +35,7 @@ public class TypeSentence : MonoBehaviour
             _audioSource.PlayOneShot(_key[Random.Range(0,_key.Count)], 0.4f);
             if (_titleMode)
             {
-                _shakyCame._duration = 0.01f;
-                _shakyCame._radius = 0.1f;
-                _shakyCame.isShaking = true;
+                _shakyCame.ShakyCameCustom(0.01f, 0.1f);
             }
             yield return null;
         }
