@@ -50,7 +50,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] ParticleSystem _collisionPart;
     [SerializeField] AudioSource _audioSounds;
-    [SerializeField] List<AudioClip> _hitSounds;
+    [SerializeField] AudioClip _hitSounds;
+    [SerializeField] AudioClip _shootSound;
     void Start()
     {
         if (_lineRenderer != null)
@@ -113,7 +114,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Wall") || collision.collider.CompareTag("GrappleSurface"))
         {
             _collisionPart.Play();
-            _audioSounds.PlayOneShot(_hitSounds[Random.Range(0, _hitSounds.Count)], 0.9f);
+            _audioSounds.PlayOneShot(_hitSounds, 0.9f);
 
         }
     }
@@ -135,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
     private void Hook()
     {
-
+        _audioSounds.PlayOneShot(_shootSound, 0.5f);
         _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 180, transform.rotation.eulerAngles.z));
 
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();

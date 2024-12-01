@@ -103,7 +103,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorMax: {r: 2.2991376, g: 0, b: 3.7735846, a: 5}
+    - _ColorMax: {r: 3.764706, g: 3.4890933, b: 0, a: 5}
     - _ColorMin: {r: 5.0261774, g: 0, b: 0.13644472, a: 5}
     - _ColorOne: {r: 0, g: 15.058824, b: 3.2873101, a: 20}
     - _ColorTwo: {r: 1.924528, g: 0, b: 1.476807, a: 1}
