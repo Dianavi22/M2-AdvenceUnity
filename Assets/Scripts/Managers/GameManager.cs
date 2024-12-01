@@ -30,9 +30,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text _newRecordDeathTxt;
 
     [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioSource _audioSourceMusic;
     [SerializeField] AudioClip _victorySound;
     [SerializeField] ParticleSystem _colorExplosion;
- 
+    [SerializeField] AudioClip _colorExplosionSound;
+
     private bool _isSoundPlaying = false;
     private bool _isPartPlaying = false;
 
@@ -74,7 +76,9 @@ public class GameManager : MonoBehaviour
         {
             _isPartPlaying = true;
             _colorExplosion.Play();
+            _audioSource.PlayOneShot(_colorExplosionSound, 0.6f);
         }
+        _audioSourceMusic.volume = 0.3f;
         yield return new WaitForSeconds(0.2f);
         
         _shakyCame.enabled = false;
