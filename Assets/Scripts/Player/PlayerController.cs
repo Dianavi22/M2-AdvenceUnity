@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip _hitSounds;
     [SerializeField] AudioClip _shootSound;
     [SerializeField] AudioClip _catchPlate;
+    [SerializeField] AudioClip _destroyHookSound;
     void Start()
     {
         if (_lineRenderer != null)
@@ -80,17 +81,12 @@ public class PlayerController : MonoBehaviour
         if (_spawnHook != null)
         {
             distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) || (!_isGrappling && distance > _grappleMaxDistance))
             {
 
                 _destroyHookPart.transform.position = _spawnHook.transform.position;
                 _destroyHookPart.Play();
-                Destroy(_spawnHook);
-            }
-            if (!_isGrappling && distance > _grappleMaxDistance)
-            {
-                _destroyHookPart.transform.position = _spawnHook.transform.position;
-                _destroyHookPart.Play();
+                _audioSounds.PlayOneShot(_destroyHookSound,0.5f);
                 Destroy(_spawnHook);
             }
         }
@@ -179,12 +175,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce((Vector3.up * 1.5f) * _speed * Time.deltaTime);
+            rb.AddForce((direction *_grappleSpeed) * _speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S) && distance < _grappleMaxDistance)
         {
-            rb.AddForce((-Vector3.up * 1.5f) * _speedVertical * Time.deltaTime);
+            rb.AddForce((-direction * _grappleSpeed) * _speedVertical * Time.deltaTime);
         }
 
 

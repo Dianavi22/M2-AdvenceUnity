@@ -129,7 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973fd4b289fb97548bafef9597a00f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseTransform: {fileID: 0}
+  _spawnCoord: {x: 0, y: 0, z: 0}
+  _audioSource: {fileID: 0}
+  _deathClip: {fileID: 8300000, guid: ef46dc824f2dbe14ca93e836ed418a41, type: 3}
 --- !u!65 &8493565729884392616
 BoxCollider:
   m_ObjectHideFlags: 0

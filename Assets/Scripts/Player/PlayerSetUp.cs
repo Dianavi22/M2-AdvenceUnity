@@ -23,8 +23,10 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] GameManager _gameManager;
     [SerializeField] private bool isDebugMode;
     public bool isTp = false;
+    private Camera _cam;
     void Start()
     {
+        _cam = this.gameObject.GetComponentInChildren<Camera>();
         startTranform = this.transform;
         _playerController = this.GetComponent<PlayerController>();
         _rb = this.GetComponent<Rigidbody>();
@@ -109,6 +111,8 @@ public class PlayerSetUp : MonoBehaviour
         {
             DissolvePlayer(minDissolve, maxDissolve);
         }
+        _cam.gameObject.transform.localPosition = new Vector3(0, 4, 13);
+
     }
 
     private float minDissolve;
@@ -127,7 +131,6 @@ public class PlayerSetUp : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             _isDissolve = false;
             this.transform.position = deathZone;
-            this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.localPosition = new Vector3(0, 4, 13);
             _levelManager.SetColorPlateforms();
             yield return new WaitForSeconds(0.3f);
             AfterRespawn();
