@@ -151,6 +151,9 @@ MonoBehaviour:
   isDestroying: 0
   _destroyPS: {fileID: 1672150053532895446}
   _respawnPS: {fileID: 8554148043667414627}
+  _audioSource: {fileID: 0}
+  _destroyPlateSound: {fileID: 8300000, guid: bb38d76ad905a504489be58a7ea51734, type: 3}
+  _respawnPlat: {fileID: 8300000, guid: 8df60a7b667755f408d9770a76a805ab, type: 3}
 --- !u!1001 &586474525426335851
 PrefabInstance:
   m_ObjectHideFlags: 0

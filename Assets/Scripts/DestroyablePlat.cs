@@ -11,6 +11,9 @@ public class DestroyablePlat : MonoBehaviour
     private GameObject _currentHook;
     [SerializeField] ParticleSystem _destroyPS;
     [SerializeField] ParticleSystem _respawnPS;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _destroyPlateSound;
+    [SerializeField] AudioClip _respawnPlat;
     void Start()
     {
         _playerController = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
@@ -25,6 +28,7 @@ public class DestroyablePlat : MonoBehaviour
     private void DestroyPlat()
     {
         _destroyPS.Play();
+        _audioSource.PlayOneShot(_destroyPlateSound, 0.2f);
         isDestroying = true;
         if (_currentHook != null)
         {
@@ -40,6 +44,7 @@ public class DestroyablePlat : MonoBehaviour
         {
             _respawnPS.Play();
             isDestroying = false;
+            _audioSource.PlayOneShot(_respawnPlat, 0.4f);
             yield return new WaitForSeconds(0.2f);
         }
         this.gameObject.GetComponent<MeshRenderer>().enabled = true;
