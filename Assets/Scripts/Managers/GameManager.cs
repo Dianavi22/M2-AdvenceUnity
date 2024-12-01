@@ -29,6 +29,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text _newRecordTxt;
     [SerializeField] TMP_Text _newRecordDeathTxt;
 
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _victorySound;
+    [SerializeField] ParticleSystem _colorExplosion;
+ 
+    private bool _isSoundPlaying = false;
+    private bool _isPartPlaying = false;
+
 
     public bool isFinish;
     void Start()
@@ -53,9 +60,23 @@ public class GameManager : MonoBehaviour
         _player.GetComponent<PlayerController>().rb.useGravity = false;
         _player.GetComponent<PlayerController>().rb.velocity = Vector3.zero;
         _victoryPart.SetActive(true);
-        _shakyCame.isShaking = true;
         _playerVictoryPart.SetActive(true);
-        yield return new WaitForSeconds(5);
+        if (!_isSoundPlaying)
+        {
+            _isSoundPlaying = true;
+            _audioSource.PlayOneShot(_victorySound, 0.8f);
+        }
+        _shakyCame._radius = 0.2f;
+        _shakyCame._duration = 4f;
+        _shakyCame.isShaking = true;
+        yield return new WaitForSeconds(4.8f);
+        if (!_isPartPlaying)
+        {
+            _isPartPlaying = true;
+            _colorExplosion.Play();
+        }
+        yield return new WaitForSeconds(0.2f);
+        
         _shakyCame.enabled = false;
         Victory();
 
@@ -85,6 +106,7 @@ public class GameManager : MonoBehaviour
         _dataManager.ShowTimer();
         SetUpTexts();
         DisablePlayer();
+       
         _victoryCanvas.SetActive(true);
     }
 
