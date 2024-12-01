@@ -127,11 +127,11 @@ public class PlayerSetUp : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             _isDissolve = false;
             this.transform.position = deathZone;
+            this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.localPosition = new Vector3(0, 4, 13);
             yield return new WaitForSeconds(0.3f);
             AfterRespawn();
             yield return new WaitForSeconds(1f);
             _isDissolve = false;
-            this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.localPosition = new Vector3(0, 4, 13);
         }
     }
 
