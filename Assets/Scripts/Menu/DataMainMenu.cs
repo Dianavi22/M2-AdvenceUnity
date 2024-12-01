@@ -11,7 +11,8 @@ public class DataMainMenu : MonoBehaviour
     [SerializeField] private bool isDebug;
     void Start()
     {
-
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
         Time.timeScale = 1;
         if (isDebug)
         {
