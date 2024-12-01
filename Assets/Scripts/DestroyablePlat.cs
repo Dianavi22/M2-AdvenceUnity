@@ -56,7 +56,7 @@ public class DestroyablePlat : MonoBehaviour
         if (collision.collider.name.Contains("Hook") && !isDestroying && _levelManager.phase >= 4)
         {
             _currentHook = collision.collider.gameObject;
-            Invoke("DestroyPlat", 2.3f);
+            Invoke("DestroyPlat", 2.8f);
         }
     }
 }

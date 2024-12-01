@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Value")]
     [SerializeField] private float _hookSpeed = 20f;
-    [SerializeField] private float _circleRadius = 2f;
+    [SerializeField] private float _circleRadius = 2.35f;
     [SerializeField] private float _grappleMaxDistance = 2f;
 
     [SerializeField] private float _speed = 4f;
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
         grapplePoint = hitPoint;
 
         _isGrappling = true;
-        _audioSounds.PlayOneShot(_catchPlate, 0.4f);
+        _audioSounds.PlayOneShot(_catchPlate, 0.25f);
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, hitPoint);
         Vector3 direction = _spawnHook.transform.position - transform.position;

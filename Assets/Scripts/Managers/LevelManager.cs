@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -253,14 +254,17 @@ public class LevelManager : MonoBehaviour
         {
             _imgButtons[i].material = _levelMATS[phase - 1];
         }
+        SetColorPlateforms();
+        SetBgPart();
+    }
+
+    public void SetColorPlateforms()
+    {
         for (int i = 0; i < allPlat.Count; i++)
         {
             allPlat[i].GetComponent<MeshRenderer>().material = _platMat[phase - 1];
         }
-        SetBgPart();
     }
-
-   
 
     #region SetLevel
     private void SetDesignLevel()

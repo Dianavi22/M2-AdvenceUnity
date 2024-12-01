@@ -86841,7 +86841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trueMenu: {fileID: 1720872369}
   _fakeMenu: {fileID: 1720872368}
-  isDebug: 1
+  isDebug: 0
 --- !u!1 &1752563931
 GameObject:
   m_ObjectHideFlags: 0
