@@ -22,6 +22,8 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] ShakyCame _shakyCam;
     [SerializeField] GameManager _gameManager;
     [SerializeField] private bool isDebugMode;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _respawnPlayerSound;
     public bool isTp = false;
     private Camera _cam;
     void Start()
@@ -132,6 +134,7 @@ public class PlayerSetUp : MonoBehaviour
             _isDissolve = false;
             this.transform.position = deathZone;
             _levelManager.SetColorPlateforms();
+            _audioSource.PlayOneShot(_respawnPlayerSound, 0.6f);
             yield return new WaitForSeconds(0.3f);
             AfterRespawn();
             yield return new WaitForSeconds(1f);

@@ -70416,7 +70416,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Credits
+  m_text: CREDITS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6622ff9137b9a0459611663a34392c7, type: 2}
   m_sharedMaterial: {fileID: 1189766076550541926, guid: b6622ff9137b9a0459611663a34392c7, type: 2}
@@ -81607,7 +81607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: QUIT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6622ff9137b9a0459611663a34392c7, type: 2}
   m_sharedMaterial: {fileID: 1189766076550541926, guid: b6622ff9137b9a0459611663a34392c7, type: 2}
