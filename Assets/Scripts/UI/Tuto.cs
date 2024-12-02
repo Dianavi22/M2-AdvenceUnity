@@ -6,20 +6,25 @@ using UnityEngine;
 
 public class Tuto : MonoBehaviour
 {
+    public bool isReadyToBegin = false;
+
+    [Header("References")]
     [SerializeField] TypeSentence _typeSentence;
-    [SerializeField] GameObject _player;
+
+    [Header("Components")]
     [SerializeField] TMP_Text _tutoTxtPosition;
     [SerializeField] TMP_Text _tutoTxtOkayPosition;
-    [SerializeField] List<string> stringList = new List<string>();
+    [SerializeField] Rigidbody _rb;
+
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSourceSoundsTuto;
-    [SerializeField] PlayerFirstMove PlayerFirstMove;
+
+    [SerializeField] List<string> stringList = new List<string>();
+
     private int i = 0;
     private bool _finishTuto = false;
-
     private Vector3 jump;
     private float jumpForce = 2.0f;
-    public bool isReadyToBegin = false;
-    [SerializeField] Rigidbody _rb;
     private bool _canJump = true;
     void Start()
     {
@@ -37,7 +42,7 @@ public class Tuto : MonoBehaviour
         if (_finishTuto && Input.GetKeyDown(KeyCode.Space))
         {
             _finishTuto = true;
-            Jump();
+            StartCoroutine(Jump());
         }
         if (Input.GetKeyDown(KeyCode.Space) && !_finishTuto)
         {
@@ -53,7 +58,7 @@ public class Tuto : MonoBehaviour
             _tutoTxtPosition.color = new Color32(0, 0, 0, 0);
             _tutoTxtOkayPosition.text = "Okay...";
             _finishTuto = true;
-            Jump();
+            StartCoroutine(Jump());
         }
     }
 
@@ -69,15 +74,11 @@ public class Tuto : MonoBehaviour
         }
     }
 
-    public void Jump()
+    public IEnumerator Jump()
     {
         _canJump = false;
         _rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-        Invoke("Prepare", 1f);
-    }
-
-    private void Prepare()
-    {
+        yield return new WaitForSeconds(0.3f);
         isReadyToBegin = true;
     }
 

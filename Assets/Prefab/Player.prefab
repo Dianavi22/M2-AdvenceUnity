@@ -48285,17 +48285,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6659a9716bbaade4a9ad57acda92e5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isReadyToBegin: 0
   _typeSentence: {fileID: 4908518513147068089}
-  _player: {fileID: 6183073102848137240}
   _tutoTxtPosition: {fileID: 2106491170303172388}
   _tutoTxtOkayPosition: {fileID: 8070503251120073711}
+  _rb: {fileID: 8197914742812504534}
+  _audioSourceSoundsTuto: {fileID: 0}
   stringList:
   - Click on Plateform for grab
   - ZQSD or WASD for swing
   - Take Item and maintient space for slow motion
   - P for pause and....
   - Press Space to begin
-  _audioSourceSoundsTuto: {fileID: 0}
 --- !u!1 &4956756536153708710
 GameObject:
   m_ObjectHideFlags: 0
@@ -49371,7 +49372,6 @@ GameObject:
   - component: {fileID: 2917916148925286891}
   - component: {fileID: 4774562891834402424}
   - component: {fileID: 4102580637090941590}
-  - component: {fileID: 8348924324962547844}
   - component: {fileID: 238378630168593288}
   - component: {fileID: 6262370325245401261}
   m_Layer: 0
@@ -49612,7 +49612,8 @@ MonoBehaviour:
   _shakyCam: {fileID: 1317817897529720984}
   _grounded: {fileID: 5155200428994507674}
   _playerController: {fileID: 6821016204927534092}
-  _slowMo: {fileID: 0}
+  _slowMo: {fileID: 238378630168593288}
+  _tuto: {fileID: 4686155886520964319}
   startTranform: {fileID: 0}
   _playerMeshRenderer: {fileID: 9172496785892551947}
   _cam: {fileID: 5203042952564738268}
@@ -49622,22 +49623,7 @@ MonoBehaviour:
   _audioSource: {fileID: 0}
   _respawnPlayerSound: {fileID: 8300000, guid: 118bafda0ebe2f940bbec65e5d85765e, type: 3}
   isDebugMode: 0
---- !u!114 &8348924324962547844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6183073102848137240}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e005c696d8659428a791ebb056bbbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jump: {x: 0, y: 0, z: 0}
-  jumpForce: 3
-  isReadyToBegin: 0
-  isGrounded: 0
+  isFirstPhase: 0
 --- !u!114 &238378630168593288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49673,10 +49659,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTeleport: 0
   _gameManager: {fileID: 0}
-  _slowmotion: {fileID: 0}
+  _slowmotion: {fileID: 238378630168593288}
   _shakyCame: {fileID: 1317817897529720984}
   _gfx: {fileID: 3626314667500798996}
-  _sliderSlowMo: {fileID: 0}
+  _sliderSlowMo: {fileID: 2414363693314733466}
   _rb: {fileID: 8197914742812504534}
   _audioSourceSounds: {fileID: 0}
   _audioTPInClip: {fileID: 8300000, guid: 0f8e8d9f8b369ac498028facff1ff2ce, type: 3}
@@ -101174,6 +101160,14 @@ PrefabInstance:
     - target: {fileID: 120599818321626180, guid: ebbaf9c019a2a5746a8647e0025bb077, type: 3}
       propertyPath: m_Name
       value: Tuto
+      objectReference: {fileID: 0}
+    - target: {fileID: 239074126860201713, guid: ebbaf9c019a2a5746a8647e0025bb077, type: 3}
+      propertyPath: m_text
+      value: Press Espace to pass the tuto
+      objectReference: {fileID: 0}
+    - target: {fileID: 239074126860201713, guid: ebbaf9c019a2a5746a8647e0025bb077, type: 3}
+      propertyPath: m_margin.z
+      value: -215.9217
       objectReference: {fileID: 0}
     - target: {fileID: 5478555656622648119, guid: ebbaf9c019a2a5746a8647e0025bb077, type: 3}
       propertyPath: _player

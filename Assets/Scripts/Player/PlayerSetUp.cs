@@ -14,7 +14,6 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private ShakyCame _shakyCam;
-    [SerializeField] private Grounded _grounded;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private SlowMotion _slowMo;
     [SerializeField] private Tuto _tuto;
