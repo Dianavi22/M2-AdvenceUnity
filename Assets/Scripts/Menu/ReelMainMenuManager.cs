@@ -8,34 +8,33 @@ using UnityEngine.UI;
 public class ReelMainMenuManager : MonoBehaviour
 {
 
+    [Header("References")]
+    [SerializeField] TypeSentence typesSentence;
+    [SerializeField] ShakyCame _shakyCame;
 
+    [Header("Components")]
     [SerializeField] GameObject _titleWiggle;
     [SerializeField] GameObject _title;
     [SerializeField] GameObject _credits;
     [SerializeField] GameObject _creditsTitle;
-
+    [SerializeField] GameObject _reelMenu;
+    [SerializeField] GameObject _reelMenuCanvas;
+    [SerializeField] List<Button> _buttons;
     [SerializeField] List<GameObject> _buttonPart = new List<GameObject>();
     [SerializeField] List<GameObject> _buttonSprite = new List<GameObject>();
 
-    [SerializeField] TypeSentence typesSentence;
-
+    [Header("Visuel")]
+    [SerializeField] Animator _animator;
     [SerializeField] ParticleSystem _bolt1;
     [SerializeField] ParticleSystem _bolt2;
     [SerializeField] ParticleSystem _explision;
-    [SerializeField] GameObject _reelMenu;
-    [SerializeField] GameObject _reelMenuCanvas;
-
-    [SerializeField] List<Button> _buttons;
-
+   
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioSource _audioSourceFakeMusic;
     [SerializeField] AudioSource _audioSourceMusic;
     [SerializeField] AudioClip _click;
     [SerializeField] AudioClip _boltSound;
-
-    [SerializeField] Animator _animator;
-
-    [SerializeField] ShakyCame _shakyCame;
 
     private bool _isTrueMenu;
     private bool _isCreditOpen = false;

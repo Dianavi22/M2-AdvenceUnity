@@ -492,12 +492,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTyping: 0
+  _shakyCame: {fileID: 528318745}
   _key:
   - {fileID: 8300000, guid: 47089f65ffc23b34aa8b0c54fce05184, type: 3}
   - {fileID: 8300000, guid: e0281959e631d34458f5f1a65183725b, type: 3}
   - {fileID: 8300000, guid: d52eb87b94b1641459d85c6ee80c46c8, type: 3}
   _audioSource: {fileID: 465407253}
-  _shakyCame: {fileID: 528318745}
   _titleMode: 1
 --- !u!4 &153245149
 Transform:
@@ -25419,9 +25419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d201bb2ea932f54ea32be667f5b4ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 1
-  _radius: 1
-  isShaking: 0
 --- !u!1 &532819942
 GameObject:
   m_ObjectHideFlags: 0
@@ -86841,7 +86838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trueMenu: {fileID: 1720872369}
   _fakeMenu: {fileID: 1720872368}
-  isDebug: 0
+  _isDebug: 0
 --- !u!1 &1752563931
 GameObject:
   m_ObjectHideFlags: 0

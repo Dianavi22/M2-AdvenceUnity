@@ -42,6 +42,7 @@ public class PlayerSetUp : MonoBehaviour
     private float minDissolve;
     private float maxDissolve;
     private bool _a = true;
+    private bool _isDespawned = false;
 
     void Start()
     {
@@ -52,23 +53,27 @@ public class PlayerSetUp : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!_isDespawned)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                this.transform.position = _levelManager.phaseRestart;
+                _playerController._isGrappling = false;
+                isInDeathZone = false;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            this.transform.position = _levelManager.phaseRestart;
-            _playerController._isGrappling = false;
-            isInDeathZone = false;
-        }
+
 
         if (_isDissolve)
         {
             DissolvePlayer(minDissolve, maxDissolve);
         }
         _cam.gameObject.transform.localPosition = new Vector3(0, 4, 13);
-        
+
         //DEBUG
         #region Debug TP
         if (isDebugMode)
@@ -144,6 +149,7 @@ public class PlayerSetUp : MonoBehaviour
     {
         if (!isTp)
         {
+            _isDespawned = true;
             _slowMo.isSlowMo = false;
             _timeLerpDissolve = 0;
             _rb.useGravity = false;
@@ -160,6 +166,8 @@ public class PlayerSetUp : MonoBehaviour
             AfterRespawn();
             yield return new WaitForSeconds(1f);
             _isDissolve = false;
+            _isDespawned = false;
+
         }
     }
 

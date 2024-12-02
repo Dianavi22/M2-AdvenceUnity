@@ -7,13 +7,13 @@ public class DataMainMenu : MonoBehaviour
 {
     [SerializeField] ReelMainMenuManager _trueMenu;
     [SerializeField] MainMenuManager _fakeMenu;
+    [SerializeField] private bool _isDebug;
     private int _isTrueMenu;
-    [SerializeField] private bool isDebug;
     void Start()
     {
         
         Time.timeScale = 1;
-        if (isDebug)
+        if (_isDebug)
         {
             _isTrueMenu = 1;
             if (_isTrueMenu == 1)
@@ -46,11 +46,5 @@ public class DataMainMenu : MonoBehaviour
                 }
             }
         }
-
-    }
-
-    void Update()
-    {
-
     }
 }
