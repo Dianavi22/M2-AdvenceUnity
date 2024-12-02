@@ -4,9 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//PlayerSetUp is responsible for handling position changes during a despawn or teleportation
 public class PlayerSetUp : MonoBehaviour
 {
-
     [HideInInspector] public bool isInDeathZone = false;
     [HideInInspector] public bool isTp = false;
 
@@ -128,8 +128,6 @@ public class PlayerSetUp : MonoBehaviour
         }
         #endregion
     }
-
-    
 
     public IEnumerator RespawnPlayer(Vector3 deathZone)
     {

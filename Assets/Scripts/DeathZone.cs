@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//DeathZone calls the RespawnPlayer coroutine after contact
 public class DeathZone : MonoBehaviour
 {
     [SerializeField] Vector3 _spawnCoord;
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _deathClip;
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-        
-    }
-
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
