@@ -13,13 +13,11 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] List<AudioSource> _sources;
     [SerializeField] SlowMotion _slowMo;
     public bool isPause = false;
-    void Start()
-    {
-    }
-
+    [SerializeField] GameManager _gameManager;
+  
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && !_gameManager.isFinish)
         {
             if (isPause)
             {

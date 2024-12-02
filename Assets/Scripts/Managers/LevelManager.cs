@@ -138,7 +138,7 @@ public class LevelManager : MonoBehaviour
         {
             _playerSetUp.isFirstPhase = false;
             phase = 1;
-            _firstAudioSource.volume = 0;
+            ResetAudioSources();
             _audioSourceLevel1.volume = 1;
             SetFirstPhase();
             for (int i = 0; i < _txtToChange.Count; i++)
@@ -166,7 +166,7 @@ public class LevelManager : MonoBehaviour
         if (phase == 2 && !_phase2Done)
         {
             _phase2Done = true;
-            _audioSourceLevel1.volume = 0;
+            ResetAudioSources();
             _audioSourceLevel2.volume = 1;
 
             ChangePhase();
@@ -188,8 +188,7 @@ public class LevelManager : MonoBehaviour
         {
             _phase3Done = true;
             phaseRestart = new Vector3(37, -7, 0);
-
-            _audioSourceLevel2.volume = 0;
+            ResetAudioSources();
             _audioSourceLevel3.volume = 1;
             ChangePhase();
 
@@ -211,7 +210,7 @@ public class LevelManager : MonoBehaviour
             if (!_isLastLevel)
             {
                 _isLastLevel = true;
-                _audioSourceLevel3.volume = 0;
+                ResetAudioSources();
                 _audioSourceLevel4.volume = 1;
                 _phase4Done = true;
                 ChangePhase();
@@ -232,6 +231,14 @@ public class LevelManager : MonoBehaviour
 
         }
 
+    }
+
+    private void ResetAudioSources()
+    {
+        _audioSourceLevel1.volume = 0;
+        _audioSourceLevel2.volume = 0;
+        _audioSourceLevel3.volume = 0;
+        _audioSourceLevel4.volume = 0;
     }
 
     private IEnumerator Glitch()
