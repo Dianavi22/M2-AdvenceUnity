@@ -8,12 +8,12 @@ public class PlayerFirstMove : MonoBehaviour
     public float jumpForce = 2.0f;
     public bool isReadyToBegin = false;
     public bool isGrounded;
-    Rigidbody rb;
+    [SerializeField] Rigidbody _rb;
     private bool _hasJump = false;
     private bool _canJump = true;
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 
@@ -30,15 +30,15 @@ public class PlayerFirstMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && _canJump)
         {
-            _canJump = false;
             Jump();
-            Invoke("Prepare", 0.3f);
         }
     }
 
-    private void Jump()
+    public void Jump()
     {
-        rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+        _canJump = false;
+        _rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+        Invoke("Prepare", 0.3f);
     }
 
     private void Prepare()

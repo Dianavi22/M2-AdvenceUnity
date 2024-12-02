@@ -58,8 +58,9 @@ public class LevelManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
     [SerializeField] private PlayerController _playerController;
-    [SerializeField] private PlayerFirstMove _playerFirstMove;
+    [SerializeField] private Tuto _tuto;
     [SerializeField] private Timer _timer;
+    [SerializeField] private PlayerSetUp _playerSetUp;
 
     [Header("UI")]
     [SerializeField] GameObject _slider;
@@ -95,7 +96,6 @@ public class LevelManager : MonoBehaviour
     private bool _isStartGame = false;
     private void Start()
     {
-        _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
         _playerController.enabled = false;
     }
 
@@ -104,7 +104,7 @@ public class LevelManager : MonoBehaviour
         _audioSourceSoundsTuto.gameObject.SetActive(false);
         _firstAudioSource.gameObject.SetActive(false);
         _timer.enabled = true;
-        _playerFirstMove.enabled = false;
+        _tuto.enabled = false;
         RenderSettings.skybox = _skyBoxMAT;
         _playerController.enabled = true;
         _playerMesh.material = _playerMAT;
@@ -134,8 +134,9 @@ public class LevelManager : MonoBehaviour
         {
             _goodText.GetComponent<TMP_Text>().color = Color.Lerp(_goodText.GetComponent<TMP_Text>().color, new Color(0, 0, 0, 0), Time.deltaTime * 2);
         }
-        if (phase == 0 && _playerFirstMove.isReadyToBegin)
+        if (phase == 0 && _playerSetUp.isFirstPhase)
         {
+            _playerSetUp.isFirstPhase = false;
             phase = 1;
             _firstAudioSource.volume = 0;
             _audioSourceLevel1.volume = 1;
@@ -232,6 +233,7 @@ public class LevelManager : MonoBehaviour
         }
 
     }
+
     private IEnumerator Glitch()
     {
         _glitch.weight = 1.0f;

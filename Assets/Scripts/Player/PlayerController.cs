@@ -170,7 +170,6 @@ public class PlayerController : MonoBehaviour
             rb.AddForce((-direction * _grappleSpeed) * _speedVertical * Time.deltaTime);
         }
 
-
         if (Input.GetKey(KeyCode.A))
         {
             rb.AddForce((Vector3.right) * _speed * Time.deltaTime);
@@ -179,7 +178,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce((-Vector3.right) * _speed * Time.deltaTime);
         }
-
         _canJump = true;
     }
 
@@ -194,7 +192,7 @@ public class PlayerController : MonoBehaviour
             }
             catch
             {
-                //OSEF
+                //
             }
         }
         _isGrappling = false;

@@ -17,6 +17,7 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] private Grounded _grounded;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private SlowMotion _slowMo;
+    [SerializeField] private Tuto _tuto;
 
     [Header("Components")]
     [HideInInspector] public Transform startTranform;
@@ -38,8 +39,10 @@ public class PlayerSetUp : MonoBehaviour
 
     private static float _timeLerpDissolve = 0f;
     private bool _isDissolve = false;
+    public bool isFirstPhase = false;
     private float minDissolve;
     private float maxDissolve;
+    private bool _a = true;
 
     void Start()
     {
@@ -127,6 +130,15 @@ public class PlayerSetUp : MonoBehaviour
             }
         }
         #endregion
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_tuto.isReadyToBegin && _a)
+        {
+            _a = false;
+            isFirstPhase = true;
+        }
     }
 
     public IEnumerator RespawnPlayer(Vector3 deathZone)

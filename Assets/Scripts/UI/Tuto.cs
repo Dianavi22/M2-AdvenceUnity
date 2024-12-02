@@ -12,11 +12,19 @@ public class Tuto : MonoBehaviour
     [SerializeField] TMP_Text _tutoTxtOkayPosition;
     [SerializeField] List<string> stringList = new List<string>();
     [SerializeField] AudioSource _audioSourceSoundsTuto;
+    [SerializeField] PlayerFirstMove PlayerFirstMove;
     private int i = 0;
     private bool _finishTuto = false;
+
+    private Vector3 jump;
+    private float jumpForce = 2.0f;
+    public bool isReadyToBegin = false;
+    [SerializeField] Rigidbody _rb;
+    private bool _canJump = true;
     void Start()
     {
         Time.timeScale = 1;
+        jump = new Vector3(0.0f, 3.0f, 0.0f);
     }
 
     void Update()
@@ -26,17 +34,17 @@ public class Tuto : MonoBehaviour
             StartCoroutine(TutoTexts());
         }
 
-        if (_finishTuto)
+        if (_finishTuto && Input.GetKeyDown(KeyCode.Space))
         {
-            IsFinishToReadTuto();
+            _finishTuto = true;
+            Jump();
         }
-        if (Input.GetMouseButtonDown(0) && !_finishTuto)
+        if (Input.GetKeyDown(KeyCode.Space) && !_finishTuto)
         {
             try
             {
                 StopCoroutine(_typeSentence.TypeCurrentSentence(stringList[i], _tutoTxtPosition));
                 _audioSourceSoundsTuto.gameObject.SetActive(false);
-
             }
             catch
             {
@@ -45,7 +53,7 @@ public class Tuto : MonoBehaviour
             _tutoTxtPosition.color = new Color32(0, 0, 0, 0);
             _tutoTxtOkayPosition.text = "Okay...";
             _finishTuto = true;
-
+            Jump();
         }
     }
 
@@ -61,9 +69,16 @@ public class Tuto : MonoBehaviour
         }
     }
 
-    private void IsFinishToReadTuto()
+    public void Jump()
     {
-        _player.GetComponent<PlayerFirstMove>().enabled = true;
+        _canJump = false;
+        _rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+        Invoke("Prepare", 1f);
+    }
+
+    private void Prepare()
+    {
+        isReadyToBegin = true;
     }
 
 }
