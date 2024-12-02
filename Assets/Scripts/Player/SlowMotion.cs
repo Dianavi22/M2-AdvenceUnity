@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SlowMotion : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
-    public bool _isSlowMo = false;
+    public bool isSlowMo = false;
     public int slowMoCount;
     [SerializeField] private Timer _timer;
     private bool _isInCD = false;
@@ -28,29 +28,29 @@ public class SlowMotion : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0)
         {
-            _isSlowMo = true;
+            isSlowMo = true;
         }
         else if(Input.GetKeyUp(KeyCode.Space)) {
             Time.timeScale = 1f;
             _timer._slowMoMulti = 1;
-            _isSlowMo = false;
+            isSlowMo = false;
         }
-        if (_isSlowMo && !_isInCD && slowMoCount > 0)
+        if (isSlowMo && !_isInCD && slowMoCount > 0)
         {
             _isInCD = true;
             Time.timeScale = 0.5f;
             _timer._slowMoMulti = 2;
             StartCoroutine(SlowMoDecrement());
         }
-        if (slowMoCount <= 0 && _isSlowMo)
+        if (slowMoCount <= 0 && isSlowMo)
         {
             Time.timeScale = 1f;
             _timer._slowMoMulti = 1;
-            _isSlowMo = false;
+            isSlowMo = false;
         }
         _sliderSlowMo.value = slowMoCount;
 
-        if (_isSlowMo && !_isPlaying)
+        if (isSlowMo && !_isPlaying)
         {
             _isPlaying = true;
             _slowMoPart.Play();
@@ -73,7 +73,6 @@ public class SlowMotion : MonoBehaviour
             _audioSourceSounds.PlayOneShot(_audioStopSlowMoClip, 0.35f);
             _isSoundSlowMoPlayed = false;
         }
-
     }
 
     private IEnumerator SlowMoDecrement()

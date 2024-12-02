@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSetUp : MonoBehaviour
 {
-    
-    public bool isInDeathZone = false;
-    public bool isTp = false;
+
+    [HideInInspector] public bool isInDeathZone = false;
+    [HideInInspector] public bool isTp = false;
 
     [Header("References")]
     [SerializeField] private LevelManager _levelManager;
