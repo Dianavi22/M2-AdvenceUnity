@@ -16,6 +16,7 @@ public class PlayerSetUp : MonoBehaviour
     [SerializeField] private ShakyCame _shakyCam;
     [SerializeField] private Grounded _grounded;
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private SlowMotion _slowMo;
 
     [Header("Components")]
     [HideInInspector] public Transform startTranform;
@@ -59,8 +60,6 @@ public class PlayerSetUp : MonoBehaviour
             _playerController._isGrappling = false;
             isInDeathZone = false;
         }
-
-        
 
         if (_isDissolve)
         {
@@ -136,6 +135,7 @@ public class PlayerSetUp : MonoBehaviour
     {
         if (!isTp)
         {
+            _slowMo.isSlowMo = false;
             _timeLerpDissolve = 0;
             _rb.useGravity = false;
             _rb.velocity = Vector3.zero;

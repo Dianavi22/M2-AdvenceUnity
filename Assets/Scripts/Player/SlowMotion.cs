@@ -5,18 +5,26 @@ using UnityEngine.UI;
 
 public class SlowMotion : MonoBehaviour
 {
-    [SerializeField] private LevelManager _levelManager;
     public bool isSlowMo = false;
     public int slowMoCount;
+
+    [Header("References")]
+    [SerializeField] private LevelManager _levelManager;
     [SerializeField] private Timer _timer;
-    private bool _isInCD = false;
+
+    [Header("Components")]
     [SerializeField] Slider _sliderSlowMo;
-    private bool _isPlaying;
+
+    [Header("Visuel")]
     [SerializeField] ParticleSystem _slowMoPart;
+
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSourceSounds;
     [SerializeField] AudioClip _audioSlowMoClip;
     [SerializeField] AudioClip _audioStopSlowMoClip;
 
+    private bool _isInCD = false;
+    private bool _isPlaying;
     private bool _isSoundSlowMoPlayed = false;
     private bool _isSoundStopSlowMoPlayed = true;
     void Start()
@@ -26,53 +34,48 @@ public class SlowMotion : MonoBehaviour
 
     void Update()
     {
+        #region Activation SlowMo
         if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0)
         {
             isSlowMo = true;
+            if (!_isSoundSlowMoPlayed)
+            {
+                _audioSourceSounds.PlayOneShot(_audioSlowMoClip, 0.3f);
+                _isSoundSlowMoPlayed = true;
+                _isSoundStopSlowMoPlayed = false;
+            }
         }
-        else if(Input.GetKeyUp(KeyCode.Space)) {
-            Time.timeScale = 1f;
-            _timer._slowMoMulti = 1;
-            isSlowMo = false;
-        }
-        if (isSlowMo && !_isInCD && slowMoCount > 0)
-        {
-            _isInCD = true;
-            Time.timeScale = 0.5f;
-            _timer._slowMoMulti = 2;
-            StartCoroutine(SlowMoDecrement());
-        }
-        if (slowMoCount <= 0 && isSlowMo)
+        else if (Input.GetKeyUp(KeyCode.Space) || slowMoCount <= 0)
         {
             Time.timeScale = 1f;
             _timer._slowMoMulti = 1;
             isSlowMo = false;
+            if (!_isSoundStopSlowMoPlayed)
+            {
+                _isSoundStopSlowMoPlayed = true;
+                _audioSourceSounds.PlayOneShot(_audioStopSlowMoClip, 0.35f);
+                _isSoundSlowMoPlayed = false;
+            }
         }
-        _sliderSlowMo.value = slowMoCount;
+        #endregion
 
-        if (isSlowMo && !_isPlaying)
+        if (isSlowMo)
         {
-            _isPlaying = true;
             _slowMoPart.Play();
+            if(!_isInCD && slowMoCount > 0)
+            {
+                _isInCD = true;
+                Time.timeScale = 0.5f;
+                _timer._slowMoMulti = 2;
+                StartCoroutine(SlowMoDecrement());
+            }
         }
         else
         {
             _slowMoPart.Stop();
-            _isPlaying = false;
         }
+        _sliderSlowMo.value = slowMoCount;
 
-        if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0 && !_isSoundSlowMoPlayed)
-        {
-            _audioSourceSounds.PlayOneShot(_audioSlowMoClip,0.3f);
-            _isSoundSlowMoPlayed = true;
-            _isSoundStopSlowMoPlayed = false;
-        }
-        if ((Input.GetKeyUp(KeyCode.Space) || slowMoCount <= 0) && !_isSoundStopSlowMoPlayed)
-        {
-            _isSoundStopSlowMoPlayed = true;
-            _audioSourceSounds.PlayOneShot(_audioStopSlowMoClip, 0.35f);
-            _isSoundSlowMoPlayed = false;
-        }
     }
 
     private IEnumerator SlowMoDecrement()
@@ -80,6 +83,5 @@ public class SlowMotion : MonoBehaviour
         slowMoCount--;
         yield return new WaitForSeconds(0.5f);
         _isInCD = false;
-
     }
 }
