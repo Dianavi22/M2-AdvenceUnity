@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//SlowMotion, the ability to slow down the timeScale while holding the spacebar
 public class SlowMotion : MonoBehaviour
 {
-    public bool isSlowMo = false;
-    public int slowMoCount;
+    [HideInInspector] public bool isSlowMo = false;
+    [HideInInspector] public int slowMoCount;
 
     [Header("References")]
     [SerializeField] private LevelManager _levelManager;
@@ -75,9 +76,7 @@ public class SlowMotion : MonoBehaviour
             _slowMoPart.Stop();
         }
         _sliderSlowMo.value = slowMoCount;
-
     }
-
     private IEnumerator SlowMoDecrement()
     {
         slowMoCount--;
