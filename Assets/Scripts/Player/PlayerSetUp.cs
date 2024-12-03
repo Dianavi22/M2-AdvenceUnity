@@ -51,7 +51,7 @@ public class PlayerSetUp : MonoBehaviour
 
     void Update()
     {
-        if (!_isDespawned && !_gameManager.isFinish)
+        if (!_isDespawned && !_gameManager.isFinish && !_a)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {

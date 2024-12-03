@@ -39,7 +39,7 @@ public class Tuto : MonoBehaviour
             StartCoroutine(TutoTexts());
         }
 
-        if (!_finishTuto && Input.GetKeyDown(KeyCode.Space))
+        if (_finishTuto && Input.GetKeyDown(KeyCode.Space))
         {
             _finishTuto = true;
             StartCoroutine(Jump());

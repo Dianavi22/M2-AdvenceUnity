@@ -25,6 +25,7 @@ public class Hook : MonoBehaviour
     {
         _levelManager = FindObjectOfType<LevelManager>().gameObject.GetComponent<LevelManager>();
         _playerController = FindObjectOfType<PlayerController>().gameObject.GetComponent<PlayerController>();
+   this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     public void Initialize(PlayerController playerController)
@@ -46,6 +47,7 @@ public class Hook : MonoBehaviour
             if (collision.gameObject.CompareTag("GrappleSurface"))
             {
                 joint = gameObject.AddComponent<ConfigurableJoint>();
+                SetUpConfigurableJoint();
                 Vector3 hitPoint = collision.contacts[0].point;
                 _playerController.StartGrapple(hitPoint, collision.gameObject);
                 _isHooked = true;
@@ -55,9 +57,13 @@ public class Hook : MonoBehaviour
                 collision.collider.gameObject.GetComponent<MeshRenderer>().material = _cyan;
                 SetUpHookGFX();
                 _meshPlat = collision.collider.gameObject.GetComponent<MeshRenderer>();
-                SetUpConfigurableJoint();
             }
         }
+    }
+
+    private void Update()
+    {
+       
     }
 
     private void SetUpHookGFX()
@@ -77,29 +83,32 @@ public class Hook : MonoBehaviour
 
     private void SetUpConfigurableJoint()
     {
+        joint.autoConfigureConnectedAnchor = false;
         joint.connectedBody = _playerController.rb;
-        joint.connectedAnchor = transform.position;
+
         joint.axis = new Vector3(1, 1, 0);
         joint.secondaryAxis = new Vector3(1, 1, 0);
-        joint.anchor = new Vector3(0, 0, transform.position.z);
-        joint.anchor = new Vector3(0, 0, transform.position.z);
+
+        joint.anchor = Vector3.zero;
+        joint.connectedAnchor = Vector3.zero;
 
         joint.xMotion = ConfigurableJointMotion.Limited;
         joint.yMotion = ConfigurableJointMotion.Limited;
         joint.zMotion = ConfigurableJointMotion.Locked;
 
-        joint.autoConfigureConnectedAnchor = false;
-
-        SoftJointLimit limit = joint.linearLimit;
+        SoftJointLimit limit = new SoftJointLimit();
         limit.limit = 4f;
         limit.contactDistance = 1f;
         joint.linearLimit = limit;
 
-        SoftJointLimitSpring limitSpring = joint.linearLimitSpring;
-        limitSpring.spring = 2;
-        limitSpring.damper = 5;
+        SoftJointLimitSpring limitSpring = new SoftJointLimitSpring();
+        limitSpring.spring = 2f;
+        limitSpring.damper = 5f;
         joint.linearLimitSpring = limitSpring;
+
+        joint.targetPosition = Vector3.zero;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
