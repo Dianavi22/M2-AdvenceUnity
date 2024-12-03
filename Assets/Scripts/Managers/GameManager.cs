@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+// Game Manager, handles victory-related functions and updates game data
 public class GameManager : MonoBehaviour
 {
     public int currentNumberItem;
+    public bool isFinish;
     public int nbDeath;
+
     [SerializeField] int _maxItem = 50;
     [SerializeField] GameObject _player;
 
@@ -14,9 +17,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] DataManager _dataManager;
     [SerializeField] ShakyCame _shakyCame;
     [SerializeField] Timer _timer;
+    [SerializeField] PlayerController _playerController;
+    [SerializeField] PlayerController _playerSetUp;
 
     [Header("Particules")]
     [SerializeField] GameObject _victoryPart;
+    [SerializeField] ParticleSystem _colorExplosion;
     [SerializeField] GameObject _playerVictoryPart;
 
     [Header("UI")]
@@ -29,21 +35,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text _newRecordTxt;
     [SerializeField] TMP_Text _newRecordDeathTxt;
 
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioSource _audioSourceMusic;
     [SerializeField] AudioClip _victorySound;
-    [SerializeField] ParticleSystem _colorExplosion;
     [SerializeField] AudioClip _colorExplosionSound;
 
     private bool _isSoundPlaying = false;
     private bool _isPartPlaying = false;
 
-
-    public bool isFinish;
     void Start()
     {
         isFinish = false;
-
     }
 
     void Update()
@@ -59,8 +62,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator VictoryEffect()
     {
         isFinish = true;
-        _player.GetComponent<PlayerController>().rb.useGravity = false;
-        _player.GetComponent<PlayerController>().rb.velocity = Vector3.zero;
+        _playerController.rb.useGravity = false;
+        _playerController.rb.velocity = Vector3.zero;
         _victoryPart.SetActive(true);
         _playerVictoryPart.SetActive(true);
         if (!_isSoundPlaying)
@@ -68,9 +71,7 @@ public class GameManager : MonoBehaviour
             _isSoundPlaying = true;
             _audioSource.PlayOneShot(_victorySound, 0.8f);
         }
-        _shakyCame._radius = 0.2f;
-        _shakyCame._duration = 4f;
-        _shakyCame.isShaking = true;
+        _shakyCame.ShakyCameCustom(4, 0.2f);
         yield return new WaitForSeconds(4.8f);
         if (!_isPartPlaying)
         {
@@ -80,10 +81,8 @@ public class GameManager : MonoBehaviour
         }
         _audioSourceMusic.volume = 0.3f;
         yield return new WaitForSeconds(0.2f);
-        
         _shakyCame.enabled = false;
         Victory();
-
     }
 
     private void PlayerPrefsSetUp()
@@ -110,7 +109,6 @@ public class GameManager : MonoBehaviour
         _dataManager.ShowTimer();
         SetUpTexts();
         DisablePlayer();
-       
         _victoryCanvas.SetActive(true);
     }
 
@@ -124,8 +122,8 @@ public class GameManager : MonoBehaviour
 
     private void DisablePlayer()
     {
-        _player.GetComponent<PlayerController>().enabled = false;
-        _player.GetComponent<PlayerSetUp>().enabled = false;
+        _playerController.enabled = false;
+        _playerSetUp.enabled = false;
     }
     #endregion
 }

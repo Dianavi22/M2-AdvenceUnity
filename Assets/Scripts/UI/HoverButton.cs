@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class HoverButton : MonoBehaviour
 {
-   
- 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hoverSound;    
 

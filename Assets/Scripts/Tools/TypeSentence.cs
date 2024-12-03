@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-// Ce script est a placer dans la hiérarchie (ou dans le canva directement)
-// Il contient une fonction qui peut etre appelee partout s'il a la reference de se script 
-// Il faut lui passer les parammtres : Textes a ecrire, emplacement du texte, secondes entre chaque caracteres
+// Type sentence, displays chars one by one based on a duration
 public class TypeSentence : MonoBehaviour
 {
-   // Parametres 
-   private TMP_Text _textPlace;
-   private string _textToShow;
-    private float _timeBetweenChar; // Temps en Seconde
     public bool isTyping = false;
+
+    [Header("References")]
+    [SerializeField] ShakyCame _shakyCame;
+
+    [Header("Components")]
+    private TMP_Text _textPlace;
+
+    [Header("Audio")]
     [SerializeField] List<AudioClip> _key;
     [SerializeField] AudioSource _audioSource;
-    [SerializeField] ShakyCame _shakyCame;
-    [SerializeField] bool _titleMode;
 
+    [SerializeField] bool _titleMode;
+    private string _textToShow;
+    private float _timeBetweenChar;
+    
     public void WriteMachinEffect(string _currentTextToShow, TMP_Text _currentTextPlace, float _currentTimeBetweenChar) // Fonction à appeler depuis un autre script
     {
         isTyping = true;
@@ -35,9 +39,7 @@ public class TypeSentence : MonoBehaviour
             _audioSource.PlayOneShot(_key[Random.Range(0,_key.Count)], 0.4f);
             if (_titleMode)
             {
-                _shakyCame._duration = 0.01f;
-                _shakyCame._radius = 0.1f;
-                _shakyCame.isShaking = true;
+                _shakyCame.ShakyCameCustom(0.01f, 0.1f);
             }
             yield return null;
         }

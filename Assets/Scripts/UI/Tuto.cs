@@ -6,17 +6,30 @@ using UnityEngine;
 
 public class Tuto : MonoBehaviour
 {
+    public bool isReadyToBegin = false;
+
+    [Header("References")]
     [SerializeField] TypeSentence _typeSentence;
-    [SerializeField] GameObject _player;
+
+    [Header("Components")]
     [SerializeField] TMP_Text _tutoTxtPosition;
     [SerializeField] TMP_Text _tutoTxtOkayPosition;
-    [SerializeField] List<string> stringList = new List<string>();
+    [SerializeField] Rigidbody _rb;
+
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSourceSoundsTuto;
+
+    [SerializeField] List<string> stringList = new List<string>();
+
     private int i = 0;
     private bool _finishTuto = false;
+    private Vector3 jump;
+    private float jumpForce = 2.0f;
+    private bool _canJump = true;
     void Start()
     {
         Time.timeScale = 1;
+        jump = new Vector3(0.0f, 3.0f, 0.0f);
     }
 
     void Update()
@@ -26,17 +39,19 @@ public class Tuto : MonoBehaviour
             StartCoroutine(TutoTexts());
         }
 
-        if (_finishTuto)
+        if (!_finishTuto && Input.GetKeyDown(KeyCode.Space))
         {
-            IsFinishToReadTuto();
+            _finishTuto = true;
+            StartCoroutine(Jump());
         }
-        if (Input.GetMouseButtonDown(0) && !_finishTuto)
+        if (Input.GetKeyDown(KeyCode.Space) && !_finishTuto)
         {
+            _finishTuto = true;
+
             try
             {
                 StopCoroutine(_typeSentence.TypeCurrentSentence(stringList[i], _tutoTxtPosition));
                 _audioSourceSoundsTuto.gameObject.SetActive(false);
-
             }
             catch
             {
@@ -44,8 +59,7 @@ public class Tuto : MonoBehaviour
             }
             _tutoTxtPosition.color = new Color32(0, 0, 0, 0);
             _tutoTxtOkayPosition.text = "Okay...";
-            _finishTuto = true;
-
+            StartCoroutine(Jump());
         }
     }
 
@@ -60,10 +74,12 @@ public class Tuto : MonoBehaviour
             _finishTuto = true;
         }
     }
-
-    private void IsFinishToReadTuto()
+    public IEnumerator Jump()
     {
-        _player.GetComponent<PlayerFirstMove>().enabled = true;
+        _canJump = false;
+        _rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.3f);
+        isReadyToBegin = true;
     }
 
 }

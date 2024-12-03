@@ -9,22 +9,26 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     [HideInInspector] public int phase;
-    public Vector3 phaseRestart;
+    [HideInInspector] public Vector3 phaseRestart;
+    
+    [Header("GameObjectsLevel")]
     [SerializeField] List<GameObject> allPlat = new List<GameObject>();
-    [SerializeField] private MeshRenderer _playerMesh;
-    [SerializeField] private PostProcessVolume _glitch;
-
-    [Header("GameObjects")]
     [SerializeField] List<GameObject> walls1 = new List<GameObject>();
     [SerializeField] List<GameObject> walls2 = new List<GameObject>();
     [SerializeField] List<GameObject> walls3 = new List<GameObject>();
     [SerializeField] List<GameObject> walls4 = new List<GameObject>();
     [SerializeField] List<GameObject> plat4 = new List<GameObject>();
+
+    [Header("GameObjects")]
+    [SerializeField] private MeshRenderer _playerMesh;
+    [SerializeField] private PostProcessVolume _glitch;
     [SerializeField] List<GameObject> textToHide = new List<GameObject>();
     [SerializeField] private GameObject _shpereInPlayer;
     [SerializeField] GameObject _trail;
     [SerializeField] GameObject _goodText;
     [SerializeField] GameObject _canon;
+    [SerializeField] private Camera _camera;
+
 
     [Header("Materials")]
     [SerializeField] List<Material> _trailMaterials = new List<Material>();
@@ -54,9 +58,9 @@ public class LevelManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private ShakyCame _shakyCame;
     [SerializeField] private PlayerController _playerController;
-    [SerializeField] private PlayerFirstMove _playerFirstMove;
+    [SerializeField] private Tuto _tuto;
     [SerializeField] private Timer _timer;
-    [SerializeField] private Camera _camera;
+    [SerializeField] private PlayerSetUp _playerSetUp;
 
     [Header("UI")]
     [SerializeField] GameObject _slider;
@@ -92,16 +96,15 @@ public class LevelManager : MonoBehaviour
     private bool _isStartGame = false;
     private void Start()
     {
-        _playerFirstMove = FindObjectOfType<PlayerFirstMove>();
         _playerController.enabled = false;
     }
 
     private void SetFirstPhase()
     {
-        _audioSourceSoundsTuto.gameObject.SetActive(false);  
+        _audioSourceSoundsTuto.gameObject.SetActive(false);
         _firstAudioSource.gameObject.SetActive(false);
         _timer.enabled = true;
-        _playerFirstMove.enabled = false;
+        _tuto.enabled = false;
         RenderSettings.skybox = _skyBoxMAT;
         _playerController.enabled = true;
         _playerMesh.material = _playerMAT;
@@ -115,8 +118,8 @@ public class LevelManager : MonoBehaviour
         {
             textToHide[i].SetActive(false);
         }
-        _goodText.GetComponent<TMP_Text>().color = new UnityEngine.Color(255,255,255,255) ;
-        
+        _goodText.GetComponent<TMP_Text>().color = new UnityEngine.Color(255, 255, 255, 255);
+
         _isStartGame = true;
         StartCoroutine(Glitch());
         _bgPart.Play();
@@ -129,12 +132,13 @@ public class LevelManager : MonoBehaviour
     {
         if (_isStartGame)
         {
-            _goodText.GetComponent<TMP_Text>().color = Color.Lerp(_goodText.GetComponent<TMP_Text>().color, new Color(0,0,0,0), Time.deltaTime*2);
+            _goodText.GetComponent<TMP_Text>().color = Color.Lerp(_goodText.GetComponent<TMP_Text>().color, new Color(0, 0, 0, 0), Time.deltaTime * 2);
         }
-        if (phase == 0 && _playerFirstMove.isReadyToBegin)
+        if (phase == 0 && _playerSetUp.isFirstPhase)
         {
+            _playerSetUp.isFirstPhase = false;
             phase = 1;
-            _firstAudioSource.volume = 0;
+            ResetAudioSources();
             _audioSourceLevel1.volume = 1;
             SetFirstPhase();
             for (int i = 0; i < _txtToChange.Count; i++)
@@ -162,8 +166,8 @@ public class LevelManager : MonoBehaviour
         if (phase == 2 && !_phase2Done)
         {
             _phase2Done = true;
-             _audioSourceLevel1.volume = 0;
-             _audioSourceLevel2.volume = 1;
+            ResetAudioSources();
+            _audioSourceLevel2.volume = 1;
 
             ChangePhase();
 
@@ -184,8 +188,7 @@ public class LevelManager : MonoBehaviour
         {
             _phase3Done = true;
             phaseRestart = new Vector3(37, -7, 0);
-
-            _audioSourceLevel2.volume = 0;
+            ResetAudioSources();
             _audioSourceLevel3.volume = 1;
             ChangePhase();
 
@@ -207,7 +210,7 @@ public class LevelManager : MonoBehaviour
             if (!_isLastLevel)
             {
                 _isLastLevel = true;
-                _audioSourceLevel3.volume = 0;
+                ResetAudioSources();
                 _audioSourceLevel4.volume = 1;
                 _phase4Done = true;
                 ChangePhase();
@@ -230,6 +233,14 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    private void ResetAudioSources()
+    {
+        _audioSourceLevel1.volume = 0;
+        _audioSourceLevel2.volume = 0;
+        _audioSourceLevel3.volume = 0;
+        _audioSourceLevel4.volume = 0;
+    }
+
     private IEnumerator Glitch()
     {
         _glitch.weight = 1.0f;
@@ -240,10 +251,8 @@ public class LevelManager : MonoBehaviour
     public void ChangePhase()
     {
         _playerController.StopGrapple();
-        _shakyCame._duration = 0.3f;
-        _shakyCame._radius = 0.3f;
-        _shakyCame.isShaking = true;
-        _audioSourceSounds.PlayOneShot(_changeLevelSound ,0.2f);
+        _shakyCame.ShakyCameCustom(0.3f, 0.3f);
+        _audioSourceSounds.PlayOneShot(_changeLevelSound, 0.2f);
         SetDesignLevel();
         _sprayPart1.Play();
         for (int i = 0; i < _borderPausePart.Count; i++)

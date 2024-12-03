@@ -32,7 +32,6 @@ public class Hook : MonoBehaviour
         _playerController = playerController;
     }
 
-
     private void Start()
     {
         this.GetComponent<Renderer>().material = _levelMat[_levelManager.phase - 1];

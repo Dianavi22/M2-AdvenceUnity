@@ -10,18 +10,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] ParticleSystem _borderPart;
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _click;
-
     [SerializeField] List<AudioSource> _sources;
+    [SerializeField] SlowMotion _slowMo;
     public bool isPause = false;
-    void Start()
-    {
-        Time.timeScale = 1;
-
-    }
-
+    [SerializeField] GameManager _gameManager;
+  
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && !_gameManager.isFinish)
         {
             if (isPause)
             {
@@ -36,6 +32,10 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
+        isPause = true;
+        _slowMo.isSlowMo = false;
+        Time.timeScale = 0;
+        print(Time.timeScale);
         _audioSource.PlayOneShot(_click, 0.5f);
         for (int i = 0; i < _sources.Count; i++)
         {
@@ -44,8 +44,6 @@ public class PauseMenu : MonoBehaviour
                 _sources[i].volume = 0.3f;
             }
         }
-        Time.timeScale = 0;
-        isPause = true;
         _borderPart.Play();
         _pauseCanvas.SetActive(true);
     }
@@ -70,8 +68,6 @@ public class PauseMenu : MonoBehaviour
 
     private void UpdateButtonScale()
     {
-
-
         Vector3 scale = _button[0].GetComponent<Transform>().localScale;
         scale.x = 1;
         _button[0].GetComponent<Transform>().localScale = scale;
@@ -83,10 +79,6 @@ public class PauseMenu : MonoBehaviour
         Vector3 scale3 = _button[2].GetComponent<Transform>().localScale;
         scale3.x = 1;
         _button[2].GetComponent<Transform>().localScale = scale3;
-
-
-
-
     }
 
     public void Retry()

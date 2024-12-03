@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//SlowMotion, the ability to slow down the timeScale while holding the spacebar
 public class SlowMotion : MonoBehaviour
 {
+    [HideInInspector] public bool isSlowMo = false;
+    [HideInInspector] public int slowMoCount;
+
+    [Header("References")]
     [SerializeField] private LevelManager _levelManager;
-    public bool _isSlowMo = false;
-    public int slowMoCount;
     [SerializeField] private Timer _timer;
-    private bool _isInCD = false;
+    [SerializeField] private PauseMenu _pauseMenu;
+
+    [Header("Components")]
     [SerializeField] Slider _sliderSlowMo;
-    private bool _isPlaying;
+
+    [Header("Visuel")]
     [SerializeField] ParticleSystem _slowMoPart;
+
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSourceSounds;
     [SerializeField] AudioClip _audioSlowMoClip;
     [SerializeField] AudioClip _audioStopSlowMoClip;
 
+    private bool _isInCD = false;
+    private bool _isPlaying;
     private bool _isSoundSlowMoPlayed = false;
     private bool _isSoundStopSlowMoPlayed = true;
     void Start()
@@ -26,61 +36,56 @@ public class SlowMotion : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0)
+        #region Activation SlowMo
+        if (!_pauseMenu.isPause)
         {
-            _isSlowMo = true;
-        }
-        else if(Input.GetKeyUp(KeyCode.Space)) {
-            Time.timeScale = 1f;
-            _timer._slowMoMulti = 1;
-            _isSlowMo = false;
-        }
-        if (_isSlowMo && !_isInCD && slowMoCount > 0)
-        {
-            _isInCD = true;
-            Time.timeScale = 0.5f;
-            _timer._slowMoMulti = 2;
-            StartCoroutine(SlowMoDecrement());
-        }
-        if (slowMoCount <= 0 && _isSlowMo)
-        {
-            Time.timeScale = 1f;
-            _timer._slowMoMulti = 1;
-            _isSlowMo = false;
-        }
-        _sliderSlowMo.value = slowMoCount;
 
-        if (_isSlowMo && !_isPlaying)
-        {
-            _isPlaying = true;
-            _slowMoPart.Play();
-        }
-        else
-        {
-            _slowMoPart.Stop();
-            _isPlaying = false;
-        }
+            if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0)
+            {
+                isSlowMo = true;
+                if (!_isSoundSlowMoPlayed)
+                {
+                    _audioSourceSounds.PlayOneShot(_audioSlowMoClip, 0.3f);
+                    _isSoundSlowMoPlayed = true;
+                    _isSoundStopSlowMoPlayed = false;
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.Space) || slowMoCount <= 0)
+            {
+                Time.timeScale = 1f;
+                _timer._slowMoMulti = 1;
+                isSlowMo = false;
+                if (!_isSoundStopSlowMoPlayed)
+                {
+                    _isSoundStopSlowMoPlayed = true;
+                    _audioSourceSounds.PlayOneShot(_audioStopSlowMoClip, 0.35f);
+                    _isSoundSlowMoPlayed = false;
+                }
+            }
+            #endregion
 
-        if (Input.GetKeyDown(KeyCode.Space) && slowMoCount > 0 && !_isSoundSlowMoPlayed)
-        {
-            _audioSourceSounds.PlayOneShot(_audioSlowMoClip,0.3f);
-            _isSoundSlowMoPlayed = true;
-            _isSoundStopSlowMoPlayed = false;
+            if (isSlowMo)
+            {
+                _slowMoPart.Play();
+                if (!_isInCD && slowMoCount > 0)
+                {
+                    _isInCD = true;
+                    Time.timeScale = 0.5f;
+                    _timer._slowMoMulti = 2;
+                    StartCoroutine(SlowMoDecrement());
+                }
+            }
+            else
+            {
+                _slowMoPart.Stop();
+            }
+            _sliderSlowMo.value = slowMoCount;
         }
-        if ((Input.GetKeyUp(KeyCode.Space) || slowMoCount <= 0) && !_isSoundStopSlowMoPlayed)
-        {
-            _isSoundStopSlowMoPlayed = true;
-            _audioSourceSounds.PlayOneShot(_audioStopSlowMoClip, 0.35f);
-            _isSoundSlowMoPlayed = false;
-        }
-
     }
-
     private IEnumerator SlowMoDecrement()
     {
         slowMoCount--;
         yield return new WaitForSeconds(0.5f);
         _isInCD = false;
-
     }
 }

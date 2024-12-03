@@ -9,35 +9,25 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
-    [SerializeField] private LineRenderer _lineRenderer;
+    public Vector3 grapplePoint;
+    public bool _isGrappling = false;
 
     [Header("References")]
-    public Camera _myCam;
     [SerializeField] private SlowMotion _slowMo;
 
+    [Header("Components")]
+    [SerializeField] Camera _myCam;
     [SerializeField] private GameObject _circle;
     [SerializeField] private GameObject _hookPrefab;
-
 
     [Header("Value")]
     [SerializeField] private float _hookSpeed = 20f;
     [SerializeField] private float _circleRadius = 2.35f;
     [SerializeField] private float _grappleMaxDistance = 2f;
-
     [SerializeField] private float _speed = 4f;
     [SerializeField] private float _speedVertical = 4f;
     [SerializeField] private float _grappleSpeed = 10f;
-
-
-    [Header("Length of the Grappling Hook")]
-    [SerializeField] float distance = 0;
-
-    public bool _isGrappling = false;
-    private GameObject _spawnHook;
-    public Vector3 grapplePoint;
-    private bool _canJump = false;
-    private float _horizontal;
-    private bool _isSuspended = false;
+    [SerializeField] float distanceGrapplingHook = 0;
 
     [Header("Swing Parameters")]
     [SerializeField] private float _swingAmplitude = 0.5f;
@@ -45,15 +35,23 @@ public class PlayerController : MonoBehaviour
 
     [Header("Visuel")]
     [SerializeField] ParticleSystem _fireGrappinPart;
+    [SerializeField] ParticleSystem _collisionPart;
     [SerializeField] ParticleSystem _destroyHookPart;
     [SerializeField] GameObject _grapPointPartContener;
+    [SerializeField] private LineRenderer _lineRenderer;
 
-    [SerializeField] ParticleSystem _collisionPart;
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSounds;
     [SerializeField] AudioClip _hitSounds;
     [SerializeField] AudioClip _shootSound;
     [SerializeField] AudioClip _catchPlate;
     [SerializeField] AudioClip _destroyHookSound;
+
+    private GameObject _spawnHook;
+    private bool _canJump = false;
+    private float _horizontal;
+    private bool _isSuspended = false;
+
     void Start()
     {
         if (_lineRenderer != null)
@@ -62,10 +60,6 @@ public class PlayerController : MonoBehaviour
             _lineRenderer.endWidth = 0.05f;
             _lineRenderer.positionCount = 2;
             _lineRenderer.enabled = false;
-        }
-        else
-        {
-            Debug.LogError("LineRenderer non attribué dans l'inspecteur !");
         }
     }
 
@@ -80,8 +74,8 @@ public class PlayerController : MonoBehaviour
 
         if (_spawnHook != null)
         {
-            distance = Vector3.Distance(transform.position, _spawnHook.transform.position);
-            if (Input.GetMouseButtonUp(0) || (!_isGrappling && distance > _grappleMaxDistance))
+            distanceGrapplingHook = Vector3.Distance(transform.position, _spawnHook.transform.position);
+            if (Input.GetMouseButtonUp(0) || (!_isGrappling && distanceGrapplingHook > _grappleMaxDistance))
             {
 
                 _destroyHookPart.transform.position = _spawnHook.transform.position;
@@ -94,7 +88,6 @@ public class PlayerController : MonoBehaviour
         if (_isGrappling && Input.GetMouseButton(0))
         {
             Grapple();
-            //Update visual
             UpdateGrappleLine();
         }
 
@@ -102,8 +95,6 @@ public class PlayerController : MonoBehaviour
         {
             StopGrapple();
         }
-
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -135,11 +126,9 @@ public class PlayerController : MonoBehaviour
     {
         _audioSounds.PlayOneShot(_shootSound, 0.5f);
         _spawnHook = Instantiate(_hookPrefab, _circle.transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 180, transform.rotation.eulerAngles.z));
-
         Rigidbody hookRb = _spawnHook.GetComponent<Rigidbody>();
-
         Vector3 direction = (_circle.transform.position - transform.position).normalized;
-        if (_slowMo._isSlowMo)
+        if (_slowMo.isSlowMo)
         {
             hookRb.velocity = direction * (_hookSpeed * 2);
         }
@@ -151,8 +140,6 @@ public class PlayerController : MonoBehaviour
         _lineRenderer.enabled = true;
         _lineRenderer.SetPosition(0, transform.position);
         _lineRenderer.SetPosition(1, transform.position);
-
-
     }
 
 
@@ -178,11 +165,10 @@ public class PlayerController : MonoBehaviour
             rb.AddForce((direction *_grappleSpeed) * _speed * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.S) && distance < _grappleMaxDistance)
+        if (Input.GetKey(KeyCode.S) && distanceGrapplingHook < _grappleMaxDistance)
         {
             rb.AddForce((-direction * _grappleSpeed) * _speedVertical * Time.deltaTime);
         }
-
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -192,7 +178,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce((-Vector3.right) * _speed * Time.deltaTime);
         }
-
         _canJump = true;
     }
 
@@ -207,7 +192,7 @@ public class PlayerController : MonoBehaviour
             }
             catch
             {
-                //OSEF
+                //
             }
         }
         _isGrappling = false;
