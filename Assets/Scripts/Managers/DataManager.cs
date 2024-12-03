@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public float hightScore;
-    public float minNbDeath;
-    private bool isFirstPart = false;
+    
     [SerializeField] GameManager _gameManager;
     [SerializeField] Timer _timer;
-    
+    [HideInInspector] public string hightScoreTxt;
+    [HideInInspector] public float hightScore;
+    [HideInInspector] public float minNbDeath;
+    private bool isFirstPart = false;
 
-    public string hightScoreTxt;
     void Start()
     {
         if (PlayerPrefs.HasKey("HightScore"))

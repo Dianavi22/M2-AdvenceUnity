@@ -6,12 +6,8 @@ public class Teleportation : MonoBehaviour
 {
     [SerializeField] private GameObject _otbjectToTP;
     [SerializeField] private PlayerSetUp _playerSetUp;
-    public bool isInTeleportation = false;
-    void Start()
-    {
-        _playerSetUp = FindObjectOfType<PlayerSetUp>();
-    }
-
+    [HideInInspector] public bool isInTeleportation = false;
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

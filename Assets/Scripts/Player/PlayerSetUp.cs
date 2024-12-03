@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 //PlayerSetUp is responsible for handling position changes during a despawn or teleportation
 public class PlayerSetUp : MonoBehaviour
 {
+    [HideInInspector] public bool isFirstPhase = false;
     [HideInInspector] public bool isInDeathZone = false;
     [HideInInspector] public bool isTp = false;
 
@@ -22,7 +23,7 @@ public class PlayerSetUp : MonoBehaviour
     [HideInInspector] public Transform startTranform;
     [SerializeField] private MeshRenderer _playerMeshRenderer;
     [SerializeField] private Camera _cam;
-    private Rigidbody _rb;
+    [SerializeField] private Rigidbody _rb;
 
     [Header("Visuel")]
     [SerializeField] ParticleSystem _respawnPart;
@@ -38,7 +39,6 @@ public class PlayerSetUp : MonoBehaviour
 
     private static float _timeLerpDissolve = 0f;
     private bool _isDissolve = false;
-    public bool isFirstPhase = false;
     private float minDissolve;
     private float maxDissolve;
     private bool _a = true;
@@ -47,13 +47,11 @@ public class PlayerSetUp : MonoBehaviour
     void Start()
     {
         startTranform = this.transform;
-        _rb = this.GetComponent<Rigidbody>();
-
     }
 
     void Update()
     {
-        if (!_isDespawned)
+        if (!_isDespawned && !_gameManager.isFinish)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {

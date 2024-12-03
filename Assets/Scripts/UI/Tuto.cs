@@ -39,13 +39,15 @@ public class Tuto : MonoBehaviour
             StartCoroutine(TutoTexts());
         }
 
-        if (_finishTuto && Input.GetKeyDown(KeyCode.Space))
+        if (!_finishTuto && Input.GetKeyDown(KeyCode.Space))
         {
             _finishTuto = true;
             StartCoroutine(Jump());
         }
         if (Input.GetKeyDown(KeyCode.Space) && !_finishTuto)
         {
+            _finishTuto = true;
+
             try
             {
                 StopCoroutine(_typeSentence.TypeCurrentSentence(stringList[i], _tutoTxtPosition));
@@ -57,7 +59,6 @@ public class Tuto : MonoBehaviour
             }
             _tutoTxtPosition.color = new Color32(0, 0, 0, 0);
             _tutoTxtOkayPosition.text = "Okay...";
-            _finishTuto = true;
             StartCoroutine(Jump());
         }
     }
@@ -73,7 +74,6 @@ public class Tuto : MonoBehaviour
             _finishTuto = true;
         }
     }
-
     public IEnumerator Jump()
     {
         _canJump = false;

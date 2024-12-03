@@ -12,7 +12,7 @@ public class PhaseTrigger : MonoBehaviour
     public bool _isLastLevel = false;
     void Start()
     {
-        _levelManager = FindObjectOfType<LevelManager>();
+        
     }
 
     void Update()
