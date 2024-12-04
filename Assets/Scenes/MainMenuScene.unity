@@ -86795,10 +86795,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8d837d10ce2a74d9c8655125fb67b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typesSentence: {fileID: 153245148}
+  _shakyCame: {fileID: 528318745}
   _titleWiggle: {fileID: 588041430}
   _title: {fileID: 1752563931}
   _credits: {fileID: 2136991664}
   _creditsTitle: {fileID: 769197812}
+  _reelMenu: {fileID: 134234331}
+  _reelMenuCanvas: {fileID: 541701193}
+  _buttons:
+  - {fileID: 1589540641}
+  - {fileID: 1242557128}
+  - {fileID: 1291692187}
   _buttonPart:
   - {fileID: 1890139034}
   - {fileID: 773547774}
@@ -86807,23 +86815,15 @@ MonoBehaviour:
   - {fileID: 1711458679}
   - {fileID: 1072242070}
   - {fileID: 1001721296}
-  typesSentence: {fileID: 153245148}
+  _animator: {fileID: 1242557131}
   _bolt1: {fileID: 652604923}
   _bolt2: {fileID: 1794150699}
   _explision: {fileID: 542041304}
-  _reelMenu: {fileID: 134234331}
-  _reelMenuCanvas: {fileID: 541701193}
-  _buttons:
-  - {fileID: 1589540641}
-  - {fileID: 1242557128}
-  - {fileID: 1291692187}
   _audioSource: {fileID: 465407253}
   _audioSourceFakeMusic: {fileID: 1385698915}
   _audioSourceMusic: {fileID: 2034007143}
   _click: {fileID: 8300000, guid: f5b11bd38ef062b488866bd2f7d1aa5f, type: 3}
   _boltSound: {fileID: 8300000, guid: f888b4e031425df4b84ed9a45ab87bfa, type: 3}
-  _animator: {fileID: 1242557131}
-  _shakyCame: {fileID: 528318745}
 --- !u!114 &1720872370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101925,7 +101925,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
